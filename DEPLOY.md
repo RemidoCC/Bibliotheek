@@ -16,9 +16,17 @@ De workflow draait bij een push naar **`main`**. De site staat nu op de branch
 Request op GitHub, of laat mij het doen), zodat GitHub Pages er iets mee kan.
 
 ## Stap 2 — Zet GitHub Pages aan
+> **Let op — repo moet openbaar zijn (of GitHub Pro):** GitHub Pages werkt op een
+> **privé**-repository alleen met een betaald plan (GitHub Pro). Deze repo is nu
+> privé. Op een gratis account maak je de repo **openbaar** via
+> **Settings → General → (onderaan) Change repository visibility → Make public**.
+> De site is toch bedoeld om openbaar te delen, dus dat is prima. Wil je de repo
+> liever privé houden, dan heb je GitHub Pro nodig.
+
 1. Ga in de repository naar **Settings → Pages**.
 2. Bij **Build and deployment → Source** kies je **GitHub Actions**.
-3. Push naar `main` (of start de workflow via **Actions → Deploy naar GitHub Pages → Run workflow**).
+3. Start de deploy opnieuw via **Actions → Deploy naar GitHub Pages → Run workflow**
+   (de eerste run faalde bij "Configure Pages" omdat Pages toen nog niet aanstond).
    Na ~1 minuut staat de site online op de standaard-URL:
    **https://remidocc.github.io/Bibliotheek/**
 
