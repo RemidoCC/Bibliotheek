@@ -116,14 +116,14 @@ body {
 .cursor-ring {
   position: fixed;
   top: 0; left: 0;
-  width: 30px; height: 30px;
-  margin: -15px 0 0 -15px;
+  width: 15px; height: 15px;
+  margin: -7.5px 0 0 -7.5px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   border: 1.5px solid rgba(217,185,104,.85);
   background: rgba(201,162,75,.06);
-  box-shadow: 0 0 14px rgba(217,185,104,.45), inset 0 0 8px rgba(217,185,104,.25);
+  box-shadow: 0 0 9px rgba(217,185,104,.45), inset 0 0 5px rgba(217,185,104,.25);
   transform: translate3d(-999px, -999px, 0);
   opacity: 0;
   transition: width .22s var(--ease), height .22s var(--ease),
@@ -132,11 +132,11 @@ body {
 }
 .cursor-ring.is-visible { opacity: 1; }
 .cursor-ring.is-hover {
-  width: 54px; height: 54px;
-  margin: -27px 0 0 -27px;
+  width: 27px; height: 27px;
+  margin: -13.5px 0 0 -13.5px;
   background: rgba(201,162,75,.14);
   border-color: rgba(233,207,148,1);
-  box-shadow: 0 0 22px rgba(217,185,104,.6), inset 0 0 12px rgba(217,185,104,.35);
+  box-shadow: 0 0 14px rgba(217,185,104,.6), inset 0 0 7px rgba(217,185,104,.35);
 }
 .cursor-ring.is-down { transform-origin: center; }
 
