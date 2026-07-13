@@ -78,3 +78,22 @@ automatisch opnieuw. Je hoeft verder niets te doen.
   in de repo. Verwijder dat niet.
 - Werkt HTTPS nog niet meteen na het koppelen van het domein? Even geduld —
   GitHub maakt op de achtergrond een gratis certificaat aan.
+
+## Troubleshooting: "improperly configured / InvalidARecordError"
+Krijg je van GitHub Pages de melding dat het subdomein een **A-record** gebruikt
+terwijl je in je DNS-beheer een CNAME hebt ingesteld? Dan wijzen de
+**nameservers** van je domein waarschijnlijk naar een andere partij dan waar je
+de record instelde.
+
+- De **nameservers** bepalen welke DNS-provider leidend is voor ál je records.
+- Staan de nameservers op **Vercel** (bijv. voor een ander project), dan wordt de
+  DNS die je in **Versio** invult genegeerd. Je moet de record dan **bij Vercel**
+  aanmaken: Vercel dashboard → Domains → `remigommans.nl` → DNS Records →
+  CNAME `bibliotheek` → `remidocc.github.io`.
+- Verwijder een eventueel bestaand `bibliotheek` A-record; een wildcard `*` mag
+  blijven (een specifieke record wint).
+- Klik daarna in GitHub → Settings → Pages op **Check again** (of verwijder en
+  vul het domein opnieuw in).
+- Zet je de nameservers liever niet op Vercel? Beheer de DNS dan op de plek waar
+  de nameservers naartoe wijzen — verplaats ze NIET terug naar Versio als daar
+  een ander (Vercel-)project van afhankelijk is.
