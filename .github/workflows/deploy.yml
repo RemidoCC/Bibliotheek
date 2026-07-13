@@ -1,33 +1,42 @@
-name: Deploy naar Versio (FTP)
+name: Deploy naar GitHub Pages
 
-# Publiceert de website automatisch naar je Versio-hosting bij elke push
-# naar de branch hieronder. Kan ook handmatig gestart worden (Run workflow).
+# Publiceert de website automatisch naar GitHub Pages bij elke push naar de
+# branch hieronder. Kan ook handmatig gestart worden via het tabblad Actions.
 on:
   push:
     branches:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Slechts één deploy tegelijk
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Upload via FTP naar /bibliotheek
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          # Doelmap op de webserver. Pas aan naar jouw structuur, bijv.
-          # /domains/remigommans.nl/public_html/bibliotheek/
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          # Alleen de website-bestanden uploaden, geen repo-onzin
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            README.md
-            DEPLOY-VERSIO.md
+          # De hele repo is de website (statische bestanden in de root)
+          path: .
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

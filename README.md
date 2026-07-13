@@ -26,7 +26,8 @@ assets/
   files/CV-Remi-Gommans.docx   (download)
 ```
 
-## Publiceren onder remigommans.nl/bibliotheek
-Alle links en verwijzingen zijn relatief, dus de site werkt onder elke submap.
-Plaats de inhoud van deze map in de map `bibliotheek/` van je webhosting, zodat de
-site bereikbaar is op `https://remigommans.nl/bibliotheek/`.
+## Publiceren
+De site draait gratis op **GitHub Pages**; je Versio-domein kan er via DNS naar
+wijzen. Volledige stap-voor-stap uitleg staat in **`DEPLOY.md`**.
+Alle links zijn relatief, dus de site werkt zowel op de standaard Pages-URL
+(`https://remidocc.github.io/Bibliotheek/`) als op een eigen (sub)domein.
