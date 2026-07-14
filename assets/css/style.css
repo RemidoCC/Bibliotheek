@@ -594,9 +594,56 @@ body[data-bg="letters"] .bg {
 @keyframes drift2 { 0%,100% { transform: translate3d(0,0,0) scale(1.05); } 50% { transform: translate3d(-7vmax,-3vmax,0) scale(.9); } }
 @keyframes drift3 { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-4vmax,6vmax,0) scale(1.2); } }
 
+/* ---------- Toegankelijkheid: skip-link & focus ---------- */
+.skip-link {
+  position: fixed;
+  top: -60px; left: 12px;
+  z-index: 10000;
+  background: linear-gradient(120deg, var(--gold-500), var(--gold-300));
+  color: var(--green-900);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,.4);
+  transition: top .2s var(--ease);
+}
+.skip-link:focus { top: 12px; }
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.nav__toggle:focus-visible {
+  outline: 2px solid var(--gold-300);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 /* ---------- Reduced motion & touch ---------- */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition-duration: .001ms !important; scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
   .bg__aurora .blob { animation: none !important; }
+}
+
+/* ---------- Print: schone PDF (o.a. CV via Ctrl/Cmd+P) ---------- */
+@media print {
+  .bg, .bg__canvas, .bg__lamp, .bg__aurora, .cursor-ring,
+  .site-header, .site-footer, .skip-link,
+  .hero__actions, .cta { display: none !important; }
+  body { background: #fff !important; color: #111 !important; font-size: 12pt; }
+  main { min-height: 0 !important; }
+  section, section.tight { padding: 10px 0 !important; }
+  .container { max-width: none; padding: 0 8mm; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  h1, h2, h3, .map__role, .tl-item h3, .tl-item .tl-org, .letter h2 { color: #111 !important; }
+  .hero__eyebrow, .sec-head .kicker, .tl-item .tl-date { color: #7a5c12 !important; border-color: #bbb !important; background: none !important; }
+  .hero__lead, .card p, .prose p, .map__desc, .tl-item p,
+  .facts li span, .letter p, .sec-head p { color: #333 !important; }
+  .accent { -webkit-text-fill-color: #7a5c12 !important; color: #7a5c12 !important; }
+  .card, .map__row, .letter { background: #fff !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+  .chip { background: #f2f2f2 !important; color: #111 !important; border-color: #bbb !important; }
+  .bar__track { display: none !important; }
+  .bar { margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
+  a { color: #111 !important; text-decoration: none; }
+  .facts li { border-color: #ddd !important; }
 }
