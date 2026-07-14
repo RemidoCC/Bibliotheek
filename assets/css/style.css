@@ -17,7 +17,7 @@
   --ink:       #22190f;
   --shadow:    rgba(0, 0, 0, .35);
 
-  --serif: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif;
+  --display: "Space Grotesk", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --maxw: 1120px;
@@ -169,7 +169,7 @@ section.tight { padding: 56px 0; }
   gap: 12px;
   text-decoration: none;
   color: var(--cream);
-  font-family: var(--serif);
+  font-family: var(--display);
   font-weight: 600;
   font-size: 1.35rem;
   letter-spacing: .3px;
@@ -256,7 +256,7 @@ section.tight { padding: 56px 0; }
   background: rgba(201,162,75,.06);
 }
 .hero h1 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-weight: 600;
   font-size: clamp(2.8rem, 7vw, 5.2rem);
   line-height: 1.02;
@@ -318,7 +318,7 @@ section.tight { padding: 56px 0; }
   color: var(--gold-300); font-weight: 700;
 }
 .sec-head h2 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-weight: 600;
   font-size: clamp(2rem, 4.5vw, 3rem);
   line-height: 1.1;
@@ -364,7 +364,7 @@ section.tight { padding: 56px 0; }
   font-size: 1.4rem;
   margin-bottom: 18px;
 }
-.card h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; margin: 0 0 8px; }
+.card h3 { font-family: var(--display); font-size: 1.5rem; font-weight: 600; margin: 0 0 8px; }
 .card p { margin: 0; color: var(--cream-dim); font-size: .98rem; }
 
 /* ---------- Role mapping list ---------- */
@@ -381,7 +381,7 @@ section.tight { padding: 56px 0; }
   transition: background .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease);
 }
 .map__row:hover { background: rgba(29,77,55,.32); border-color: rgba(217,185,104,.4); transform: translateX(4px); }
-.map__role { font-family: var(--serif); font-size: 1.35rem; color: var(--gold-300); font-weight: 600; }
+.map__role { font-family: var(--display); font-size: 1.35rem; color: var(--gold-300); font-weight: 600; }
 .map__desc { margin: 0; color: var(--cream-dim); }
 
 /* ---------- Timeline (CV) ---------- */
@@ -400,7 +400,7 @@ section.tight { padding: 56px 0; }
 }
 .tl-item:hover::before { transform: scale(1.25); box-shadow: 0 0 0 6px rgba(201,162,75,.28); }
 .tl-item .tl-date { font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-300); font-weight: 600; }
-.tl-item h3 { font-family: var(--serif); font-size: 1.45rem; margin: 4px 0 2px; font-weight: 600; }
+.tl-item h3 { font-family: var(--display); font-size: 1.45rem; margin: 4px 0 2px; font-weight: 600; }
 .tl-item .tl-org { color: var(--cream); font-weight: 600; }
 .tl-item p { margin: 8px 0 0; color: var(--cream-dim); }
 
@@ -448,10 +448,10 @@ section.tight { padding: 56px 0; }
   border-radius: var(--radius) 0 0 var(--radius);
 }
 .letter__meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: #5b5442; font-size: .92rem; margin-bottom: 30px; }
-.letter h2 { font-family: var(--serif); font-size: 2rem; color: var(--green-700); margin: 0 0 6px; }
+.letter h2 { font-family: var(--display); font-size: 2rem; color: var(--green-700); margin: 0 0 6px; }
 .letter p { color: #2c2519; margin: 0 0 18px; }
 .letter .sign { margin-top: 34px; }
-.letter .sign strong { font-family: var(--serif); font-size: 1.35rem; color: var(--green-700); }
+.letter .sign strong { font-family: var(--display); font-size: 1.35rem; color: var(--green-700); }
 .letter a { color: var(--green-600); font-weight: 600; }
 
 /* ---------- About ---------- */
@@ -484,11 +484,11 @@ section.tight { padding: 56px 0; }
 .facts li span:last-child { color: var(--cream-dim); text-align: right; }
 
 .prose { max-width: 760px; }
-.prose h3 { font-family: var(--serif); font-size: 1.7rem; margin: 34px 0 10px; color: var(--gold-300); }
+.prose h3 { font-family: var(--display); font-size: 1.7rem; margin: 34px 0 10px; color: var(--gold-300); }
 .prose p { color: var(--cream-dim); margin: 0 0 18px; }
 
 .pullquote {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-size: clamp(1.5rem, 3.5vw, 2.2rem);
   line-height: 1.35;
   color: var(--cream);
@@ -505,7 +505,7 @@ section.tight { padding: 56px 0; }
   background: linear-gradient(150deg, rgba(29,77,55,.55), rgba(13,31,22,.7));
   border: 1px solid rgba(201,162,75,.28);
 }
-.cta h2 { font-family: var(--serif); font-size: clamp(1.9rem,4vw,2.8rem); margin: 0 0 12px; }
+.cta h2 { font-family: var(--display); font-size: clamp(1.9rem,4vw,2.8rem); margin: 0 0 12px; }
 .cta p { color: var(--cream-dim); max-width: 560px; margin: 0 auto 28px; }
 
 /* ---------- Footer ---------- */
