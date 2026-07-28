@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI in de digitale leerlijn — Bibliotheek Venlo | Remi Gommans</title>
+<meta name="description" content="Casusuitwerking Co&ouml;rdinator Digitaal, Bibliotheek Venlo. Voorstel voor een vaste plek voor AI binnen de digitale leerlijn vanaf 2027.">
+<meta name="robots" content="noindex">
+<style>
+/* ============================================================
+   HUISSTIJL — pas hier de kleuren aan als je de exacte hexcodes
+   van Bibliotheek Venlo hebt. Al het overige volgt deze vars.
+   ============================================================ */
+:root{
+  --oranje:      #E8720C;
+  --oranje-diep: #C25A05;
+  --oranje-zacht:#FBEADB;
+  --donker:      #22302B;
+  --donker-2:    #2E403A;
+  --grijsgroen:  #47564D;
+  --lijn:        #DFDAD3;
+  --zand:        #FAF7F2;
+  --wit:         #FFFFFF;
+  --inkt:        #1A2420;
+
+  --f-xs: clamp(.70rem, min(.92vw, 1.52vh), 1.00rem);
+  --f-sm: clamp(.86rem, min(1.18vw, 1.94vh), 1.28rem);
+  --f-md: clamp(1.02rem, min(1.48vw, 2.44vh), 1.64rem);
+  --f-lg: clamp(1.24rem, min(2.06vw, 3.38vh), 2.24rem);
+  --f-xl: clamp(1.72rem, min(3.30vw, 5.35vh), 3.75rem);
+  --f-2xl:clamp(2.15rem, min(4.85vw, 7.55vh), 5.25rem);
+
+  --pad: clamp(1.4rem, min(4.2vw, 6.2vh), 5.2rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  background:var(--donker);color:var(--inkt);overflow:hidden;-webkit-font-smoothing:antialiased}
+
+#deck{position:fixed;inset:0}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:var(--pad);padding-bottom:calc(var(--pad) * .95);
+  background:var(--zand);overflow:auto;scrollbar-width:thin}
+.slide.active{display:flex;animation:in .32s ease both}
+@keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.slide.dark{background:var(--donker);color:var(--zand)}
+.slide.dark h2{color:var(--wit)}
+.slide.dark .kicker{color:var(--oranje)}
+.slide.dark .lead{color:#D2DAD5}
+.slide.accent{background:var(--oranje);color:#fff}
+.slide.accent .kicker{color:#FFE2C6}
+.slide.accent h2{color:#fff}
+
+.kicker{font-size:var(--f-xs);font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--oranje);margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.kicker::before{content:"";width:1.6rem;height:3px;background:currentColor;border-radius:2px;flex:none}
+h1{font-size:var(--f-2xl);line-height:1.04;letter-spacing:-.024em;font-weight:800}
+h2{font-size:var(--f-xl);line-height:1.09;letter-spacing:-.02em;font-weight:800;color:var(--donker);max-width:26ch}
+h3{font-size:var(--f-md);font-weight:800;letter-spacing:-.008em;line-height:1.2}
+.lead{font-size:var(--f-lg);line-height:1.38;color:var(--grijsgroen);max-width:46ch;margin-top:.8rem}
+p{font-size:var(--f-md);line-height:1.45}
+.note{font-size:var(--f-xs);line-height:1.5;color:var(--grijsgroen)}
+.slide.dark .note{color:#AFBAB4}
+strong{font-weight:800}
+em.hl{font-style:normal;color:var(--oranje);font-weight:800}
+.slide.dark em.hl,.slide.accent em.hl{color:#FFC98C}
+
+.body{margin-top:clamp(.7rem,2vh,1.8rem);flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.cols{display:grid;gap:clamp(.6rem,1.3vw,1.3rem)}
+.c2{grid-template-columns:repeat(2,1fr)}
+.c3{grid-template-columns:repeat(3,1fr)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.1rem,3vw,3rem);align-items:center}
+
+.card{background:var(--wit);border:1px solid var(--lijn);border-radius:13px;
+  padding:clamp(.7rem,1.35vw,1.35rem);display:flex;flex-direction:column;gap:.35rem}
+.card .n{font-size:var(--f-xs);font-weight:800;color:var(--oranje);letter-spacing:.12em;text-transform:uppercase}
+.card p{font-size:var(--f-sm);color:var(--grijsgroen);line-height:1.46}
+.card.mark{border-color:var(--oranje);border-width:2px}
+.slide.dark .card{background:var(--donker-2);border-color:#3C4F48}
+.slide.dark .card p{color:#C9D3CD}
+.slide.dark .card h3{color:#fff}
+
+.statement{font-size:clamp(1.25rem,min(2.5vw,4.1vh),2.8rem);line-height:1.2;font-weight:800;letter-spacing:-.02em;max-width:22ch}
+.statement .u{background:linear-gradient(transparent 62%, rgba(232,114,12,.32) 62%)}
+.slide.dark .statement .u{background:linear-gradient(transparent 62%, rgba(232,114,12,.5) 62%)}
+
+ul.ticks{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+ul.ticks li{font-size:var(--f-sm);line-height:1.46;padding-left:1.35rem;position:relative;color:var(--grijsgroen)}
+ul.ticks li::before{content:"";position:absolute;left:0;top:.5em;width:.45rem;height:.45rem;border-radius:50%;background:var(--oranje)}
+ul.ticks li b{color:var(--inkt)}
+.slide.dark ul.ticks li{color:#C9D3CD}
+.slide.dark ul.ticks li b{color:#fff}
+
+/* agenda */
+.agenda{display:flex;flex-direction:column;gap:.5rem}
+.ag{display:flex;align-items:baseline;gap:1rem;border-bottom:1px solid var(--lijn);padding-bottom:.5rem}
+.ag .anum{font-size:var(--f-lg);font-weight:800;color:var(--oranje);flex:none;width:1.8rem}
+.ag .atx b{font-size:var(--f-md);display:block}
+.ag .atx span{font-size:var(--f-sm);color:var(--grijsgroen)}
+
+/* drie leerlijnen als strip */
+.lijnen{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.35rem,.7vw,.75rem);margin-bottom:clamp(.5rem,1.2vh,.9rem)}
+.ln{background:var(--wit);border:1px solid var(--lijn);border-left:4px solid var(--oranje);border-radius:9px;
+  padding:clamp(.4rem,.75vw,.75rem) clamp(.5rem,.9vw,.9rem)}
+.ln b{font-size:var(--f-sm);display:block;line-height:1.25}
+.ln span{font-size:var(--f-xs);color:var(--grijsgroen);line-height:1.42}
+
+/* doelgroepen-raster */
+.dg{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(.35rem,.7vw,.75rem)}
+.dgc{background:var(--wit);border:1px solid var(--lijn);border-radius:11px;
+  padding:clamp(.42rem,.75vw,.85rem);display:flex;flex-direction:column;gap:.28rem;min-width:0}
+.dgc .kop{font-size:var(--f-xs);font-weight:800;color:var(--oranje)}
+.dgc .naam{font-size:var(--f-sm);font-weight:800;line-height:1.2}
+.dgc .tx{font-size:var(--f-xs);line-height:1.42;color:var(--grijsgroen)}
+.dgc .gap{margin-top:auto;font-size:var(--f-xs);font-weight:700;
+  border-radius:6px;padding:.3rem .45rem;line-height:1.32}
+.gap-leeg{background:#FBEADB;color:var(--oranje-diep)}
+.gap-iets{background:#EAF0EC;color:#3F6B57}
+
+/* aanbod-rij */
+.aanbod{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(.35rem,.7vw,.75rem)}
+.ab{background:var(--wit);border:1px solid var(--lijn);border-radius:11px;padding:clamp(.42rem,.75vw,.85rem);
+  display:flex;flex-direction:column;gap:.26rem;min-width:0}
+.ab .kop{font-size:var(--f-xs);font-weight:800;color:var(--oranje)}
+.ab .beh{font-size:var(--f-xs);line-height:1.4;color:var(--grijsgroen);font-style:italic}
+.ab .item{font-size:var(--f-sm);line-height:1.32;font-weight:700;
+  border-top:1px solid var(--lijn);padding-top:.32rem}
+.ab .item span{display:block;font-weight:500;color:var(--grijsgroen);font-size:.86em;line-height:1.38}
+
+/* bandje dwars over */
+.band-full{margin-top:clamp(.55rem,1.4vh,1rem);background:var(--donker);color:#fff;border-radius:12px;
+  padding:clamp(.5rem,1vw,1rem) clamp(.7rem,1.35vw,1.35rem);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.band-full .lb{font-size:var(--f-xs);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--oranje);flex:none}
+.band-full .lt{font-size:var(--f-sm);line-height:1.46;color:#D7DFDA;flex:1;min-width:12rem}
+.band-full.oranje{background:var(--oranje)}
+.band-full.oranje .lb{color:#FFE2C6}
+.band-full.oranje .lt{color:#FFF1E4}
+
+/* citaat */
+.quote{border-left:4px solid var(--oranje);padding-left:clamp(.8rem,1.5vw,1.4rem);display:flex;flex-direction:column;gap:.5rem}
+.quote q{font-size:clamp(1rem,min(1.55vw,2.55vh),1.72rem);line-height:1.45;font-style:italic;quotes:"\201C" "\201D"}
+.quote .bron{font-size:var(--f-xs);color:var(--grijsgroen);font-weight:700}
+.slide.dark .quote .bron{color:#AFBAB4}
+
+/* trap */
+.trap{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.4rem,.85vw,.85rem);align-items:end}
+.tr{background:var(--wit);border:1px solid var(--lijn);border-radius:11px;padding:clamp(.5rem,.95vw,.95rem);display:flex;flex-direction:column;gap:.22rem}
+.tr:nth-child(1){margin-top:2rem}
+.tr:nth-child(2){margin-top:1rem}
+.tr:nth-child(3){background:var(--oranje);border-color:var(--oranje);color:#fff}
+.tr .st{font-size:var(--f-xs);font-weight:800;color:var(--oranje);letter-spacing:.1em;text-transform:uppercase}
+.tr:nth-child(3) .st{color:#FFE2C6}
+.tr .tt{font-size:var(--f-md);font-weight:800;line-height:1.15}
+.tr .td{font-size:var(--f-sm);color:var(--grijsgroen);line-height:1.42}
+.tr:nth-child(3) .td{color:#FFEEDF}
+
+/* tijdlijn */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.45rem,1vw,1rem);position:relative}
+.tl::before{content:"";position:absolute;left:0;right:0;top:.95rem;height:2px;background:var(--lijn)}
+.tl-item{position:relative;display:flex;flex-direction:column;gap:.3rem;padding-top:2.2rem}
+.tl-item::before{content:"";position:absolute;top:.35rem;left:0;width:1.2rem;height:1.2rem;border-radius:50%;background:var(--oranje);border:3px solid var(--zand)}
+.tl-item .wanneer{font-size:var(--f-xs);font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--grijsgroen)}
+.tl-item p{font-size:var(--f-sm);color:var(--grijsgroen);line-height:1.42}
+.tl-item .result{margin-top:auto;font-size:var(--f-xs);line-height:1.4;background:var(--oranje-zacht);
+  border-left:3px solid var(--oranje);padding:.35rem .5rem;border-radius:0 7px 7px 0;color:var(--oranje-diep);font-weight:700}
+
+/* meetniveaus */
+.niveau{display:flex;gap:clamp(.55rem,1.2vw,1.2rem);align-items:center;background:var(--wit);
+  border:1px solid var(--lijn);border-radius:12px;padding:clamp(.55rem,1vw,1rem)}
+.niveau .num{flex:none;width:2rem;height:2rem;border-radius:50%;background:var(--donker);color:#fff;
+  display:grid;place-items:center;font-weight:800;font-size:var(--f-sm)}
+.niveau p{font-size:var(--f-sm);color:var(--grijsgroen);line-height:1.42}
+.niveau.key{border-color:var(--oranje);border-width:2px}
+.niveau.key .num{background:var(--oranje)}
+
+.foot{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(.55rem,1.3vh,1.1rem);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  font-size:var(--f-xs);color:var(--grijsgroen);letter-spacing:.04em}
+.slide.dark .foot,.slide.accent .foot{color:rgba(255,255,255,.5)}
+.foot .mark{font-weight:700}
+.badge{position:absolute;top:calc(var(--pad) * .45);right:var(--pad);font-size:var(--f-xs);font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--oranje);border:1px solid var(--oranje);
+  padding:.22rem .55rem;border-radius:99px}
+
+#bar{position:fixed;left:0;bottom:0;height:3px;background:var(--oranje);width:0;transition:width .3s ease;z-index:60}
+#nav{position:fixed;right:1rem;bottom:1.1rem;display:flex;gap:.4rem;z-index:70}
+#nav button{width:2.3rem;height:2.3rem;border-radius:50%;border:1px solid var(--lijn);background:rgba(255,255,255,.9);color:var(--donker);cursor:pointer;font-size:1rem;line-height:1}
+#nav button:hover{background:var(--oranje);color:#fff;border-color:var(--oranje)}
+#timer{position:fixed;left:clamp(.6rem,1.2vw,1.2rem);top:clamp(.5rem,1.4vh,1rem);z-index:70;display:none;
+  font-variant-numeric:tabular-nums;font-weight:800;font-size:.9rem;background:var(--donker);color:#fff;
+  padding:.3rem .65rem;border-radius:8px;opacity:.9}
+#timer.warn{background:#B8860B}
+#timer.over{background:#A32B12}
+#hint{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);z-index:70;font-size:.72rem;color:var(--grijsgroen);
+  background:rgba(255,255,255,.85);padding:.3rem .7rem;border-radius:8px;border:1px solid var(--lijn);transition:opacity .5s ease}
+#hint.hide{opacity:0;pointer-events:none}
+
+#overzicht{position:fixed;inset:0;background:var(--donker);z-index:90;display:none;padding:clamp(1.2rem,3vw,2.6rem);overflow:auto}
+#overzicht.open{display:block}
+#overzicht h4{color:var(--oranje);font-size:var(--f-xs);letter-spacing:.16em;text-transform:uppercase;margin:0 0 .8rem}
+#overzicht h4.sec{margin-top:1.6rem}
+.grid-ov{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.6rem}
+.ov{background:var(--donker-2);border:1px solid #3C4F48;border-radius:10px;padding:.7rem .85rem;cursor:pointer;color:#fff;text-align:left;font-family:inherit}
+.ov:hover{border-color:var(--oranje);background:#374B44}
+.ov .oi{font-size:.65rem;color:var(--oranje);font-weight:800;letter-spacing:.1em}
+.ov .ot{font-size:.85rem;font-weight:700;line-height:1.26;margin-top:.15rem}
+
+body.lees{overflow:auto;background:var(--zand)}
+body.lees #deck{position:static;inset:auto}
+body.lees .slide{position:relative;inset:auto;display:flex;min-height:min(88vh,780px);border-bottom:1px solid var(--lijn);animation:none;overflow:visible}
+body.lees .foot{position:absolute}
+
+@media (max-width:900px){
+  .c2,.c3,.split,.tl,.trap,.lijnen{grid-template-columns:1fr}
+  .dg,.aanbod{grid-template-columns:repeat(2,1fr)}
+  .tl::before{display:none}
+  .tl-item{padding-top:0;padding-left:2rem}
+  .tl-item::before{top:.05rem}
+  .tr:nth-child(1),.tr:nth-child(2){margin-top:0}
+  body{overflow:auto}
+  #deck{position:static;inset:auto}
+  .slide{position:relative;inset:auto;display:flex;min-height:100vh;overflow:visible}
+  .slide:not(.active){display:flex}
+  #hint{display:none}
+}
+@media print{
+  body,body.lees{overflow:visible}
+  .slide{position:relative;inset:auto;display:flex!important;page-break-after:always;min-height:96vh}
+  #nav,#bar,#timer,#hint,#overzicht{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="deck">
+
+<!-- 1 =============================================== -->
+<section class="slide dark active" data-titel="Titel">
+  <div class="body">
+    <div class="kicker">Casus Co&ouml;rdinator Digitaal &middot; 30 juli 2026</div>
+    <h1>AI hoort niet <em class="hl">naast</em><br>de digitale leerlijn.<br>AI hoort er <em class="hl">dwars doorheen</em>.</h1>
+    <p class="lead">Een voorstel voor 2027 &mdash; voor inwoners van 0 tot 100+, en voor de collega&rsquo;s die het moeten waarmaken.</p>
+  </div>
+  <div class="foot"><span class="mark">Remi Gommans</span><span>Bibliotheek Venlo</span></div>
+</section>
+
+<!-- 2 =============================================== -->
+<section class="slide" data-titel="Inhoud">
+  <div class="kicker">Inhoud</div>
+  <h2>Wat ik jullie laat zien</h2>
+  <div class="body">
+    <div class="agenda">
+      <div class="ag"><span class="anum">1</span><span class="atx"><b>De opdracht</b><span>Wat er precies gevraagd wordt</span></span></div>
+      <div class="ag"><span class="anum">2</span><span class="atx"><b>Waar we nu staan</b><span>Bij de Bibliotheek Venlo &eacute;n landelijk</span></span></div>
+      <div class="ag"><span class="anum">3</span><span class="atx"><b>Positionering</b><span>Onze rol, waar het begint, waar het eindigt</span></span></div>
+      <div class="ag"><span class="anum">4</span><span class="atx"><b>Het aanbod</b><span>Concreet, per doelgroep</span></span></div>
+      <div class="ag"><span class="anum">5</span><span class="atx"><b>Het eerste jaar &amp; hoe we het meten</b><span>Vier fasen, vier meetniveaus</span></span></div>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>02</span></div>
+</section>
+
+<!-- 3 =============================================== -->
+<section class="slide dark" data-titel="De opdracht">
+  <div class="kicker">De opdracht</div>
+  <h2 style="max-width:30ch">&ldquo;AI moet vanaf 2027 een vaste plek krijgen binnen de digitale leerlijn.&rdquo;</h2>
+  <div class="body">
+    <div class="cols c3">
+      <div class="card"><div class="n">Vraag 1</div><h3>Positionering per doelgroep</h3><p>Voor wie is het relevant? Waar begint het? Waar eindigt het? En wat is onze rol daarin?</p></div>
+      <div class="card"><div class="n">Vraag 2</div><h3>Stappen in het eerste jaar</h3><p>Wat doen we concreet om dit te realiseren?</p></div>
+      <div class="card"><div class="n">Vraag 3</div><h3>Hoe weten we dat het werkt</h3><p>Waaraan meten we of de aanpak succesvol is?</p></div>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>03</span></div>
+</section>
+
+<!-- 4 =============================================== -->
+<section class="slide" data-titel="Stand van zaken &amp; de witte vlekken">
+  <div class="kicker">Waar we nu staan &middot; Bibliotheek Venlo</div>
+  <h2 style="max-width:34ch">Dit ligt er al &mdash; en hier zitten de gaten</h2>
+  <div class="body">
+    <div class="lijnen">
+      <div class="ln"><b>Digitale inclusie</b><span>Curatief &middot; Klik &amp; Tik, Digisterker, DigiVitaler, Digicaf&eacute;, IDO sinds 2019</span></div>
+      <div class="ln"><b>Digitaal burgerschap</b><span>Preventief &middot; lezingen en workshops voor wie al enigszins vaardig is</span></div>
+      <div class="ln"><b>Digitale geletterdheid jeugd</b><span>Digitale leeslijn 4&ndash;12 &middot; Digikoffer</span></div>
+    </div>
+    <div class="dg">
+      <div class="dgc">
+        <div class="kop">0&ndash;12 + ouders</div><div class="naam">Kind en opvoeder</div>
+        <div class="tx">BoekStart, leeslijn 4&ndash;12, Digikoffer</div>
+        <div class="gap gap-leeg">Nog geen AI-aanbod</div>
+      </div>
+      <div class="dgc">
+        <div class="kop">12&ndash;18</div><div class="naam">Jongere</div>
+        <div class="tx">Programmering via onderwijs en vestigingen</div>
+        <div class="gap gap-leeg">Nog geen AI-aanbod</div>
+      </div>
+      <div class="dgc">
+        <div class="kop">18&ndash;30</div><div class="naam">Studerend &amp; startend</div>
+        <div class="tx">Studieplekken, online collectie</div>
+        <div class="gap gap-leeg">Nog geen AI-aanbod</div>
+      </div>
+      <div class="dgc">
+        <div class="kop">30&ndash;67</div><div class="naam">Werkend &amp; opvoedend</div>
+        <div class="tx">Digicaf&eacute;, cursusaanbod, lezingen</div>
+        <div class="gap gap-iets">Incidenteel &mdash; 2 lezingen in 2025</div>
+      </div>
+      <div class="dgc">
+        <div class="kop">67+</div><div class="naam">Senior</div>
+        <div class="tx">Klik &amp; Tik, Digisterker, DigiVitaler, IDO</div>
+        <div class="gap gap-iets">Eenmalig &mdash; workshop ChatGPT 2025</div>
+      </div>
+    </div>
+    <div class="band-full">
+      <span class="lb">De diagnose</span>
+      <span class="lt">Het aanbod in 2025 was goed bezocht en goed gewaardeerd &mdash; maar incidenteel. Drie van de vijf doelgroepen hebben n&oacute;g niets. De opgave is dus niet &ldquo;meer AI-activiteiten&rdquo;, maar <strong style="color:#fff">dekking over de hele lijn, structureel.</strong></span>
+    </div>
+    <p class="note" style="margin-top:.55rem">Opgebouwd uit openbare bronnen. Aanvulling is welkom &mdash; dit is precies wat ik in fase 1 zou ophalen.</p>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>04</span></div>
+</section>
+
+<!-- 5 =============================================== -->
+<section class="slide dark" data-titel="Stand van zaken &middot; landelijk">
+  <div class="kicker">Waar we nu staan &middot; landelijk</div>
+  <h2>Drie ontwikkelingen maken 2027 een scharnierjaar</h2>
+  <div class="body">
+    <div class="cols c3">
+      <div class="card">
+        <div class="n">Vernieuwde Wsob</div><h3>Waarschijnlijk per 1 januari 2027</h3>
+        <p>Zorgplicht voor gemeenten. De gemeente maakt elke vier jaar een meerjarenplan mét de bibliotheek. Wij leveren data over gebruik, bereik en maatschappelijke impact. Digitale inclusie wordt expliciet genoemd.</p>
+      </div>
+      <div class="card">
+        <div class="n">KB &middot; Digitaal Burgerschap</div><h3>Het programma eindigt in 2027</h3>
+        <p>Nu nog beschikbaar: Basis AI-cursus, AI-Inspiratiegids, AI-Parade. In 2024 deed 89% van de bibliotheken al iets met digitaal burgerschap &mdash; AI was een van de populairste onderwerpen.</p>
+      </div>
+      <div class="card">
+        <div class="n">Onderwijs</div><h3>Kerndoelen per augustus 2027</h3>
+        <p>De kerndoelen digitale geletterdheid worden dan wettelijk verplicht in het primair onderwijs. Scholen gaan vanaf dat moment zoeken naar partners.</p>
+      </div>
+    </div>
+    <p class="lead" style="max-width:74ch;margin-top:clamp(.9rem,2.2vh,1.6rem)">
+      Drie deadlines vallen samen in 2027. <strong style="color:#fff">Dat is geen toeval meer &mdash; dat is een raam dat even openstaat.</strong>
+    </p>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>05</span></div>
+</section>
+
+<!-- 6 =============================================== -->
+<section class="slide" data-titel="Geen vierde programmalijn">
+  <div class="kicker">Positionering &middot; de kern van mijn voorstel</div>
+  <h2>Geen vierde programmalijn</h2>
+  <div class="body">
+    <div class="split" style="align-items:flex-start">
+      <div>
+        <p class="statement"><span class="u">AI is geen onderwerp. AI is een laag over alles wat we al doen.</span></p>
+        <p class="lead" style="max-width:40ch">De verleiding is om AI n&aacute;&aacute;st de drie bestaande leerlijnen te zetten. Dat is precies hoe je drie losse plannen krijgt, van drie afdelingen, die elkaar overlappen en tegenspreken.</p>
+      </div>
+      <div class="cols" style="gap:.55rem">
+        <div class="card"><div class="n">In digitale inclusie</div><p>Hulp bij brieven en formulieren &mdash; en leren herkennen wanneer je wordt opgelicht</p></div>
+        <div class="card"><div class="n">In digitaal burgerschap</div><p>Wat is echt, wat is betrouwbaar, hoe blijf je zelf nadenken</p></div>
+        <div class="card"><div class="n">In digitale geletterdheid jeugd</div><p>AI in schoolwerk, AI-beelden, chatbots als vriend</p></div>
+      </div>
+    </div>
+    <div class="band-full">
+      <span class="lb">Waarom dit de kern is</span>
+      <span class="lt">Zet je AI ernaast, dan krijg je dubbel en tegenstrijdig werk. <strong style="color:#fff">Zet je het erover&shy;heen, dan versterkt het wat er al staat</strong> &mdash; en hoeven we in 2027 niets nieuws op te tuigen.</span>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>06</span></div>
+</section>
+
+<!-- 7 =============================================== -->
+<section class="slide" data-titel="De rol van de bibliotheek">
+  <div class="kicker">Positionering &middot; wat is onze rol?</div>
+  <h2>Warenhuis, wegwijzer, werkplaats &mdash; nu ook voor AI</h2>
+  <div class="body">
+    <div class="cols c3">
+      <div class="card"><div class="n">Warenhuis &middot; slimmer</div><h3>Betrouwbare informatie</h3><p>Onafhankelijke, actuele uitleg over AI &mdash; naast de collectie die we al hebben.</p></div>
+      <div class="card"><div class="n">Wegwijzer &middot; vaardiger</div><h3>Hulp bij de echte vraag</h3><p>Niet een cursus over techniek, maar hulp bij díé brief. Het IDO als natuurlijke voordeur.</p></div>
+      <div class="card"><div class="n">Werkplaats &middot; creatiever</div><h3>Veilig zelf proberen</h3><p>Uitproberen zonder kosten en zonder dat je iets fout kunt doen.</p></div>
+    </div>
+    <div class="quote" style="margin-top:clamp(.8rem,2vh,1.4rem)">
+      <q>Het is dan niet ondenkbaar dat bibliotheken in de toekomst een rol gaan spelen in het collectief toegankelijk maken van hoogwaardige kunstmatige intelligentie, net zoals zij dat eerder deden met boeken, tijdschriften, internet en digitale vaardigheden.</q>
+      <span class="bron">Erik Reuvers, adviseur Digitale Geletterdheid bij Probiblio &mdash; column &ldquo;Van toegang tot kennis naar toegang tot denkvermogen&rdquo;, 1 juli 2026</span>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">De drieslag komt uit ons eigen beleidsplan 2024&ndash;2027</span><span>07</span></div>
+</section>
+
+<!-- 8 =============================================== -->
+<section class="slide" data-titel="Waar begint het?">
+  <div class="kicker">Positionering &middot; waar begint het?</div>
+  <h2>Bij de vraag &ldquo;wat is dit eigenlijk?&rdquo; &mdash; niet bij een cursus</h2>
+  <div class="body">
+    <div class="split" style="align-items:flex-start">
+      <div>
+        <h3 style="margin-bottom:.5rem">Informeren over AI</h3>
+        <ul class="ticks">
+          <li><b>Wat is AI</b> &mdash; in gewone taal, zonder techniek</li>
+          <li><b>Wat kan het</b> &mdash; voorlezen, samenvatten, vertalen, maken</li>
+          <li><b>Wat kan het niet</b> &mdash; feiten garanderen, jou begrijpen, verantwoordelijkheid dragen</li>
+          <li><b>Kansen</b> &mdash; meedoen, zelfstandig blijven, sneller werken</li>
+          <li><b>Risico&rsquo;s</b> &mdash; onjuistheden, oplichting, privacy, afhankelijkheid</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:.5rem">Gebruiken van AI &mdash; van beginner tot gevorderd</h3>
+        <div class="trap">
+          <div class="tr"><span class="st">1</span><span class="tt">Kennismaken</span><span class="td">Wat is dit?</span></div>
+          <div class="tr"><span class="st">2</span><span class="tt">Toepassen</span><span class="td">Kan ik hier iets mee?</span></div>
+          <div class="tr"><span class="st">3</span><span class="tt">Beoordelen</span><span class="td">Wat vind ik hiervan?</span></div>
+        </div>
+        <p class="note" style="margin-top:.65rem">Elke doelgroep kent alle drie de treden. Leeftijd bepaalt het onderwerp, niet het niveau.</p>
+      </div>
+    </div>
+    <div class="band-full">
+      <span class="lb">Maar het begint met luisteren</span>
+      <span class="lt">Behoefte peilen via bestaande contactmomenten &mdash; balie, IDO, Digicaf&eacute;, cursussen &mdash; en via korte vragenlijsten bij partners: <strong style="color:#fff">S.O.B. Venlo, VieCuri en de scholen.</strong> Geen apart onderzoekstraject, wel een echt beeld.</span>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>08</span></div>
+</section>
+
+<!-- 9 =============================================== -->
+<section class="slide dark" data-titel="Waar eindigt het?">
+  <div class="kicker">Positionering &middot; waar eindigt het?</div>
+  <h2>De leerlijn eindigt niet.<br>Onze rol <em class="hl">wél</em>.</h2>
+  <div class="body">
+    <div class="split">
+      <div>
+        <p class="statement"><span class="u">De bibliotheek eindigt waar beroepsmatige scholing begint.</span></p>
+        <p class="lead" style="max-width:40ch">Wij zijn geen opleidingsinstituut. Wij zijn de onafhankelijke, gratis en laagdrempelige start &mdash; én de doorverwijzer.</p>
+      </div>
+      <div class="card">
+        <div class="n">Waar we naar doorverwijzen</div>
+        <ul class="ticks" style="margin-top:.3rem">
+          <li>Gilde Opleidingen en Vista College</li>
+          <li>Leerwerkloket Noord-Limburg</li>
+          <li>Werkgevers, voor scholing op de werkvloer</li>
+          <li>Incluzio en partners in het sociaal domein</li>
+        </ul>
+        <p class="note" style="margin-top:.55rem">Voorbeelden &mdash; de definitieve lijst volgt uit het netwerkonderzoek in fase 1.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>09</span></div>
+</section>
+
+<!-- 10 =============================================== -->
+<section class="slide" data-titel="Het aanbod per doelgroep">
+  <div class="kicker">Het aanbod</div>
+  <h2 style="max-width:40ch">Voor iedereen &mdash; maar het urgentst voor wie anders afhaakt</h2>
+  <div class="body">
+    <div class="band-full oranje" style="margin-top:0;margin-bottom:clamp(.5rem,1.3vh,.9rem)">
+      <span class="lb">De omkering</span>
+      <span class="lt">AI leest voor, vereenvoudigt, vertaalt en luistert. Voor wie moeite heeft met taal is dat geen gemak &mdash; <strong style="color:#fff">dat is toegang.</strong> Daarom begint AI bij mij aan de onderkant van de lijn, niet aan de bovenkant.</span>
+    </div>
+    <div class="aanbod">
+      <div class="ab">
+        <div class="kop">0&ndash;12 + ouders</div>
+        <div class="beh">Ouders weten niet wat AI doet in speelgoed, zoekmachines en huiswerk</div>
+        <div class="item">Ouderavond &ldquo;AI thuis&rdquo;<span>1&times; per kwartaal, via school en BoekStart</span></div>
+        <div class="item">AI-module in de Digikoffer<span>doorlopend, groep 6&ndash;8</span></div>
+      </div>
+      <div class="ab">
+        <div class="kop">12&ndash;18</div>
+        <div class="beh">Huiswerk, deepfakes, chatbots als vriend &mdash; en wat mag van school?</div>
+        <div class="item">Workshop &ldquo;Echt of nep?&rdquo;<span>45 min, gastles op VO en in de bieb</span></div>
+        <div class="item">Aanhaken bij Week van de Mediawijsheid<span>jaarlijks</span></div>
+      </div>
+      <div class="ab">
+        <div class="kop">18&ndash;30</div>
+        <div class="beh">AI bij studie, sollicitatie en de eerste baan</div>
+        <div class="item">Avondsessie &ldquo;AI en je toekomst&rdquo;<span>2&times; per jaar, met Leerwerkloket</span></div>
+        <div class="item">Inloop op studieplekken<span>tentamenperiodes</span></div>
+      </div>
+      <div class="ab">
+        <div class="kop">30&ndash;67</div>
+        <div class="beh">AI op het werk, en tegelijk als ouder willen bijblijven</div>
+        <div class="item">Basis AI-cursus<span>3 avonden, 2&times; per jaar, landelijk materiaal</span></div>
+        <div class="item">Verdiepingssessie &ldquo;Wat AI ons kost&rdquo;<span>2&times; per jaar</span></div>
+      </div>
+      <div class="ab">
+        <div class="kop">67+</div>
+        <div class="beh">Meedoen, brieven begrijpen &mdash; en niet opgelicht worden</div>
+        <div class="item">Cursus &ldquo;AI voor beginners&rdquo;<span>4 bijeenkomsten, roulerend langs de vestigingen</span></div>
+        <div class="item">&ldquo;Nep aan de telefoon&rdquo;<span>2&times; per jaar, met politie en bank</span></div>
+      </div>
+    </div>
+    <div class="band-full">
+      <span class="lb">Dwars door alle vijf</span>
+      <span class="lt"><strong style="color:#fff">De AI-vraagbaak</strong> &mdash; een wekelijks inloopspreekuur naast het IDO, plus een AI-assistent die getraind is op onze eigen, gecontroleerde bronnen. Altijd met een mens erachter.</span>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">Voorstel &mdash; definitieve invulling volgt uit de behoeftepeiling</span><span>10</span></div>
+</section>
+
+<!-- 11 =============================================== -->
+<section class="slide" data-titel="Het eerste jaar">
+  <div class="kicker">Het eerste jaar</div>
+  <h2 style="max-width:42ch">Van september 2026 naar een geborgde plek in 2027</h2>
+  <div class="body">
+    <div class="tl">
+      <div class="tl-item">
+        <div class="wanneer">Sep &ndash; okt 2026</div>
+        <h3>1. Peilen &amp; ophalen</h3>
+        <p>Behoefte ophalen bij inwoners en partners. Tegelijk inventariseren wat er per afdeling al loopt.</p>
+        <div class="result">Eén leerlijnkaart + nulmeting</div>
+      </div>
+      <div class="tl-item">
+        <div class="wanneer">Nov &ndash; dec 2026</div>
+        <h3>2. Verankeren</h3>
+        <p>Het jaarprogramma 2027 wordt nú geschreven. Dit is het raam. Afstemmen met Cubiss over hun aanbod.</p>
+        <div class="result">AI staat in het jaarprogramma 2027</div>
+      </div>
+      <div class="tl-item">
+        <div class="wanneer">Jan &ndash; mrt 2027</div>
+        <h3>3. Toerusten</h3>
+        <p>Collega&rsquo;s en vrijwilligers eerst. Basis AI-cursus voor iedereen met klantcontact.</p>
+        <div class="result">Elke vestiging een aanspreekpunt</div>
+      </div>
+      <div class="tl-item">
+        <div class="wanneer">Apr &ndash; sep 2027</div>
+        <h3>4. Uitvoeren &amp; leren</h3>
+        <p>Uitrol per doelgroep, te beginnen bij 67+ en de jeugd. De AI-vraagbaak gaat van start.</p>
+        <div class="result">Doorlopend aanbod in de kalender</div>
+      </div>
+    </div>
+    <div class="band-full">
+      <span class="lb">Dwars door alle fasen &middot; regie</span>
+      <span class="lt">Eén leerlijnkaart met per activiteit één eigenaar &middot; één jaarkalender &middot; kwartaaloverleg met alle betrokken afdelingen &middot; één ingang voor nieuwe idee&euml;n. <strong style="color:#fff">Zo ontstaat er geen dubbel of tegenstrijdig aanbod.</strong></span>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>11</span></div>
+</section>
+
+<!-- 12 =============================================== -->
+<section class="slide" data-titel="Hoe weten we dat het werkt?">
+  <div class="kicker">Hoe weten we dat het werkt?</div>
+  <h2>Vier niveaus &mdash; en &eacute;&eacute;n die er echt toe doet</h2>
+  <div class="body">
+    <div class="cols" style="gap:.5rem">
+      <div class="niveau"><div class="num">1</div><div><h3>Bereik</h3><p>Deelnemers per doelgroep en per vestiging &mdash; ook in de kernen, niet alleen de Stadsbibliotheek</p></div></div>
+      <div class="niveau"><div class="num">2</div><div><h3>Leerresultaat</h3><p>Drie vragen vóór en na afloop. Niet wetenschappelijk, wel vergelijkbaar over de tijd</p></div></div>
+      <div class="niveau key"><div class="num">3</div><div><h3>Doorstroom &mdash; de kernindicator</h3><p>Van een vraag bij het IDO naar een cursus, en van een cursus naar verdieping. Een lijn waar niemand doorstroomt, is geen leerlijn maar een programmaboekje</p></div></div>
+      <div class="niveau"><div class="num">4</div><div><h3>Samenhang</h3><p>Staat elke activiteit op de leerlijnkaart, met één eigenaar? Hoeveel witte vlekken zijn er nog?</p></div></div>
+    </div>
+    <p class="note" style="margin-top:.8rem">De vernieuwde Wsob verplicht ons straks data te leveren over gebruik, bereik en maatschappelijke impact. Dit meetplan is daar meteen op gebouwd &mdash; en sluit aan op de projectplannen, kwartaalplannen en CBCT-cyclus die er al zijn.</p>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>12</span></div>
+</section>
+
+<!-- 13 =============================================== -->
+<section class="slide dark" data-titel="Samenvatting">
+  <div class="kicker">Samengevat</div>
+  <h2>Vier keuzes</h2>
+  <div class="body">
+    <div class="split" style="align-items:flex-start">
+      <ul class="ticks">
+        <li><b>AI is geen vierde programmalijn</b> &mdash; het is een laag over de drie leerlijnen die er al liggen</li>
+        <li><b>We beginnen bij wie anders afhaakt</b> &mdash; inclusie eerst, en de lijn loopt door tot wie zich blijvend wil ontwikkelen</li>
+        <li><b>Onze rol stopt waar beroepsmatige scholing begint</b> &mdash; we zijn de start én de doorverwijzer</li>
+        <li><b>We meten doorstroom</b>, niet alleen bereik</li>
+      </ul>
+      <div class="quote">
+        <q>Bibliotheken zijn ooit ontstaan omdat we vonden dat niet alleen de elite toegang mocht hebben tot boeken. Misschien moeten we ons afvragen of dezelfde gedachte ook geldt voor intelligentie.</q>
+        <span class="bron">Erik Reuvers, Probiblio, 1 juli 2026</span>
+      </div>
+    </div>
+    <p class="note" style="margin-top:.9rem">Achter deze presentatie zit een verdieping &mdash; de AI-vraagbaak uitgewerkt, de regiestructuur, de schaduwkant van AI, jaar 2 en mijn bronnen. Alles blijft online staan.</p>
+  </div>
+  <div class="foot"><span class="mark">Remi Gommans &middot; remi.gommans@gmail.com &middot; 06 &ndash; 53 62 41 81</span><span>13</span></div>
+</section>
+
+<!-- ===== VERDIEPING ============================================ -->
+
+<section class="slide verdiep" data-titel="Verdieping · De AI-vraagbaak">
+  <div class="badge">Verdieping</div>
+  <div class="kicker">Uitwerking</div>
+  <h2>De AI-vraagbaak &mdash; twee vormen</h2>
+  <div class="body">
+    <div class="split" style="align-items:flex-start">
+      <div class="card mark">
+        <div class="n">Fysiek &middot; vanaf jaar 1</div>
+        <h3 style="font-size:var(--f-lg)">Inloopspreekuur naast het IDO</h3>
+        <p>Wekelijks, op een vast moment, te beginnen in de Stadsbibliotheek en daarna roulerend langs de kernen. Bemenst door een medewerker met AI als aandachtsgebied, samen met een getrainde vrijwilliger.</p>
+        <p>Geen afspraak nodig, geen vraag te klein. Het IDO leert ons al jaren dat mensen pas met hun echte vraag komen als de drempel laag genoeg is.</p>
+      </div>
+      <div class="card mark">
+        <div class="n">Digitaal &middot; pilot in jaar 1</div>
+        <h3 style="font-size:var(--f-lg)">Een AI-assistent op eigen bronnen</h3>
+        <p>Getraind op onze eigen, gecontroleerde content: openingstijden, cursusaanbod, veelgestelde IDO-vragen, wegwijs in het sociaal domein.</p>
+        <p><strong style="color:var(--inkt)">Randvoorwaarden:</strong> geen persoonsgegevens, altijd bronvermelding, altijd een mens achter de hand, en eerst intern beproefd met medewerkers voordat inwoners hem gebruiken.</p>
+      </div>
+    </div>
+    <p class="note" style="margin-top:.9rem">De volgorde is bewust: eerst de mens, dan de techniek. Een assistent die het antwoord niet weet moet doorverwijzen naar het spreekuur &mdash; niet andersom.</p>
+  </div>
+  <div class="foot"><span class="mark">Verdieping</span><span>V1</span></div>
+</section>
+
+<section class="slide verdiep" data-titel="Verdieping · Regie">
+  <div class="badge">Verdieping</div>
+  <div class="kicker">Uitwerking</div>
+  <h2>Vier instrumenten tegen dubbel werk</h2>
+  <div class="body">
+    <div class="cols c2">
+      <div class="card"><div class="n">01</div><h3>De leerlijnkaart</h3><p>Eén levend overzicht: welke activiteit, welke doelgroep, welke trede, welke afdeling, wie is eigenaar. Iedereen kan erin kijken. Wie iets nieuws bedenkt, ziet meteen of het er al is.</p></div>
+      <div class="card"><div class="n">02</div><h3>Kwartaaloverleg digitale leerlijn</h3><p>Alle betrokken afdelingen aan tafel, vier keer per jaar. Geen nieuw overleg als het kan aanhaken bij bestaand overleg.</p></div>
+      <div class="card"><div class="n">03</div><h3>Eén jaarkalender</h3><p>AI-momenten gekoppeld aan wat er landelijk toch al is: Media Ukkie Dagen, Week van de Mediawijsheid, de AI-Parade. Meeliften scheelt werk en vergroot bereik.</p></div>
+      <div class="card"><div class="n">04</div><h3>Eén ingang</h3><p>Nieuwe AI-idee&euml;n lopen langs de co&ouml;rdinator Digitaal. Niet om te blokkeren &mdash; om te verbinden met wat er al loopt.</p></div>
+    </div>
+    <p class="lead" style="max-width:70ch;margin-top:1rem">Kwaliteitsborging is mijn vak. Dit is wat ik als QESH-co&ouml;rdinator deed: <strong style="color:var(--inkt)">niet meer regels, maar één plek waar de waarheid staat.</strong></p>
+  </div>
+  <div class="foot"><span class="mark">Verdieping</span><span>V2</span></div>
+</section>
+
+<section class="slide verdiep" data-titel="Verdieping · De schaduwkant">
+  <div class="badge">Verdieping</div>
+  <div class="kicker">Eerlijk verhaal</div>
+  <h2>Een bibliotheek die alleen de mooie kant laat zien, is een showroom</h2>
+  <div class="body">
+    <div class="split" style="align-items:flex-start">
+      <div class="card mark">
+        <div class="n">Vaste deelsessie in het cursusaanbod</div>
+        <h3 style="font-size:var(--f-lg)">&ldquo;Wat AI ons kost&rdquo;</h3>
+        <p>Geen waarschuwing vooraf, maar een gesprek achteraf &mdash; als mensen het zelf hebben gebruikt en er iets van vinden.</p>
+      </div>
+      <ul class="ticks">
+        <li><b>Energie en water</b> &mdash; wat kost een antwoord eigenlijk?</li>
+        <li><b>Makers en auteursrecht</b> &mdash; voor een bibliotheek geen zijvraag</li>
+        <li><b>Vooroordelen in de uitkomst</b> &mdash; wie wordt hier niet goed bediend?</li>
+        <li><b>Afhankelijkheid</b> &mdash; een handvol bedrijven bepaalt wat &ldquo;het antwoord&rdquo; is</li>
+        <li><b>Je eigen gegevens</b> &mdash; wat gebeurt er met wat je intypt?</li>
+      </ul>
+    </div>
+    <p class="note" style="margin-top:.8rem">Aansluitend op de zeven AI-principes die de KB al in 2020 vastlegde: robuust, transparant, onpartijdig, onder toezicht, inclusief, privacy en toegankelijkheid.</p>
+  </div>
+  <div class="foot"><span class="mark">Verdieping</span><span>V3</span></div>
+</section>
+
+<section class="slide verdiep" data-titel="Verdieping · Vanaf jaar 2">
+  <div class="badge">Verdieping</div>
+  <div class="kicker">Na 2027</div>
+  <h2>Wat ik bewust later plan</h2>
+  <div class="body">
+    <div class="cols c3">
+      <div class="card mark"><div class="n">Let op de timing</div><h3>Structureel aanbod PO en VO</h3><p>De kerndoelen digitale geletterdheid worden per augustus 2027 wettelijk verplicht. Staan wij dán klaar, dan zijn we de vanzelfsprekende partner. Vraagt een eigen traject met team Onderwijs.</p></div>
+      <div class="card"><div class="n">2028</div><h3>AI-werkplaats</h3><p>Een vaste maakplek in de Stadsbibliotheek. Pas zinvol als de basis staat en we weten wat mensen echt willen.</p></div>
+      <div class="card"><div class="n">2028</div><h3>Eigen bedrijfsvoering</h3><p>Collectieontsluiting en aanbevelingen &mdash; het beleidsplan noemt dit al. Eerst het publiek, dan onze eigen processen.</p></div>
+      <div class="card"><div class="n">2028</div><h3>AI-assistent publiek</h3><p>De digitale vraagbaak openstellen voor inwoners, ná een geslaagde interne pilot en met de privacyafspraken op orde.</p></div>
+      <div class="card"><div class="n">2028</div><h3>Regionale samenwerking</h3><p>Met Bibliotheek Maas en Peel en Cubiss-breed. Samen ontwikkelen in plaats van zes keer apart.</p></div>
+      <div class="card" style="background:var(--oranje-zacht);border-color:var(--oranje)"><div class="n">Waarom later</div><h3>Jaar 1 is te kort voor alles</h3><p>Liever vier dingen geborgd dan negen half. Dat is ook wat het volgende meerjarenbeleidsplan verdient.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">Verdieping</span><span>V4</span></div>
+</section>
+
+<section class="slide verdiep" data-titel="Verdieping · Bronnen">
+  <div class="badge">Verdieping</div>
+  <div class="kicker">Verantwoording</div>
+  <h2>Waar dit voorstel op steunt</h2>
+  <div class="body">
+    <div class="cols c2">
+      <ul class="ticks">
+        <li><b>Meerjarenbeleidsplan Bibliotheek Venlo 2024&ndash;2027</b> &mdash; de drie leerlijnen, de drieslag warenhuis/wegwijzer/werkplaats, IDO, cursusaanbod, Venlose demografie</li>
+        <li><b>Bibliotheek Venlo</b> &mdash; interview met Henny van Bommel (84) over AI, december 2025</li>
+        <li><b>Bnetwerk &middot; vernieuwde Wsob</b> &mdash; wetsvoorstel 36902, verwachte ingangsdatum 1 januari 2027</li>
+        <li><b>KB, nationale bibliotheek</b> &mdash; programma Digitaal Burgerschap (t/m 2027, gefinancierd door Stichting Pica) en de zeven AI-principes uit 2020</li>
+      </ul>
+      <ul class="ticks">
+        <li><b>Bnetwerk</b> &mdash; AI-Inspiratiegids, Basis AI-cursus, AI-Parade</li>
+        <li><b>Cubiss</b> &mdash; de doorgaande digitale lijn van 0 tot 100 jaar</li>
+        <li><b>SLO</b> &mdash; kerndoelen digitale geletterdheid, wettelijk verplicht per augustus 2027</li>
+        <li><b>Erik Reuvers, Probiblio</b> &mdash; &ldquo;Van toegang tot kennis naar toegang tot denkvermogen&rdquo;, 1 juli 2026</li>
+        <li><b>PIAAC 2023</b> &mdash; 3 miljoen volwassenen van 16 tot 75 jaar met lage taal- en/of rekenvaardigheid</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">Verdieping</span><span>V5</span></div>
+</section>
+
+</div><!-- /deck -->
+
+<div id="bar"></div>
+<div id="timer">00:00</div>
+<div id="hint">&larr; &rarr; bladeren &middot; <b>O</b> overzicht &middot; <b>T</b> timer &middot; <b>L</b> leesmodus &middot; <b>F</b> volledig scherm</div>
+<div id="nav">
+  <button id="prev" title="Vorige" aria-label="Vorige">&#8592;</button>
+  <button id="ovBtn" title="Overzicht (O)" aria-label="Overzicht">&#9783;</button>
+  <button id="next" title="Volgende" aria-label="Volgende">&#8594;</button>
+</div>
+<div id="overzicht">
+  <h4>Presentatie &mdash; klik om te springen (Esc sluit)</h4>
+  <div class="grid-ov" id="ovMain"></div>
+  <h4 class="sec">Verdieping &mdash; niet in de 20 minuten</h4>
+  <div class="grid-ov" id="ovExtra"></div>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var hoofd  = slides.filter(function(s){ return !s.classList.contains('verdiep'); }).length;
+  var i = 0, lees = false;
+  var bar = document.getElementById('bar');
+  var ov  = document.getElementById('overzicht');
+  var hint= document.getElementById('hint');
+
+  var gMain = document.getElementById('ovMain'), gExtra = document.getElementById('ovExtra');
+  slides.forEach(function(s, n){
+    var extra = s.classList.contains('verdiep');
+    var b = document.createElement('button');
+    b.className = 'ov';
+    b.innerHTML = '<div class="oi">' + (extra ? 'V' + (n - hoofd + 1) : String(n+1).padStart(2,'0')) + '</div>' +
+                  '<div class="ot">' + (s.dataset.titel || 'Slide ' + (n+1)).replace(/^Verdieping · /,'') + '</div>';
+    b.addEventListener('click', function(){ go(n); closeOv(); });
+    (extra ? gExtra : gMain).appendChild(b);
+  });
+
+  function go(n){
+    if(n < 0 || n >= slides.length) return;
+    i = n;
+    if(lees){ slides[i].scrollIntoView({behavior:'smooth', block:'start'}); }
+    else { slides.forEach(function(s){ s.classList.remove('active'); }); slides[i].classList.add('active'); }
+    bar.style.width = Math.min(100, (i+1)/hoofd*100) + '%';
+  }
+  function next(){ go(i+1); }
+  function prev(){ go(i-1); }
+  function closeOv(){ ov.classList.remove('open'); }
+  function toggleOv(){ ov.classList.toggle('open'); }
+
+  function toggleLees(){
+    lees = !lees;
+    document.body.classList.toggle('lees', lees);
+    if(lees){ slides.forEach(function(s){ s.classList.add('active'); }); }
+    else { slides.forEach(function(s,n){ s.classList.toggle('active', n===i); }); window.scrollTo(0,0); }
+  }
+
+  var tEl = document.getElementById('timer'), tOn = false, t0 = 0, tick = null;
+  function fmt(ms){ var s = Math.floor(ms/1000), m = Math.floor(s/60);
+    return String(m).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function toggleTimer(){
+    tOn = !tOn;
+    if(tOn){
+      t0 = Date.now(); tEl.style.display = 'block';
+      tick = setInterval(function(){
+        var d = Date.now() - t0; tEl.textContent = fmt(d);
+        tEl.className = d > 20*60000 ? 'over' : (d > 17*60000 ? 'warn' : '');
+      }, 500);
+    } else { clearInterval(tick); tEl.style.display = 'none'; }
+  }
+  function fullscreen(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+    else { document.exitFullscreen && document.exitFullscreen(); }
+  }
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if(k === 'Escape'){ closeOv(); return; }
+    if(k === 'ArrowRight' || k === 'PageDown' || k === ' '){ e.preventDefault(); next(); }
+    else if(k === 'ArrowLeft' || k === 'PageUp'){ e.preventDefault(); prev(); }
+    else if(k === 'Home'){ go(0); }
+    else if(k === 'End'){ go(hoofd-1); }
+    else if(k === 'o' || k === 'O'){ toggleOv(); }
+    else if(k === 't' || k === 'T'){ toggleTimer(); }
+    else if(k === 'l' || k === 'L'){ toggleLees(); }
+    else if(k === 'f' || k === 'F'){ fullscreen(); }
+  });
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+  document.getElementById('ovBtn').addEventListener('click', toggleOv);
+
+  var x0 = null;
+  document.addEventListener('touchstart', function(e){ x0 = e.changedTouches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if(Math.abs(dx) > 60){ dx < 0 ? next() : prev(); }
+    x0 = null;
+  }, {passive:true});
+
+  setTimeout(function(){ hint.classList.add('hide'); }, 6000);
+  go(0);
+})();
+</script>
+</body>
+</html>
