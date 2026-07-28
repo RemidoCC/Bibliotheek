@@ -186,8 +186,14 @@ body.modus-presentatie .scherm-inhoud {
 body.modus-presentatie .scherm[data-component="matrix"] .scherm-inhoud {
   max-width: 1280px;
 }
-body.modus-presentatie .scherm[data-component="matrix"] {
+body.modus-presentatie .scherm[data-component="matrix"],
+body.modus-presentatie .scherm[data-component="brief"] {
   padding: clamp(16px, 3vh, 44px) clamp(20px, 4vw, 72px);
+}
+/* Twee brieven naast elkaar hebben breedte nodig: hoe breder de kolommen,
+   hoe minder regels en hoe eerder het scherm in één beeld past. */
+body.modus-presentatie .scherm[data-component="brief"] .scherm-inhoud {
+  max-width: 1340px;
 }
 .scherm h2 { font-size: clamp(28px, 4.2vw, 52px); }
 
@@ -580,65 +586,91 @@ body.modus-presentatie .scherm[data-component="matrix"] h2::after {
   color: var(--muted);
 }
 
-/* ---------- Demo (scherm 8) ---------- */
-.demo-panelen {
+/* ---------- Briefvoorbeeld (scherm 8) ---------- */
+.brief-panelen {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin: 1em 0;
+  gap: 18px;
+  margin: 0.5em 0 0.7em;
+  align-items: start;
 }
-.demo-paneel {
+.brief-paneel {
   border-radius: var(--radius);
   background: var(--paper);
   border: 1.5px solid var(--line);
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
 }
-.demo-paneel h3 {
+.brief-paneel h3 {
   font-family: var(--mono);
   font-weight: 500;
   font-size: 16px;
   color: var(--ink);
   margin: 0;
-  padding: 10px 16px;
+  padding: 10px 18px;
   background: var(--perzik);
 }
-/* Het B1-paneel krijgt de oranje markering: dit is waar het om gaat */
-.demo-paneel.demo-uit h3 {
+/* Rechts is waar het om gaat: oranje kop, zoals de labels in het beleidsplan */
+.brief-paneel.brief-na h3 {
   background: var(--oranje);
   color: #fff;
 }
-.demo-paneel textarea,
-.demo-uitvoer {
+.brief-tekst {
   font-family: var(--body);
-  font-size: 18px;
-  line-height: 1.55;
-  padding: 16px;
-  margin: 0;
-  border: 0;
-  background: transparent;
-  color: var(--ink);
-  min-height: 320px;
+  font-size: clamp(14px, 0.92vw, 17px);
+  line-height: 1.45;
+  padding: 14px 18px;
   white-space: pre-wrap;
-  overflow-y: auto;
 }
-.demo-paneel textarea { resize: vertical; width: 100%; }
-.demo-uitvoer .wachttekst { color: var(--muted); }
+/* De gemarkeerde woorden: dit is wat de balie nu moet uitleggen */
+.brief-tekst mark {
+  background: var(--perzik-diep);
+  color: var(--ink);
+  padding: 0.06em 0.12em;
+  border-radius: 3px;
+}
 
-/* De demoknop: het andere oranje bedienelement van de pagina */
-.demo-actie { margin: 0.4em 0 0.8em; }
-.herschrijf-knop {
-  background: var(--oranje-diep);
-  color: #fff;
-  border: 2px solid var(--oranje-diep);
-  border-radius: 999px;
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 20px;
-  padding: 12px 28px;
+/* Wat er feitelijk verandert — uitgerekend uit de twee teksten */
+.vergelijking {
+  background: var(--perzik);
+  border-radius: var(--radius);
+  padding: 10px 20px 12px;
 }
-.herschrijf-knop[disabled] { opacity: 0.6; cursor: wait; }
+.vergelijking-kop {
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--oranje-diep);
+  margin: 0 0 6px;
+}
+/* Label boven, cijfers eronder. Flex in plaats van een vast kolomraster,
+   zodat de rij op een smal scherm gewoon afbreekt. */
+.vergelijking-lijst {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 30px;
+  margin: 0;
+}
+.v-paar { min-width: 0; }
+.vergelijking-lijst dt {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.25;
+}
+.vergelijking-lijst dd {
+  margin: 2px 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 17px;
+}
+.vergelijking-lijst .v-voor { color: var(--muted); }
+.vergelijking-lijst .v-pijl { color: var(--oranje); }
+.vergelijking-lijst .v-na {
+  color: var(--oranje-diep);
+  font-weight: 500;
+}
 
 /* ---------- Overzicht (Esc) ---------- */
 .overzicht {
@@ -706,7 +738,7 @@ body.modus-presentatie .scherm[data-component="matrix"] h2::after {
 /* ---------- Klein scherm (tot 375px) ---------- */
 @media (max-width: 720px) {
   body { font-size: 18px; }
-  .demo-panelen { grid-template-columns: 1fr; }
+  .brief-panelen { grid-template-columns: 1fr; }
   .modus-toggle { top: 8px; right: 8px; font-size: 14px; }
   body.modus-presentatie .scherm { padding: 56px 16px 48px; }
   body.modus-lezen .scherm, body.modus-print .scherm {
@@ -726,7 +758,7 @@ body.modus-presentatie .scherm[data-component="matrix"] h2::after {
 /* ---------- Print (?modus=print + Ctrl/Cmd-P) ---------- */
 @media print {
   body { font-size: 12pt; background: #fff; }
-  .modus-toggle, .teller, .demo-actie, .filter-toggle, .detail-sluit { display: none !important; }
+  .modus-toggle, .teller, .filter-toggle, .detail-sluit { display: none !important; }
   .scherm {
     padding: 0 0 20px !important;
     margin: 0 0 16px !important;
@@ -736,7 +768,7 @@ body.modus-presentatie .scherm[data-component="matrix"] h2::after {
   .scherm h2 { break-after: avoid-page; }
   .matrix { min-width: 0; }
   .cel[data-status="bestaat"],
-  .getal, blockquote, .cel-detail, .demo-paneel h3, .scherm-titelpagina {
+  .getal, blockquote, .cel-detail, .brief-paneel h3, .brief-tekst mark, .scherm-titelpagina {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }

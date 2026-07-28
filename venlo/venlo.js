@@ -16,7 +16,7 @@
 
   var data = null;      // schermen.json
   var matrix = null;    // matrix.json
-  var fallback = null;  // demo-fallback.json
+  var brief = null;     // brief-voorbeeld.json
   var huidig = 0;       // actieve schermindex (presentatie)
   var schermEls = [];
 
@@ -27,11 +27,11 @@
   Promise.all([
     fetch("data/schermen.json").then(function (r) { return r.json(); }),
     fetch("data/matrix.json").then(function (r) { return r.json(); }),
-    fetch("data/demo-fallback.json").then(function (r) { return r.json(); })
+    fetch("data/brief-voorbeeld.json").then(function (r) { return r.json(); })
   ]).then(function (res) {
     data = res[0];
     matrix = res[1];
-    fallback = res[2];
+    brief = res[2];
     render();
   }).catch(function (err) {
     app.innerHTML = "<p style='max-width:40em;margin:4em auto;'>Kon de inhoud niet laden (" +
@@ -94,7 +94,7 @@
         binnen.appendChild(el("h2", "", schermkop(s)));
       }
 
-      if (s.component === "demo") bouwDemo(binnen, s);
+      if (s.component === "brief") bouwBriefvoorbeeld(binnen, s);
       else if (!s.component && s.type !== "titel") bouwBlokken(binnen, s.inhoud);
       if (s.type === "titel") bouwBlokken(binnen, s.inhoud);
 
@@ -296,77 +296,100 @@
     detail.scrollIntoView({ block: "nearest" });
   }
 
-  /* ---------- demo (scherm 8) ---------- */
+  /* ---------- briefvoorbeeld (scherm 8) ---------- */
 
-  function bouwDemo(ouder, scherm) {
+  function bouwBriefvoorbeeld(ouder, scherm) {
     var intro = scherm.inhoud.filter(function (b) { return !b.naOnder; });
     var onder = scherm.inhoud.filter(function (b) { return b.naOnder; });
     bouwBlokken(ouder, intro);
 
-    var panelen = el("div", "demo-panelen");
+    var panelen = el("div", "brief-panelen");
 
-    var links = el("div", "demo-paneel");
-    links.appendChild(el("h3", "", "De brief"));
-    var invoer = document.createElement("textarea");
-    invoer.value = fallback.brief;
-    invoer.setAttribute("aria-label", "De originele brief");
-    invoer.spellcheck = false;
-    links.appendChild(invoer);
+    var links = el("div", "brief-paneel brief-voor");
+    links.appendChild(el("h3", "", esc(brief.links.label)));
+    links.appendChild(el("div", "brief-tekst", markeer(brief.links.tekst, brief.moeilijk)));
     panelen.appendChild(links);
 
-    var rechts = el("div", "demo-paneel demo-uit");
-    rechts.appendChild(el("h3", "", "In begrijpelijke taal (B1)"));
-    var uitvoer = el("div", "demo-uitvoer");
-    uitvoer.setAttribute("role", "region");
-    uitvoer.setAttribute("aria-live", "polite");
-    uitvoer.setAttribute("aria-label", "De herschreven brief");
-    uitvoer.innerHTML = "<span class='wachttekst'>Hier verschijnt de herschreven brief.</span>";
-    rechts.appendChild(uitvoer);
+    var rechts = el("div", "brief-paneel brief-na");
+    rechts.appendChild(el("h3", "", esc(brief.rechts.label)));
+    rechts.appendChild(el("div", "brief-tekst", esc(brief.rechts.tekst)));
     panelen.appendChild(rechts);
 
-    var actie = el("div", "demo-actie");
-    var knop = el("button", "herschrijf-knop", "Herschrijf naar begrijpelijke taal");
-    knop.type = "button";
-    actie.appendChild(knop);
-
-    ouder.appendChild(actie);
     ouder.appendChild(panelen);
+    ouder.appendChild(vergelijking(brief.links.tekst, brief.rechts.tekst, brief.moeilijk));
     bouwBlokken(ouder, onder);
 
-    knop.addEventListener("click", function () {
-      knop.disabled = true;
-      uitvoer.innerHTML = "<span class='wachttekst'>Bezig met herschrijven…</span>";
-      herschrijf(invoer.value).then(function (tekst) {
-        uitvoer.textContent = tekst;
-      }).finally(function () {
-        knop.disabled = false;
+    // De woordenlijst is materiaal voor de presentator, niet voor de dia.
+    if (brief.woordenlijst && brief.woordenlijst.length && modus !== "print") {
+      var r = el("aside", "regie");
+      r.appendChild(el("p", "regie-label", "Woorden die je moet uitleggen"));
+      brief.woordenlijst.forEach(function (w) {
+        r.appendChild(el("p", "", "<strong>" + esc(w.term) + "</strong> — " + esc(w.betekenis)));
       });
-    });
+      ouder.appendChild(r);
+    }
   }
 
-  // Probeert de serverless functie; valt bij elke fout of na 15 s stil terug
-  // op het opgeslagen antwoord. De demo faalt nooit zichtbaar.
-  function herschrijf(brief) {
-    var ctl = new AbortController();
-    var wekker = setTimeout(function () { ctl.abort(); }, 15000);
-    return fetch("/api/herschrijf", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ brief: brief }),
-      signal: ctl.signal
-    }).then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.json();
-    }).then(function (json) {
-      if (!json || !json.herschreven) throw new Error("leeg antwoord");
-      console.log("[demo] live API gebruikt");
-      return json.herschreven;
-    }).catch(function (err) {
-      console.log("[demo] fallback gebruikt (" + err.message + ")");
-      return fallback.herschreven;
-    }).finally(function () {
-      clearTimeout(wekker);
+  // Markeert de lastige passages in de originele brief. Escapen gebeurt eerst,
+  // daarna pas markeren, zodat er nooit ruwe HTML doorheen glipt.
+  function markeer(tekst, passages) {
+    var uit = esc(tekst);
+    (passages || []).forEach(function (p) {
+      var doel = esc(p);
+      var i = uit.indexOf(doel);
+      if (i === -1) return;
+      uit = uit.slice(0, i) + "<mark>" + doel + "</mark>" + uit.slice(i + doel.length);
     });
+    return uit;
+  }
+
+  // Cijfers die de pagina zelf uitrekent, zodat ze blijven kloppen wanneer
+  // de brieven in het JSON-bestand worden aangepast.
+  function meet(tekst) {
+    var body = tekst.split(/\n\n/).slice(1).join(" ");        // aanhef eraf
+    // Afkortingen bevatten punten die geen zin afsluiten. Zonder deze stap
+    // telt "12 maart jl." als zinseinde en lijkt de brief korter van stof.
+    var veilig = body.replace(/\b(jl|e\.v|art|nr|bijv|d\.w\.z|o\.a|blz|incl|excl|ca)\./gi,
+      function (m) { return m.replace(/\./g, ""); });
+    var zinnen = veilig.split(/(?<=[.!?:])\s+/).filter(function (z) {
+      return z.replace(/[^\wÀ-ÿ]/g, "").length > 1;
+    });
+    var woorden = body.split(/\s+/).filter(function (w) { return /[\wÀ-ÿ]/.test(w); });
+    var langste = zinnen.reduce(function (m, z) {
+      var n = z.split(/\s+/).filter(function (w) { return /[\wÀ-ÿ]/.test(w); }).length;
+      return Math.max(m, n);
+    }, 0);
+    return {
+      woorden: woorden.length,
+      gemiddeld: zinnen.length ? Math.round(woorden.length / zinnen.length) : 0,
+      langste: langste
+    };
+  }
+
+  function vergelijking(voor, na, passages) {
+    var a = meet(voor), b = meet(na);
+    var rijen = [
+      ["woorden", a.woorden, b.woorden],
+      ["gemiddelde zinslengte", a.gemiddeld + " woorden", b.gemiddeld + " woorden"],
+      ["langste zin", a.langste + " woorden", b.langste + " woorden"],
+      ["woorden om uit te leggen", (passages || []).length, 0]
+    ];
+    var wrap = el("div", "vergelijking");
+    wrap.appendChild(el("p", "vergelijking-kop", "Wat er feitelijk verandert"));
+    var lijst = el("dl", "vergelijking-lijst");
+    rijen.forEach(function (r) {
+      // Paren in een div: geldig in HTML5 en laat de rij netjes afbreken
+      // op smalle schermen in plaats van te overlappen.
+      var paar = el("div", "v-paar");
+      paar.appendChild(el("dt", "", esc(r[0])));
+      paar.appendChild(el("dd", "",
+        "<span class='v-voor'>" + esc(String(r[1])) + "</span>" +
+        "<span class='v-pijl' aria-hidden='true'>→</span>" +
+        "<span class='v-na'>" + esc(String(r[2])) + "</span>"));
+      lijst.appendChild(paar);
+    });
+    wrap.appendChild(lijst);
+    return wrap;
   }
 
   /* ---------- bijlage & print ---------- */

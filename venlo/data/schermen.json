@@ -91,16 +91,18 @@
     },
     {
       "nummer": 8,
-      "id": "demo",
-      "titel": "De demo",
-      "component": "demo",
+      "id": "brief",
+      "titel": "Wat dit betekent voor één inwoner",
+      "component": "brief",
       "inhoud": [
-        { "type": "paragraaf", "tekst": "Een echte, geanonimiseerde brief van een instantie. Links de brief, rechts dezelfde brief in B1." },
         { "type": "paragraaf", "tekst": "Onderzoek uit de aanpak basisvaardigheden laat zien dat AI kan helpen bij het lezen en herschrijven van teksten voor mensen die moeite hebben met taal.", "naOnder": true }
       ],
       "regie": [
-        "Anderhalve minuut. Vooraf ingeladen, één klik.",
-        "Wat je zegt: \"Dit is geen trucje. Dit is het punt. Voor iemand die worstelt met deze brief is AI geen bedreiging — het is de grootste hulptechnologie sinds de leesbril. Mits iemand laat zien dat het kan, en uitlegt waar je moet opletten. Dat 'iemand' is de bibliotheek.\""
+        "Anderhalve minuut. Geef ze even de tijd om links te lezen — de stilte doet het werk.",
+        "Openingszin: “Een echte, geanonimiseerde brief van een instantie. Links zoals hij op de mat valt, rechts dezelfde brief in begrijpelijke taal.”",
+        "Wat je zegt: \"Dit is geen trucje. Dit is het punt. Voor iemand die worstelt met deze brief is AI geen bedreiging — het is de grootste hulptechnologie sinds de leesbril. Mits iemand laat zien dat het kan, en uitlegt waar je moet opletten. Dat 'iemand' is de bibliotheek.\"",
+        "De gemarkeerde woorden links zijn precies wat een IDO-vrijwilliger nu aan de balie moet uitleggen. Noem er twee: ‘dagtekening’ is de datum bovenaan de brief, en ‘het beroepschrift schort de betalingsverplichting niet op’ betekent: u moet toch betalen.",
+        "Let op de laatste alinea rechts: die verwijst naar het IDO in de bibliotheek. Dát is waar deze leerlijn en de balie elkaar raken."
       ]
     },
     {
