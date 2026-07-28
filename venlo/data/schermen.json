@@ -1,0 +1,172 @@
+{
+  "titel": "AI in de digitale leerlijn — Bibliotheek Venlo 2027",
+  "schermen": [
+    {
+      "nummer": 1,
+      "id": "titel",
+      "titel": "AI in de digitale leerlijn",
+      "type": "titel",
+      "inhoud": [
+        { "type": "subtitel", "tekst": "Voorstel voor 2027 · Bibliotheek Venlo" },
+        { "type": "byline", "tekst": "Remi Gommans · kandidaat Coördinator Digitaal" }
+      ],
+      "regie": ["Geen bullets. Eén beeld of alleen typografie. Twintig seconden."]
+    },
+    {
+      "nummer": 2,
+      "id": "stelling",
+      "titel": "De stelling",
+      "inhoud": [
+        { "type": "quote", "tekst": "AI is de eerste digitale ontwikkeling waar je niet voor kiest.", "groot": true },
+        { "type": "paragraaf", "tekst": "Bij internet moest je instappen. Bij DigiD moest je instappen. Bij AI niet." },
+        { "type": "paragraaf", "tekst": "AI zit al in de brief van de gemeente. In het zorgportaal. In de fraudedetectie van de bank. In wat uw kleinkind te zien krijgt. U hoeft er niets voor te doen om er mee te maken te krijgen." },
+        { "type": "paragraaf", "tekst": "Daarmee verschuift de digitale kloof. Niet langer een kloof in *gebruik*, maar een kloof in *bewustzijn*. Je kunt achterop raken zonder ooit een AI-tool te openen." },
+        { "type": "paragraaf", "tekst": "En dat is precies waarom deze leerlijn niet kan beginnen bij wie interesse heeft." }
+      ]
+    },
+    {
+      "nummer": 3,
+      "id": "getallen",
+      "titel": "Venlo in twee getallen",
+      "inhoud": [
+        { "type": "getal", "waarde": "36%", "tekst": "van de volwassenen in de gemeente Venlo heeft moeite met basisvaardigheden — taal, rekenen en digitale vaardigheden." },
+        { "type": "getal", "waarde": "1.284", "tekst": "inwoners volgden in 2025 een cursus basisvaardigheden. Bij álle partners samen: de bibliotheek, Taalhuis Venlo, Groen Licht, Gilde Educatie, Volksuniversiteit, Taal in de Wijk, UWV, GGD, Incluzio en Refugee Team." },
+        { "type": "quote", "tekst": "Wat er in 2025 stond werkte — wie kwam, was enthousiast. Mijn vraag voor 2027 is een andere: hoe bereiken we de mensen die toen niet kwamen?" }
+      ],
+      "regie": [
+        "Reken het live voor. Zet het aantal volwassen inwoners van Venlo erbij en laat de verhouding zien. Zeg er niets bij — het getal doet het werk.",
+        "Dan de ene zin over vorig jaar (de quote). En door."
+      ]
+    },
+    {
+      "nummer": 4,
+      "id": "waarom-2027",
+      "titel": "Waarom 2027 geen willekeurig jaartal is",
+      "inhoud": [
+        { "type": "paragraaf", "tekst": "Drie dingen komen samen:" },
+        { "type": "blok", "kop": "1. De wet verandert.", "tekst": "De vernieuwde Wsob treedt naar verwachting op 1 januari 2027 in werking. Gemeenten krijgen een zorgplicht en moeten binnen een jaar een meerjarenplan bibliotheekbeleid hebben. Dit voorstel is dus geen jaarplan — het is input voor dat meerjarenplan." },
+        { "type": "blok", "kop": "2. Het projectgeld stopt.", "tekst": "Het landelijke programma digitaal burgerschap, gefinancierd door Stichting Pica, eindigt in 2027. Alles wat nu op projectgeld draait, moet dan in de reguliere begroting staan of het verdwijnt." },
+        { "type": "blok", "kop": "3. Er valt iets weg aan de onderkant.", "tekst": "De landelijk ingekochte SeniorWeb-licentie voor online cursussen digitale vaardigheden is per 1 juli 2026 gestopt." },
+        { "type": "quote", "tekst": "2027 is geen programmajaar. Het is een begrotingsjaar." }
+      ]
+    },
+    {
+      "nummer": 5,
+      "id": "leerlijn",
+      "titel": "De leerlijn",
+      "component": "matrix",
+      "inhoud": [],
+      "regie": [
+        "Dit is het hart. Vier minuten. Niet voorlezen — laten zien.",
+        "Bij het openen: \"Ik heb de leerlijn niet ingedeeld naar leeftijd, want AI kent geen leeftijd. Ik heb hem ingedeeld naar wat iemand nodig heeft. Vijf treden, vier levensfases.\"",
+        "Laat de commissie een cel kiezen. Bespreek die. Dan zet je het filter aan: toon alleen wat er nu al is. De onderste twee rijen vallen leeg.",
+        "Dan: \"Dit is geen kritiek. Dit is logisch — je begint waar de vraag vandaan komt. Maar het betekent wel dat ons AI-aanbod nu bestaat voor mensen die er zelf om vragen. Trede 0 en 1 zijn waar de andere 36% zit.\""
+      ]
+    },
+    {
+      "nummer": 6,
+      "id": "begin-einde",
+      "titel": "Waar begint het, waar eindigt het",
+      "inhoud": [
+        { "type": "blok", "kop": "Waar het begint:", "tekst": "Niet bij nieuwsgierigheid, maar bij noodzaak.\n\nZodra gemeente, zorg en banken AI inzetten, landen de gevolgen bij het IDO en het DigiCafé. Daar begint de leerlijn — bij mensen die er niet om gevraagd hebben." },
+        { "type": "blok", "kop": "Waar het eindigt:", "tekst": "De leerlijn eindigt niet. De rol van de bibliotheek wel.\n\nHij eindigt waar beroepsmatige scholing begint. De bibliotheek is geen opleidingsinstituut. Zij is de gratis, onafhankelijke, laagdrempelige start — en de plek die weet waar je daarna heen moet." },
+        { "type": "quote", "tekst": "Die grens is geen beperking. Het is wat dit betaalbaar en houdbaar maakt." }
+      ]
+    },
+    {
+      "nummer": 7,
+      "id": "rol",
+      "titel": "De rol van de bibliotheek",
+      "inhoud": [
+        { "type": "paragraaf", "tekst": "Vijf rollen, in deze volgorde:" },
+        { "type": "lijst", "geordend": true, "items": [
+          "**Gids** — van hype naar gewone taal",
+          "**Oefenplek** — waar je iets fout mag doen, zonder verkoopbelang en zonder oordeel",
+          "**Onafhankelijke gesprekspartner** — het gesprek over AI hoort niet alleen bij de bedrijven die het maken",
+          "**Verbinder** — gemeente, VieCuri, Taalhuis, scholen, welzijn, ondernemers",
+          "**Vangnet** — voor wie vastloopt omdat een ándere organisatie AI is gaan gebruiken"
+        ] }
+      ],
+      "regie": ["Rol 5 is degene die niemand noemt en die het meest gaat gebeuren."]
+    },
+    {
+      "nummer": 8,
+      "id": "demo",
+      "titel": "De demo",
+      "component": "demo",
+      "inhoud": [
+        { "type": "paragraaf", "tekst": "Een echte, geanonimiseerde brief van een instantie. Links de brief, rechts dezelfde brief in B1." },
+        { "type": "paragraaf", "tekst": "Onderzoek uit de aanpak basisvaardigheden laat zien dat AI kan helpen bij het lezen en herschrijven van teksten voor mensen die moeite hebben met taal.", "naOnder": true }
+      ],
+      "regie": [
+        "Anderhalve minuut. Vooraf ingeladen, één klik.",
+        "Wat je zegt: \"Dit is geen trucje. Dit is het punt. Voor iemand die worstelt met deze brief is AI geen bedreiging — het is de grootste hulptechnologie sinds de leesbril. Mits iemand laat zien dat het kan, en uitlegt waar je moet opletten. Dat 'iemand' is de bibliotheek.\""
+      ]
+    },
+    {
+      "nummer": 9,
+      "id": "jaar-1",
+      "titel": "Jaar 1",
+      "inhoud": [
+        { "type": "paragraaf", "tekst": "Vier bewegingen. Geen twaalf projecten." },
+        { "type": "blok", "kop": "Q1 — De mensen eerst, en een nulmeting", "tekst": "Klik & Tik en het DigiCafé draaien op vrijwilligers. Zij zitten op trede 0. Als zij AI niet kunnen uitleggen, bereikt de leerlijn de onderkant nooit — hoe mooi de matrix ook is. Aanbod bestaat al: de e-learning BiebBoost op Bibliotheekcampus en de Nationale AI-cursus met certificaat.\n\nBijkomend: artikel 4 van de AI Act verplicht sinds februari 2025 elke organisatie die AI inzet om te zorgen dat het eigen personeel voldoende AI-geletterd is. Dat geldt ook voor ons.\n\nEn: nulmeting. Zonder beginpunt kun je in december geen groei laten zien." },
+        { "type": "blok", "kop": "Q2 — Inbouwen, niet bijbouwen", "tekst": "Geen nieuwe losse activiteiten. Eén AI-blok in Digisterker. Eén in DigiVitaler. Een AI-spreekuur binnen het bestaande IDO-uur. Materiaal komt van de AI Inspiratiegids en het AI-kookboek — die staan klaar op Bnetwerk." },
+        { "type": "blok", "kop": "Q3 — De wijken in", "tekst": "Blerick, Tegelen, de kernen. Opschalen wat werkt, stoppen wat niet werkt. Partners uit het bestaande basisvaardighedennetwerk — die zitten al met de gemeente aan tafel." },
+        { "type": "blok", "kop": "Q4 — Borgen", "tekst": "Evaluatie, jaarprogramma 2028, en input leveren voor het gemeentelijk meerjarenplan. Regionale steun via Cubiss, dat samen met BiSC verdergaat als Delijn voor Utrecht, Noord-Brabant en Limburg." }
+      ]
+    },
+    {
+      "nummer": 10,
+      "id": "meten",
+      "titel": "Hoe ik weet dat het werkt",
+      "inhoud": [
+        { "type": "blok", "kop": "Output", "tekst": "Bereik, en vooral de spreiding: leeftijd, wijk, eerste bezoek ja of nee." },
+        { "type": "blok", "kop": "Outcome", "tekst": "Via de Bibliotheekmonitor, met een vragenlijst na afloop. Er is een bruikbare benchmark: cursisten van Klik & Tik en Digisterker rapporteerden meer zelfvertrouwen, meer durf, en minder afhankelijkheid van anderen. Dat is precies de taal waarin je AI-effecten wilt meten." },
+        { "type": "blok", "kop": "Doorstroom", "tekst": "Hoeveel mensen zetten een volgende stap op de ladder? Dit is de indicator die een leerlijn onderscheidt van losse activiteiten." },
+        { "type": "quote", "tekst": "Bereiken we in 2027 andere mensen dan in 2025?", "kop": "En de vraag die telt:" },
+        { "type": "paragraaf", "tekst": "Als we dezelfde zaal vullen met dezelfde gezichten, is de leerlijn geslaagd op bereik en gezakt op opdracht." },
+        { "type": "blok", "kop": "Stopcriterium", "tekst": "Een activiteit die twee keer achter elkaar minder dan de helft van de plaatsen vult, gaat eruit. Niet uit zuinigheid — om ruimte te houden voor wat wel werkt." }
+      ]
+    },
+    {
+      "nummer": 11,
+      "id": "slot",
+      "titel": "Slot",
+      "inhoud": [
+        { "type": "paragraaf", "tekst": "Over drie jaar:" },
+        { "type": "lijst", "items": [
+          "Weet elke medewerker en vrijwilliger aan de balie wat hij moet zeggen als iemand binnenkomt met een AI-probleem.",
+          "Staat AI niet op de agenda als thema, maar in de leerlijn als trede.",
+          "Staat er in het meerjarenplan van de gemeente een regel over AI-geletterdheid die wij hebben geschreven.",
+          "En bereiken we mensen die in 2025 niet kwamen."
+        ] },
+        { "type": "quote", "tekst": "Niet omdat AI belangrijk is. Omdat meedoen belangrijk is.", "groot": true }
+      ]
+    }
+  ],
+  "bijlage": {
+    "titel": "Bijlage — Vragen die ze gaan stellen",
+    "vragen": [
+      {
+        "vraag": "“Dit kost geld en menskracht. Waar haal je dat vandaan?”",
+        "antwoord": "Het meeste is inbouwen in wat er al is, niet erbij bouwen. Het landelijke materiaal is gratis. De grootste investering zit in Q1: scholing van medewerkers en vrijwilligers. Dat is precies het deel dat sowieso moet vanwege de AI Act."
+      },
+      {
+        "vraag": "“Wat als AI over twee jaar heel anders werkt?”",
+        "antwoord": "De treden veranderen niet. De inhoud per cel wel. Daarom is dit een leerlijn en geen programma — je vervangt cellen, niet het bouwwerk."
+      },
+      {
+        "vraag": "“Wij zijn geen techbedrijf. Past dit wel bij ons?”",
+        "antwoord": "Precies daarom past het. Er is geen andere plek in Venlo waar je gratis, zonder verkoopbelang en zonder oordeel kunt vragen hoe iets werkt. Dat is de reden dat de bibliotheek dit moet doen en een winkel niet."
+      },
+      {
+        "vraag": "“Je bent nieuw. Hoe weet je wat er speelt?”",
+        "antwoord": "Dit is een voorstel, geen besluit. De eerste maand is luisteren: bij het team, bij de vrijwilligers, bij de mensen aan de IDO-balie. De matrix is de vorm — de inhoud vullen we samen in."
+      },
+      {
+        "vraag": "“Wat doe je níet?”",
+        "antwoord": "Ik ga geen los AI-programma neerzetten naast de leerlijn. Ik ga onder de twaalf niet aanzetten tot zelfstandig AI-gebruik. En ik ga geen cursussen bouwen die ook door een commerciële aanbieder gegeven kunnen worden."
+      }
+    ]
+  }
+}

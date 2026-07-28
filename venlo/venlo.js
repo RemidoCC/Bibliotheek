@@ -1,0 +1,469 @@
+/* AI in de digitale leerlijn — Bibliotheek Venlo 2027
+   Alle inhoud komt uit data/schermen.json en data/matrix.json.
+   Drie modi via ?modus=presentatie (standaard) | lezen | print. */
+
+(function () {
+  "use strict";
+
+  var params = new URLSearchParams(location.search);
+  var modus = params.get("modus") || "presentatie";
+  if (["presentatie", "lezen", "print"].indexOf(modus) === -1) modus = "presentatie";
+
+  var app = document.getElementById("app");
+  var teller = document.getElementById("teller");
+  var overzicht = document.getElementById("overzicht");
+  var overzichtGrid = document.getElementById("overzicht-grid");
+
+  var data = null;      // schermen.json
+  var matrix = null;    // matrix.json
+  var fallback = null;  // demo-fallback.json
+  var huidig = 0;       // actieve schermindex (presentatie)
+  var schermEls = [];
+
+  document.body.classList.add("modus-" + modus);
+  var actieveLink = document.querySelector('.modus-toggle a[data-modus="' + (modus === "print" ? "lezen" : modus) + '"]');
+  if (actieveLink) actieveLink.setAttribute("aria-current", "true");
+
+  Promise.all([
+    fetch("data/schermen.json").then(function (r) { return r.json(); }),
+    fetch("data/matrix.json").then(function (r) { return r.json(); }),
+    fetch("data/demo-fallback.json").then(function (r) { return r.json(); })
+  ]).then(function (res) {
+    data = res[0];
+    matrix = res[1];
+    fallback = res[2];
+    render();
+  }).catch(function (err) {
+    app.innerHTML = "<p style='max-width:40em;margin:4em auto;'>Kon de inhoud niet laden (" +
+      esc(String(err)) + "). Open de pagina via een webserver, niet als los bestand.</p>";
+  });
+
+  /* ---------- kleine hulpfuncties ---------- */
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  // Alleen **vet** en *cursief*; verder staat de tekst er letterlijk.
+  function opmaak(s) {
+    return esc(s)
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  }
+
+  function alinea(s) {
+    return s.split(/\n\n+/).map(function (p) {
+      return "<p>" + opmaak(p) + "</p>";
+    }).join("");
+  }
+
+  function el(tag, klas, html) {
+    var n = document.createElement(tag);
+    if (klas) n.className = klas;
+    if (html !== undefined) n.innerHTML = html;
+    return n;
+  }
+
+  /* ---------- opbouw ---------- */
+
+  function render() {
+    app.textContent = "";
+    schermEls = [];
+
+    data.schermen.forEach(function (s, i) {
+      var sec = el("section", "scherm");
+      sec.id = "scherm-" + s.nummer;
+      if (s.component) sec.setAttribute("data-component", s.component);
+      var binnen = el("div", "scherm-inhoud");
+      sec.appendChild(binnen);
+
+      if (s.type === "titel") {
+        sec.classList.add("scherm-titelpagina");
+        binnen.appendChild(el("h2", "", opmaak(s.titel)));
+      } else if (s.component === "matrix") {
+        bouwMatrix(binnen, s);
+      } else {
+        binnen.appendChild(el("h2", "", opmaak(s.titel)));
+      }
+
+      if (s.component === "demo") bouwDemo(binnen, s);
+      else if (!s.component && s.type !== "titel") bouwBlokken(binnen, s.inhoud);
+      if (s.type === "titel") bouwBlokken(binnen, s.inhoud);
+
+      if (s.regie && s.regie.length && modus !== "print") {
+        var r = el("aside", "regie");
+        r.appendChild(el("p", "regie-label", "Regie (toets N)"));
+        s.regie.forEach(function (t) { r.appendChild(el("p", "", opmaak(t))); });
+        binnen.appendChild(r);
+      }
+
+      app.appendChild(sec);
+      schermEls.push(sec);
+    });
+
+    if (modus !== "presentatie") bouwBijlage();
+    if (modus === "print") bouwPrintCellen();
+
+    if (modus === "presentatie") {
+      var start = parseInt((location.hash || "").replace("#", ""), 10);
+      huidig = isNaN(start) ? 0 : Math.min(Math.max(start - 1, 0), schermEls.length - 1);
+      toonScherm(huidig);
+      bouwOverzicht();
+      document.addEventListener("keydown", opToets);
+    } else {
+      teller.hidden = true;
+      document.addEventListener("keydown", function (e) {
+        if (e.key.toLowerCase() === "n" && !inVeld(e)) document.body.classList.toggle("toon-regie");
+      });
+    }
+
+    document.title = data.titel;
+    if (modus === "print") {
+      // Geef de layout even tijd en open dan het printdialoog.
+      setTimeout(function () { window.print(); }, 400);
+    }
+  }
+
+  function bouwBlokken(ouder, blokken) {
+    var getallenWrap = null;
+    (blokken || []).forEach(function (b) {
+      if (b.type !== "getal") getallenWrap = null;
+      switch (b.type) {
+        case "subtitel":
+          ouder.appendChild(el("p", "subtitel", opmaak(b.tekst)));
+          break;
+        case "byline":
+          ouder.appendChild(el("p", "byline", opmaak(b.tekst)));
+          break;
+        case "paragraaf":
+          ouder.appendChild(el("p", "", opmaak(b.tekst)));
+          break;
+        case "quote":
+          if (b.kop) ouder.appendChild(el("p", "quote-kop", opmaak(b.kop)));
+          var q = el("blockquote", b.groot ? "groot" : "");
+          q.appendChild(el("p", "", opmaak(b.tekst)));
+          ouder.appendChild(q);
+          break;
+        case "blok":
+          var d = el("div", "blok");
+          d.appendChild(el("h3", "", opmaak(b.kop)));
+          d.innerHTML += alinea(b.tekst);
+          ouder.appendChild(d);
+          break;
+        case "lijst":
+          var l = el(b.geordend ? "ol" : "ul");
+          b.items.forEach(function (it) { l.appendChild(el("li", "", opmaak(it))); });
+          ouder.appendChild(l);
+          break;
+        case "getal":
+          if (!getallenWrap) {
+            getallenWrap = el("div", "getallen");
+            ouder.appendChild(getallenWrap);
+          }
+          var g = el("div", "getal");
+          g.appendChild(el("div", "getal-waarde", esc(b.waarde)));
+          g.appendChild(el("div", "getal-tekst", opmaak(b.tekst)));
+          getallenWrap.appendChild(g);
+          break;
+      }
+    });
+  }
+
+  /* ---------- matrix: het bewegwijzeringsbord ---------- */
+
+  var statusLabel = { bestaat: "bestaat", elders: "elders", leemte: "leemte", keuze: "bewust niets" };
+
+  function bouwMatrix(ouder, scherm) {
+    var kop = el("div", "matrix-kop");
+    kop.appendChild(el("h2", "", opmaak(scherm.titel)));
+
+    var filter = el("button", "filter-toggle");
+    filter.type = "button";
+    filter.setAttribute("aria-pressed", "false");
+    filter.innerHTML = '<span class="schakel" aria-hidden="true"></span>toon alleen wat er nu al is';
+    kop.appendChild(filter);
+    ouder.appendChild(kop);
+
+    var scroller = el("div", "matrix-scroller");
+    var bord = el("div", "matrix");
+    bord.setAttribute("role", "grid");
+    scroller.appendChild(bord);
+    ouder.appendChild(scroller);
+
+    // kopregel
+    bord.appendChild(el("div", "kolomkop"));
+    matrix.levensfases.forEach(function (f) {
+      bord.appendChild(el("div", "kolomkop", esc(f.naam) + "<small>" + esc(f.toelichting) + "</small>"));
+    });
+
+    var detail = el("div", "cel-detail");
+    detail.hidden = true;
+
+    // rijen: trede 4 boven, trede 0 onder
+    matrix.treden.slice().reverse().forEach(function (t) {
+      var rk = el("div", "rijkop");
+      rk.innerHTML =
+        '<span class="trede-nr">trede ' + t.nr + "</span>" +
+        '<div class="trede-naam">' + esc(t.naam) + "</div>" +
+        '<div class="trede-vraag">' + esc(t.kernvraag) + "</div>";
+      bord.appendChild(rk);
+
+      matrix.levensfases.forEach(function (f) {
+        var cel = matrix.cellen.find(function (c) {
+          return c.trede === t.nr && c.levensfase === f.id;
+        });
+        var knop = el("button", "cel");
+        knop.type = "button";
+        knop.setAttribute("data-status", cel.status);
+        knop.setAttribute("aria-expanded", "false");
+        var binnen = "<span class='cel-label'>" + esc(f.naam) + "</span>" +
+          "<span class='cel-status'>" + esc(statusLabel[cel.status]) + "</span>";
+        if (cel.notitie && cel.status !== "keuze") {
+          binnen += "<span class='cel-notitie'>" + esc(cel.notitie) + "</span>";
+        }
+        knop.innerHTML = binnen;
+        knop.setAttribute("aria-label",
+          "Trede " + t.nr + " " + t.naam + ", " + f.naam + ", status " + statusLabel[cel.status]);
+        knop.addEventListener("click", function () {
+          toonCelDetail(detail, bord, knop, cel, t, f);
+        });
+        bord.appendChild(knop);
+      });
+    });
+
+    ouder.appendChild(detail);
+
+    var legenda = el("div", "matrix-legenda");
+    legenda.innerHTML =
+      "<span><span class='legenda-vak bestaat'></span>bestaat</span>" +
+      "<span><span class='legenda-vak elders'></span>elders — landelijk, over te nemen</span>" +
+      "<span><span class='legenda-vak leemte'></span>leemte</span>";
+    ouder.appendChild(legenda);
+
+    filter.addEventListener("click", function () {
+      var aan = filter.getAttribute("aria-pressed") === "true";
+      filter.setAttribute("aria-pressed", String(!aan));
+      bord.classList.toggle("gefilterd", !aan);
+    });
+  }
+
+  function toonCelDetail(detail, bord, knop, cel, trede, fase) {
+    var open = knop.getAttribute("aria-expanded") === "true";
+    bord.querySelectorAll(".cel[aria-expanded='true']").forEach(function (c) {
+      c.setAttribute("aria-expanded", "false");
+    });
+    if (open) { detail.hidden = true; return; }
+    knop.setAttribute("aria-expanded", "true");
+
+    var html = "<div class='detail-kop'><h3>Trede " + trede.nr + " · " + esc(trede.naam) +
+      " × " + esc(fase.naam) + "</h3><span class='detail-status'>" + esc(statusLabel[cel.status]) +
+      (cel.notitie && cel.status !== "keuze" ? " · " + esc(cel.notitie) : "") + "</span></div><dl>";
+    if (cel.nu) html += "<dt>Nu</dt><dd>" + opmaak(cel.nu) + "</dd>";
+    if (cel.leemte) html += "<dt>Leemte</dt><dd>" + opmaak(cel.leemte) + "</dd>";
+    if (cel.plan2027) html += "<dt>2027</dt><dd>" + opmaak(cel.plan2027) + "</dd>";
+    html += "</dl>";
+    detail.innerHTML = html;
+
+    if (cel.regie && modus !== "print") {
+      var r = el("aside", "regie");
+      r.appendChild(el("p", "regie-label", "Regie (toets N)"));
+      r.appendChild(el("p", "", opmaak(cel.regie)));
+      detail.appendChild(r);
+    }
+
+    var sluit = el("button", "detail-sluit", "sluiten");
+    sluit.type = "button";
+    sluit.addEventListener("click", function () {
+      detail.hidden = true;
+      knop.setAttribute("aria-expanded", "false");
+    });
+    detail.appendChild(sluit);
+    detail.hidden = false;
+  }
+
+  /* ---------- demo (scherm 8) ---------- */
+
+  function bouwDemo(ouder, scherm) {
+    var intro = scherm.inhoud.filter(function (b) { return !b.naOnder; });
+    var onder = scherm.inhoud.filter(function (b) { return b.naOnder; });
+    bouwBlokken(ouder, intro);
+
+    var panelen = el("div", "demo-panelen");
+
+    var links = el("div", "demo-paneel");
+    links.appendChild(el("h3", "", "De brief"));
+    var invoer = document.createElement("textarea");
+    invoer.value = fallback.brief;
+    invoer.setAttribute("aria-label", "De originele brief");
+    invoer.spellcheck = false;
+    links.appendChild(invoer);
+    panelen.appendChild(links);
+
+    var rechts = el("div", "demo-paneel");
+    rechts.appendChild(el("h3", "", "In begrijpelijke taal (B1)"));
+    var uitvoer = el("div", "demo-uitvoer");
+    uitvoer.setAttribute("role", "region");
+    uitvoer.setAttribute("aria-live", "polite");
+    uitvoer.setAttribute("aria-label", "De herschreven brief");
+    uitvoer.innerHTML = "<span class='wachttekst'>Hier verschijnt de herschreven brief.</span>";
+    rechts.appendChild(uitvoer);
+    panelen.appendChild(rechts);
+
+    var actie = el("div", "demo-actie");
+    var knop = el("button", "herschrijf-knop", "Herschrijf naar begrijpelijke taal");
+    knop.type = "button";
+    actie.appendChild(knop);
+
+    ouder.appendChild(actie);
+    ouder.appendChild(panelen);
+    bouwBlokken(ouder, onder);
+
+    knop.addEventListener("click", function () {
+      knop.disabled = true;
+      uitvoer.innerHTML = "<span class='wachttekst'>Bezig met herschrijven…</span>";
+      herschrijf(invoer.value).then(function (tekst) {
+        uitvoer.textContent = tekst;
+      }).finally(function () {
+        knop.disabled = false;
+      });
+    });
+  }
+
+  // Probeert de serverless functie; valt bij elke fout of na 15 s stil terug
+  // op het opgeslagen antwoord. De demo faalt nooit zichtbaar.
+  function herschrijf(brief) {
+    var ctl = new AbortController();
+    var wekker = setTimeout(function () { ctl.abort(); }, 15000);
+    return fetch("/api/herschrijf", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ brief: brief }),
+      signal: ctl.signal
+    }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }).then(function (json) {
+      if (!json || !json.herschreven) throw new Error("leeg antwoord");
+      console.log("[demo] live API gebruikt");
+      return json.herschreven;
+    }).catch(function (err) {
+      console.log("[demo] fallback gebruikt (" + err.message + ")");
+      return fallback.herschreven;
+    }).finally(function () {
+      clearTimeout(wekker);
+    });
+  }
+
+  /* ---------- bijlage & print ---------- */
+
+  function bouwBijlage() {
+    if (!data.bijlage) return;
+    var sec = el("section", "scherm bijlage");
+    var binnen = el("div", "scherm-inhoud");
+    binnen.appendChild(el("h2", "", opmaak(data.bijlage.titel)));
+    data.bijlage.vragen.forEach(function (v) {
+      binnen.appendChild(el("p", "vraag", opmaak(v.vraag)));
+      binnen.appendChild(el("p", "antwoord", opmaak(v.antwoord)));
+    });
+    sec.appendChild(binnen);
+    app.appendChild(sec);
+  }
+
+  function bouwPrintCellen() {
+    var sec = el("section", "scherm print-cellen");
+    var binnen = el("div", "scherm-inhoud");
+    binnen.appendChild(el("h2", "", "De twintig cellen"));
+    matrix.treden.forEach(function (t) {
+      binnen.appendChild(el("h3", "", "Trede " + t.nr + " — " + esc(t.naam)));
+      matrix.levensfases.forEach(function (f) {
+        var cel = matrix.cellen.find(function (c) {
+          return c.trede === t.nr && c.levensfase === f.id;
+        });
+        var d = el("div", "print-cel");
+        d.appendChild(el("p", "print-cel-kop", esc(f.naam) + " · " + esc(statusLabel[cel.status]) +
+          (cel.notitie && cel.status !== "keuze" ? " — " + esc(cel.notitie) : "")));
+        if (cel.nu) d.appendChild(el("p", "", "<strong>Nu:</strong> " + opmaak(cel.nu)));
+        if (cel.leemte) d.appendChild(el("p", "", "<strong>Leemte:</strong> " + opmaak(cel.leemte)));
+        if (cel.plan2027) d.appendChild(el("p", "", "<strong>2027:</strong> " + opmaak(cel.plan2027)));
+        binnen.appendChild(d);
+      });
+    });
+    sec.appendChild(binnen);
+    app.appendChild(sec);
+  }
+
+  /* ---------- presentatienavigatie ---------- */
+
+  function toonScherm(i) {
+    huidig = Math.min(Math.max(i, 0), schermEls.length - 1);
+    schermEls.forEach(function (s, j) {
+      s.classList.toggle("actief", j === huidig);
+    });
+    teller.textContent = (huidig + 1) + " / " + schermEls.length;
+    history.replaceState(null, "", "#" + (huidig + 1));
+    markeerOverzicht();
+  }
+
+  function inVeld(e) {
+    var t = e.target;
+    return t && (t.tagName === "TEXTAREA" || t.tagName === "INPUT" || t.isContentEditable);
+  }
+
+  function opToets(e) {
+    if (inVeld(e)) {
+      if (e.key === "Escape") e.target.blur();
+      return;
+    }
+    switch (e.key) {
+      case "ArrowRight":
+      case " ":
+      case "PageDown":
+        e.preventDefault();
+        toonScherm(huidig + 1);
+        break;
+      case "ArrowLeft":
+      case "PageUp":
+        e.preventDefault();
+        toonScherm(huidig - 1);
+        break;
+      case "Home":
+        toonScherm(0);
+        break;
+      case "End":
+        toonScherm(schermEls.length - 1);
+        break;
+      case "Escape":
+        overzicht.hidden = !overzicht.hidden;
+        break;
+      default:
+        var k = e.key.toLowerCase();
+        if (k === "l") {
+          location.href = "?modus=lezen#" + (huidig + 1);
+        } else if (k === "n") {
+          document.body.classList.toggle("toon-regie");
+        }
+    }
+  }
+
+  function bouwOverzicht() {
+    overzichtGrid.textContent = "";
+    data.schermen.forEach(function (s, i) {
+      var b = el("button", "", "<span class='ov-nr'>" + s.nummer + "</span>" + opmaak(s.titel));
+      b.type = "button";
+      b.addEventListener("click", function () {
+        overzicht.hidden = true;
+        toonScherm(i);
+      });
+      overzichtGrid.appendChild(b);
+    });
+  }
+
+  function markeerOverzicht() {
+    if (!overzichtGrid.children.length) return;
+    Array.prototype.forEach.call(overzichtGrid.children, function (b, i) {
+      b.setAttribute("aria-current", String(i === huidig));
+    });
+  }
+})();

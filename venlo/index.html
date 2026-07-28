@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>AI in de digitale leerlijn — Bibliotheek Venlo 2027</title>
+  <link rel="preload" href="fonts/atkinson-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="venlo.css">
+</head>
+<body>
+  <nav class="modus-toggle" aria-label="Weergavemodus">
+    <a href="?modus=presentatie" data-modus="presentatie">Presentatie</a>
+    <a href="?modus=lezen" data-modus="lezen">Lezen</a>
+  </nav>
+
+  <main id="app" aria-live="off">
+    <noscript>
+      <p style="max-width:40em;margin:4em auto;padding:0 1em;">
+        Deze pagina heeft JavaScript nodig om de presentatie te tonen.
+        De inhoud staat in <a href="data/schermen.json">schermen.json</a> en
+        <a href="data/matrix.json">matrix.json</a>.
+      </p>
+    </noscript>
+  </main>
+
+  <div class="teller" id="teller" aria-hidden="true"></div>
+
+  <div class="overzicht" id="overzicht" hidden role="dialog" aria-modal="true" aria-label="Overzicht van alle schermen">
+    <h2>Overzicht</h2>
+    <div class="overzicht-grid" id="overzicht-grid"></div>
+    <p class="toets-hulp">→ / spatie volgende · ← vorige · Esc overzicht · L leesmodus · N regie-aantekeningen</p>
+  </div>
+
+  <script src="venlo.js"></script>
+</body>
+</html>
