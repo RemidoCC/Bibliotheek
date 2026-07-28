@@ -1,0 +1,170 @@
+{
+  "treden": [
+    { "nr": 0, "naam": "Het overkomt je", "kernvraag": "“Ik heb er niks mee, maar het raakt me wel”" },
+    { "nr": 1, "naam": "Herkennen", "kernvraag": "“Waar zit AI eigenlijk?”" },
+    { "nr": 2, "naam": "Gebruiken", "kernvraag": "“Wat heb ik eraan?”" },
+    { "nr": 3, "naam": "Beoordelen", "kernvraag": "“Klopt dit wel?”" },
+    { "nr": 4, "naam": "Vormgeven", "kernvraag": "“Hoe wil ik dat dit werkt?”" }
+  ],
+  "levensfases": [
+    { "id": "kind", "naam": "Kind", "toelichting": "0–12, en hun ouders" },
+    { "id": "jongere", "naam": "Jongere", "toelichting": "12–18" },
+    { "id": "volwassene", "naam": "Volwassene", "toelichting": "18–67" },
+    { "id": "senior", "naam": "Senior", "toelichting": "67+" }
+  ],
+  "cellen": [
+    {
+      "trede": 0,
+      "levensfase": "kind",
+      "status": "leemte",
+      "nu": "Niets specifieks.",
+      "leemte": "Kinderen groeien op met AI in speelgoed, aanbevelingen en schoolsoftware. Ouders weten niet wat er gebeurt.",
+      "plan2027": "Eén AI-kaart in de Digikoffer plus een korte ouderboodschap bij bestaande voorleesmomenten. Klein, geen apart programma."
+    },
+    {
+      "trede": 0,
+      "levensfase": "jongere",
+      "status": "leemte",
+      "nu": "HackShield raakt online veiligheid, niet AI.",
+      "leemte": "Jongeren gebruiken AI dagelijks zonder het zo te noemen.",
+      "plan2027": "AI-laag toevoegen aan bestaande HackShield-momenten en het VO-aanbod."
+    },
+    {
+      "trede": 0,
+      "levensfase": "volwassene",
+      "status": "leemte",
+      "nu": "Niets.",
+      "leemte": "Mensen krijgen AI-besluiten over zich heen — bij verzekering, sollicitatie, toeslagen — zonder het te weten.",
+      "plan2027": "Signaalfunctie aan de balie en korte “wist u dat”-momenten binnen bestaande cursussen."
+    },
+    {
+      "trede": 0,
+      "levensfase": "senior",
+      "status": "leemte",
+      "prioriteit": true,
+      "notitie": "hoogste prioriteit",
+      "nu": "IDO en DigiCafé in Venlo en Blerick.",
+      "leemte": "Dit is dé plek waar de gevolgen van AI binnenkomen — de chatbot van de gemeente, telefonische fraude met nagebootste stemmen — en er ligt geen antwoord klaar.",
+      "plan2027": "AI-basis voor IDO-medewerkers en DigiCafé-vrijwilligers, plus een vast antwoord op de tien meest gestelde vragen."
+    },
+    {
+      "trede": 1,
+      "levensfase": "kind",
+      "status": "leemte",
+      "nu": "Niets.",
+      "plan2027": "“Is dit echt of gemaakt?” — spelvorm van twintig minuten, ingebouwd in bestaande jeugdactiviteiten."
+    },
+    {
+      "trede": 1,
+      "levensfase": "jongere",
+      "status": "elders",
+      "nu": "Niets specifieks.",
+      "plan2027": "Deepfakes en AI-beeld herkennen, gekoppeld aan mediawijsheid. Landelijk materiaal is beschikbaar."
+    },
+    {
+      "trede": 1,
+      "levensfase": "volwassene",
+      "status": "bestaat",
+      "notitie": "vorm aanpassen",
+      "nu": "De Nationale AI-cursus, aangeboden in juli 2025, zelfstandig te volgen.",
+      "plan2027": "Dezelfde inhoud, maar begeleid en in de wijk in plaats van alleen online in de Stadsbibliotheek."
+    },
+    {
+      "trede": 1,
+      "levensfase": "senior",
+      "status": "leemte",
+      "prioriteit": true,
+      "notitie": "hoogste prioriteit",
+      "nu": "Niets structureels.",
+      "plan2027": "“Waar zit AI in uw dag?” als vast blok binnen Klik & Tik-vervolg en het DigiCafé."
+    },
+    {
+      "trede": 2,
+      "levensfase": "kind",
+      "status": "keuze",
+      "notitie": "bewust niets",
+      "nu": "Onder de twaalf zet de bibliotheek niet aan tot zelfstandig AI-gebruik. Wel ouders informeren.",
+      "regie": "Dit is een keuze, geen leemte. Zeg dat ook zo — het laat zien dat de leerlijn grenzen kent."
+    },
+    {
+      "trede": 2,
+      "levensfase": "jongere",
+      "status": "leemte",
+      "plan2027": "AI als huiswerk- en makershulp binnen PLEK 3 en het VO-aanbod, met nadruk op de vraag wat je er níet van leert."
+    },
+    {
+      "trede": 2,
+      "levensfase": "volwassene",
+      "status": "bestaat",
+      "notitie": "uitbreiden",
+      "nu": "Deels via de Nationale AI-cursus.",
+      "plan2027": "AI als praktisch hulpmiddel — een brief begrijpen, een sollicitatie schrijven, een formulier invullen. Samen met Taalhuis Venlo en UWV."
+    },
+    {
+      "trede": 2,
+      "levensfase": "senior",
+      "status": "bestaat",
+      "notitie": "uitbreiden — sterkste kaart",
+      "nu": "Klik & Tik, Digisterker, DigiVitaler met VieCuri.",
+      "plan2027": "AI-module bovenop Digisterker en DigiVitaler. Hoe stel je een vraag aan de chatbot van de gemeente of aan het zorgportaal? Geen nieuwe cursus — één blok extra in een cursus die al loopt en die de doelgroep al vindt."
+    },
+    {
+      "trede": 3,
+      "levensfase": "kind",
+      "status": "bestaat",
+      "notitie": "kleine uitbreiding",
+      "nu": "De Digikoffer, ontwikkeld met Bibliotheek Utrecht voor kinderen van 9 tot 12.",
+      "plan2027": "Eén AI-kaart toevoegen."
+    },
+    {
+      "trede": 3,
+      "levensfase": "jongere",
+      "status": "elders",
+      "nu": "HackShield.",
+      "plan2027": "Desinformatie en AI-beeld. De Data Detox Kit voor tieners is beschikbaar en vertaald."
+    },
+    {
+      "trede": 3,
+      "levensfase": "volwassene",
+      "status": "elders",
+      "nu": "Niets structureels.",
+      "plan2027": "“Klopt dit wel?” — avondprogramma over nieuws, beeld en stem. Het landelijke programmateam zoekt bibliotheken die de nieuwe tentoonstelling van Tactical Tech en de Data Detox Kit AI willen testen. Aanmelden kost niets en levert een compleet programma op."
+    },
+    {
+      "trede": 3,
+      "levensfase": "senior",
+      "status": "leemte",
+      "notitie": "hoge urgentie",
+      "plan2027": "Fraude en nagebootste stemmen. Samen met bank, politie en wijkpartners, in de wijk in plaats van in de Stadsbibliotheek."
+    },
+    {
+      "trede": 4,
+      "levensfase": "kind",
+      "status": "bestaat",
+      "notitie": "uitbreiden",
+      "nu": "Kids Science.",
+      "plan2027": "Laten zien hoe een model leert door het zelf te trainen."
+    },
+    {
+      "trede": 4,
+      "levensfase": "jongere",
+      "status": "bestaat",
+      "notitie": "uitbreiden",
+      "nu": "PLEK 3 in de makersplaats, ook voor voortgezet speciaal onderwijs en praktijkonderwijs.",
+      "plan2027": "Jongeren maken zelf iets met AI en presenteren het in de Podiumzaal."
+    },
+    {
+      "trede": 4,
+      "levensfase": "volwassene",
+      "status": "leemte",
+      "plan2027": "Ondernemers en vrijwilligersorganisaties, plus een publiek gesprek over hoe AI in Venlo wordt ingezet. De bibliotheek als onafhankelijke gastheer, niet als partij."
+    },
+    {
+      "trede": 4,
+      "levensfase": "senior",
+      "status": "leemte",
+      "notitie": "laag volume, hoge waarde",
+      "plan2027": "Senioren als ervaringsdeskundige en vrijwilliger in het DigiCafé. Wie het snapt, leert het door. Dit is ook je antwoord op de capaciteitsvraag."
+    }
+  ]
+}
