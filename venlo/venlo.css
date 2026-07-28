@@ -75,6 +75,7 @@
   --perzik:      #FEE0C8;   /* paneelvulling uit het beleidsplan */
   --perzik-diep: #FCC59A;   /* accentrand van panelen */
   --line:        #E4DAD2;   /* hairlines en lege-celranden */
+  --rood:        #A61B1B;   /* alleen de klok vanaf 20 minuten */
 
   --body: "Atkinson Hyperlegible", Verdana, sans-serif;
   --display: "Fira Sans", "Segoe UI", Candara, sans-serif;
@@ -217,6 +218,47 @@ body.modus-presentatie .scherm:not(.scherm-titelpagina) h2::after {
   font-size: 16px;
   color: var(--muted);
 }
+
+/* ---------- Presentatieklok (toets T) ----------
+   Staat boven de schermteller, alleen tijdens de presentatie. Neutraal tot
+   15 minuten, dan oranje, vanaf 20 minuten rood. */
+.klok {
+  position: fixed;
+  right: 20px;
+  bottom: 44px;
+  z-index: 41;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: var(--paper);
+  color: var(--muted);
+}
+.klok[hidden] { display: none; }
+.klok.klok-oranje {
+  border-color: var(--oranje);
+  background: var(--perzik);
+  color: var(--oranje-diep);
+}
+.klok.klok-rood {
+  border-color: var(--rood);
+  background: var(--rood);
+  color: #fff;
+}
+/* Gepauzeerd: zelfde kleur, maar zichtbaar niet-lopend */
+.klok.klok-pauze { opacity: 0.55; }
+.klok.klok-pauze::after {
+  content: " ⏸";
+  font-size: 15px;
+}
+
+/* De klok hoort bij het presenteren, niet bij lezen of printen */
+body.modus-lezen .klok,
+body.modus-print .klok { display: none; }
 
 /* ---------- Leesmodus / printmodus ---------- */
 body.modus-lezen .scherm,

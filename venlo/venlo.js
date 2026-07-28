@@ -11,6 +11,7 @@
 
   var app = document.getElementById("app");
   var teller = document.getElementById("teller");
+  var klokEl = document.getElementById("klok");
   var overzicht = document.getElementById("overzicht");
   var overzichtGrid = document.getElementById("overzicht-grid");
 
@@ -479,8 +480,57 @@
           location.href = "?modus=lezen#" + (huidig + 1);
         } else if (k === "n") {
           document.body.classList.toggle("toon-regie");
+        } else if (k === "t") {
+          if (e.shiftKey) klokOpNul();
+          else klokStartStop();
         }
     }
+  }
+
+  /* ---------- Presentatieklok (toets T) ----------
+     Oranje vanaf 15 minuten, rood vanaf 20. De tijd wordt berekend uit
+     Date.now(), niet uit het aantal tikken: als de browser het tabblad
+     vertraagt of de laptop even slaapt, blijft de klok kloppen. */
+
+  var ORANJE_VANAF = 15 * 60 * 1000;
+  var ROOD_VANAF = 20 * 60 * 1000;
+  var klok = { loopt: false, opgebouwd: 0, sinds: 0, tik: null };
+
+  function klokVerstreken() {
+    return klok.opgebouwd + (klok.loopt ? Date.now() - klok.sinds : 0);
+  }
+
+  function klokToon() {
+    var ms = klokVerstreken();
+    var sec = Math.floor(ms / 1000);
+    var mm = Math.floor(sec / 60);
+    var ss = sec % 60;
+    klokEl.textContent = mm + ":" + (ss < 10 ? "0" : "") + ss;
+    klokEl.classList.toggle("klok-rood", ms >= ROOD_VANAF);
+    klokEl.classList.toggle("klok-oranje", ms >= ORANJE_VANAF && ms < ROOD_VANAF);
+    klokEl.classList.toggle("klok-pauze", !klok.loopt);
+  }
+
+  function klokStartStop() {
+    if (klok.loopt) {
+      klok.opgebouwd = klokVerstreken();
+      klok.loopt = false;
+      clearInterval(klok.tik);
+      klok.tik = null;
+    } else {
+      klok.sinds = Date.now();
+      klok.loopt = true;
+      klok.tik = setInterval(klokToon, 250);
+    }
+    klokEl.hidden = false;
+    klokToon();
+  }
+
+  function klokOpNul() {
+    clearInterval(klok.tik);
+    klok = { loopt: false, opgebouwd: 0, sinds: 0, tik: null };
+    klokEl.hidden = true;
+    klokEl.className = "klok";
   }
 
   function bouwOverzicht() {
