@@ -59,6 +59,11 @@
     }).join("");
   }
 
+  // Genummerde kop in de vorm van het beleidsplan: "5 | De leerlijn"
+  function schermkop(s) {
+    return "<span class='scherm-nr'>" + s.nummer + "</span>" + opmaak(s.titel);
+  }
+
   function el(tag, klas, html) {
     var n = document.createElement(tag);
     if (klas) n.className = klas;
@@ -81,11 +86,12 @@
 
       if (s.type === "titel") {
         sec.classList.add("scherm-titelpagina");
+        binnen.appendChild(el("div", "titel-balk"));
         binnen.appendChild(el("h2", "", opmaak(s.titel)));
       } else if (s.component === "matrix") {
         bouwMatrix(binnen, s);
       } else {
-        binnen.appendChild(el("h2", "", opmaak(s.titel)));
+        binnen.appendChild(el("h2", "", schermkop(s)));
       }
 
       if (s.component === "demo") bouwDemo(binnen, s);
@@ -112,6 +118,11 @@
       toonScherm(huidig);
       bouwOverzicht();
       document.addEventListener("keydown", opToets);
+      // Handmatig aangepaste of gedeelde #-links moeten ook werken.
+      window.addEventListener("hashchange", function () {
+        var n = parseInt((location.hash || "").replace("#", ""), 10);
+        if (!isNaN(n) && n - 1 !== huidig) toonScherm(n - 1);
+      });
     } else {
       teller.hidden = true;
       document.addEventListener("keydown", function (e) {
@@ -177,7 +188,7 @@
 
   function bouwMatrix(ouder, scherm) {
     var kop = el("div", "matrix-kop");
-    kop.appendChild(el("h2", "", opmaak(scherm.titel)));
+    kop.appendChild(el("h2", "", schermkop(scherm)));
 
     var filter = el("button", "filter-toggle");
     filter.type = "button";
@@ -281,6 +292,8 @@
     });
     detail.appendChild(sluit);
     detail.hidden = false;
+    // 'nearest' schuift het minimum: het bord blijft in beeld tijdens het praten.
+    detail.scrollIntoView({ block: "nearest" });
   }
 
   /* ---------- demo (scherm 8) ---------- */
@@ -301,7 +314,7 @@
     links.appendChild(invoer);
     panelen.appendChild(links);
 
-    var rechts = el("div", "demo-paneel");
+    var rechts = el("div", "demo-paneel demo-uit");
     rechts.appendChild(el("h3", "", "In begrijpelijke taal (B1)"));
     var uitvoer = el("div", "demo-uitvoer");
     uitvoer.setAttribute("role", "region");

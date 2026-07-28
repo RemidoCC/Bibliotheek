@@ -1,7 +1,13 @@
 /* =========================================================
    AI in de digitale leerlijn — Bibliotheek Venlo 2027
    Losstaande presentatiepagina. Raakt de rest van de site niet.
-   Leesbaarheid vóór schoonheid: Atkinson Hyperlegible, 20px basis.
+
+   Huisstijl overgenomen uit het Meerjarenbeleidsplan 2024-2027:
+   oranje #F47920, tekstgrijs #404041, perzik #FEE0C8, diepblauw #005C8F,
+   afgeronde kaarten, oranje omlijnde labels, genummerde koppen (5 | Titel).
+
+   Leesbaarheid blijft leidend: Atkinson Hyperlegible voor lopende tekst,
+   20px basis, geen grijs lichter dan #5A6472.
    ========================================================= */
 
 /* ---------- Zelf-gehoste fonts (latin subset, OFL) ---------- */
@@ -19,12 +25,28 @@
   font-display: swap;
   src: url("fonts/atkinson-700.woff2") format("woff2");
 }
+/* Fira Sans staat in voor TheMix uit het beleidsplan: dezelfde humanistische,
+   open vormen. TheMix zelf is commercieel en mag niet worden meegeleverd. */
 @font-face {
-  font-family: "Bricolage Grotesque";
+  font-family: "Fira Sans";
   font-style: normal;
-  font-weight: 400 800;
+  font-weight: 400;
   font-display: swap;
-  src: url("fonts/bricolage.woff2") format("woff2");
+  src: url("fonts/firasans-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/firasans-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/firasans-600.woff2") format("woff2");
 }
 @font-face {
   font-family: "IBM Plex Mono";
@@ -41,37 +63,40 @@
   src: url("fonts/plexmono-500.woff2") format("woff2");
 }
 
-/* ---------- Palet ---------- */
+/* ---------- Huisstijlpalet (uit het beleidsplan) ---------- */
 :root {
-  --paper:  #FBF9F5;
-  --ink:    #141A22;
-  --muted:  #5A6472;
-  --signal: #1B4B7A;
-  --warm:   #D98C1F;
-  --line:   #DDD7CC;
+  --paper:       #FFFFFF;   /* achtergrond, zoals de witte kaarten */
+  --paper-warm:  #FDF7F2;   /* zachte warme ondergrond */
+  --ink:         #404041;   /* huistekstkleur uit het beleidsplan */
+  --muted:       #5A6472;   /* secundaire tekst — donker genoeg om te lezen */
+  --signal:      #005C8F;   /* huisblauw — status “bestaat”, links, focus */
+  --oranje:      #F47920;   /* de Bibliotheek-oranje: randen, markeringen */
+  --oranje-diep: #A8480C;   /* oranje voor tekst en gevulde knoppen (contrast) */
+  --perzik:      #FEE0C8;   /* paneelvulling uit het beleidsplan */
+  --perzik-diep: #FCC59A;   /* accentrand van panelen */
+  --line:        #E4DAD2;   /* hairlines en lege-celranden */
 
   --body: "Atkinson Hyperlegible", Verdana, sans-serif;
-  --display: "Bricolage Grotesque", Georgia, serif;
+  --display: "Fira Sans", "Segoe UI", Candara, sans-serif;
   --mono: "IBM Plex Mono", "Courier New", monospace;
+
+  --radius: 18px;      /* ruime hoekstraal van de beleidsplan-kaarten */
+  --radius-klein: 10px;
 }
 
 * { box-sizing: border-box; }
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
+html, body { margin: 0; padding: 0; }
 
 body {
   font-family: var(--body);
   font-size: 20px;
   line-height: 1.6;
   color: var(--ink);
-  background: var(--paper);
+  background: var(--paper-warm);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Zichtbare focusringen op alles wat interactief is */
 a:focus-visible,
 button:focus-visible,
 [tabindex]:focus-visible,
@@ -83,16 +108,23 @@ textarea:focus-visible {
 
 h1, h2, h3 {
   font-family: var(--display);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.15;
   margin: 0 0 0.6em;
 }
 
 a { color: var(--signal); }
 
-button {
-  font: inherit;
-  cursor: pointer;
+button { font: inherit; cursor: pointer; }
+
+/* Genummerde kop, zoals “2 | Bibliotheekconvenant …” in het beleidsplan */
+.scherm-nr {
+  color: var(--oranje-diep);
+  font-weight: 400;
+}
+.scherm-nr::after {
+  content: " | ";
+  color: var(--perzik-diep);
 }
 
 /* ---------- Modusschakelaar (hoek) ---------- */
@@ -107,11 +139,11 @@ button {
   font-size: 16px;
   border: 1.5px solid var(--line);
   background: var(--paper);
-  border-radius: 6px;
+  border-radius: 999px;
   overflow: hidden;
 }
 .modus-toggle a {
-  padding: 6px 14px;
+  padding: 6px 16px;
   text-decoration: none;
   color: var(--muted);
 }
@@ -119,11 +151,22 @@ button {
   background: var(--signal);
   color: #fff;
 }
+/* Tijdens de presentatie staat de schakelaar linksonder: uit de weg van de
+   inhoud, tegenover de teller rechtsonder. */
+body.modus-presentatie .modus-toggle {
+  top: auto;
+  right: auto;
+  bottom: 14px;
+  left: 20px;
+  font-size: 14px;
+  opacity: 0.75;
+}
+body.modus-presentatie .modus-toggle:hover,
+body.modus-presentatie .modus-toggle:focus-within { opacity: 1; }
+body.modus-presentatie .modus-toggle a { padding: 5px 13px; }
 
 /* ---------- Presentatiemodus ---------- */
-body.modus-presentatie {
-  overflow: hidden;
-}
+body.modus-presentatie { overflow: hidden; }
 body.modus-presentatie .scherm {
   position: fixed;
   inset: 0;
@@ -138,14 +181,25 @@ body.modus-presentatie .scherm.actief {
 body.modus-presentatie .scherm-inhoud {
   width: 100%;
   max-width: 1080px;
-  /* auto-marges centreren verticaal, maar laten hoge schermen gewoon scrollen */
   margin: auto;
 }
 body.modus-presentatie .scherm[data-component="matrix"] .scherm-inhoud {
   max-width: 1280px;
 }
-.scherm h2 {
-  font-size: clamp(28px, 4.2vw, 52px);
+body.modus-presentatie .scherm[data-component="matrix"] {
+  padding: clamp(16px, 3vh, 44px) clamp(20px, 4vw, 72px);
+}
+.scherm h2 { font-size: clamp(28px, 4.2vw, 52px); }
+
+/* Oranje accentbalk onder de schermtitel — huisstijlmarkering */
+body.modus-presentatie .scherm:not(.scherm-titelpagina) h2::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 5px;
+  margin-top: 0.35em;
+  border-radius: 999px;
+  background: var(--oranje);
 }
 
 .teller {
@@ -158,34 +212,32 @@ body.modus-presentatie .scherm[data-component="matrix"] .scherm-inhoud {
   color: var(--muted);
 }
 
-/* ---------- Leesmodus ---------- */
+/* ---------- Leesmodus / printmodus ---------- */
 body.modus-lezen .scherm,
 body.modus-print .scherm {
   max-width: 900px;
-  margin: 0 auto;
-  padding: 48px 24px;
-  border-bottom: 1px solid var(--line);
+  margin: 0 auto 28px;
+  padding: 36px clamp(20px, 4vw, 44px);
+  background: var(--paper);
+  border-radius: var(--radius);
 }
 body.modus-lezen .scherm[data-component="matrix"],
 body.modus-print .scherm[data-component="matrix"] {
   max-width: 1280px;
 }
-body.modus-lezen header.paginakop,
-body.modus-print header.paginakop {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 48px 24px 0;
+body.modus-lezen .scherm:first-of-type,
+body.modus-print .scherm:first-of-type {
+  margin-top: 28px;
 }
-.paginakop h1 { font-size: clamp(30px, 5vw, 44px); }
-.paginakop p {
-  font-family: var(--mono);
-  font-size: 16px;
-  color: var(--muted);
-  margin: 0;
+/* De titelpagina krijgt het perzikvlak van de beleidsplan-omslag */
+body.modus-lezen .scherm-titelpagina,
+body.modus-print .scherm-titelpagina {
+  background: var(--perzik);
 }
 
 /* ---------- Inhoudsblokken ---------- */
 .subtitel {
+  font-family: var(--display);
   font-size: clamp(20px, 2.4vw, 28px);
   color: var(--muted);
   margin: 0.4em 0 2em;
@@ -196,11 +248,22 @@ body.modus-print header.paginakop {
   font-size: clamp(40px, 7vw, 88px);
   max-width: 14em;
 }
+.scherm-titelpagina h2::after { content: none; }
+/* Accentbalk op de titelpagina, breder */
+.titel-balk {
+  width: 140px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--oranje);
+  margin: 0 0 1.4em;
+}
 
 blockquote {
   margin: 1.2em 0;
-  padding: 0.2em 0 0.2em 0.9em;
-  border-left: 4px solid var(--signal);
+  padding: 0.7em 1.1em;
+  border-left: 5px solid var(--oranje);
+  border-radius: 0 var(--radius-klein) var(--radius-klein) 0;
+  background: var(--perzik);
   font-size: 1.1em;
 }
 blockquote.groot {
@@ -210,10 +273,7 @@ blockquote.groot {
   line-height: 1.25;
 }
 blockquote p { margin: 0; }
-.quote-kop {
-  font-weight: 700;
-  margin: 1.4em 0 0.2em;
-}
+.quote-kop { font-weight: 700; margin: 1.4em 0 0.2em; }
 
 .blok { margin: 1.2em 0; }
 .blok h3 { font-size: 1.15em; margin-bottom: 0.25em; }
@@ -222,19 +282,50 @@ blockquote p { margin: 0; }
 ul, ol { padding-left: 1.4em; }
 li { margin: 0.45em 0; }
 
+/* Oranje chevron-opsomming, zoals het beleidsplan */
+.scherm ul:not(.matrix-legenda) {
+  list-style: none;
+  padding-left: 0;
+}
+.scherm ul:not(.matrix-legenda) > li {
+  position: relative;
+  padding-left: 1.5em;
+}
+.scherm ul:not(.matrix-legenda) > li::before {
+  content: "›";
+  position: absolute;
+  left: 0.25em;
+  top: -0.06em;
+  color: var(--oranje);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.3em;
+}
+ol { padding-left: 1.3em; }
+ol > li::marker {
+  color: var(--oranje-diep);
+  font-family: var(--display);
+  font-weight: 600;
+}
+
 /* De twee grote getallen (scherm 3) */
 .getallen {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: clamp(20px, 4vw, 64px);
+  gap: clamp(20px, 3vw, 40px);
   margin: 1em 0 1.5em;
+}
+.getal {
+  background: var(--perzik);
+  border-radius: var(--radius);
+  padding: clamp(18px, 2.4vw, 30px);
 }
 .getal-waarde {
   font-family: var(--display);
-  font-weight: 800;
-  font-size: clamp(56px, 9vw, 128px);
+  font-weight: 600;
+  font-size: clamp(52px, 8vw, 112px);
   line-height: 1;
-  color: var(--signal);
+  color: var(--oranje-diep);
 }
 .getal-tekst { margin-top: 0.5em; }
 
@@ -242,9 +333,10 @@ li { margin: 0.45em 0; }
 .regie {
   display: none;
   margin-top: 1.6em;
-  padding: 0.8em 1em;
-  border: 1.5px dashed var(--line);
-  border-radius: 6px;
+  padding: 0.8em 1.1em;
+  border: 1.5px dashed var(--perzik-diep);
+  border-radius: var(--radius-klein);
+  background: #FFFCF9;
   font-size: 16px;
   color: var(--muted);
 }
@@ -255,20 +347,38 @@ body.toon-regie .regie { display: block; }
   font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--oranje-diep);
 }
 
 /* ---------- Matrix: bewegwijzeringsbord ---------- */
+/* Het matrixscherm moet in zijn geheel passen, ook op een laptop van 800px
+   hoog: compactere kop, strakkere cellen. */
+/* De kop plakt bovenaan, zodat het filter bereikbaar blijft wanneer een
+   celdetail openstaat en het scherm meescrolt. */
 .matrix-kop {
+  position: sticky;
+  top: 0;
+  z-index: 5;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px 24px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  background: var(--paper-warm);
 }
-.matrix-kop h2 { margin: 0; }
+.matrix-kop h2 {
+  margin: 0;
+  font-size: clamp(26px, 3vw, 38px);
+}
+body.modus-presentatie .scherm[data-component="matrix"] h2::after {
+  width: 56px;
+  height: 4px;
+  margin-top: 0.25em;
+}
 
-/* Het filter is het enige --warm element op dit scherm */
+/* Het filter is het enige oranje bedienelement op dit scherm */
 .filter-toggle {
   display: inline-flex;
   align-items: center;
@@ -278,7 +388,7 @@ body.toon-regie .regie { display: block; }
   font-weight: 500;
   color: var(--ink);
   background: var(--paper);
-  border: 2px solid var(--warm);
+  border: 2.5px solid var(--oranje);
   border-radius: 999px;
   padding: 8px 18px;
 }
@@ -286,7 +396,7 @@ body.toon-regie .regie { display: block; }
   width: 34px;
   height: 18px;
   border-radius: 999px;
-  border: 2px solid var(--warm);
+  border: 2px solid var(--oranje);
   position: relative;
   flex: none;
 }
@@ -298,16 +408,17 @@ body.toon-regie .regie { display: block; }
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--warm);
+  background: var(--oranje);
   transition: transform 200ms ease;
 }
 .filter-toggle[aria-pressed="true"] {
-  background: var(--warm);
-  color: #fff;
+  background: var(--perzik);
+  border-color: var(--oranje-diep);
+  color: var(--oranje-diep);
 }
-.filter-toggle[aria-pressed="true"] .schakel { border-color: #fff; }
+.filter-toggle[aria-pressed="true"] .schakel { border-color: var(--oranje-diep); }
 .filter-toggle[aria-pressed="true"] .schakel::after {
-  background: #fff;
+  background: var(--oranje-diep);
   transform: translateX(16px);
 }
 
@@ -320,29 +431,29 @@ body.toon-regie .regie { display: block; }
   min-width: 780px;
 }
 .matrix .kolomkop {
-  font-family: var(--mono);
-  font-size: 16px;
-  font-weight: 500;
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 600;
   padding: 6px 4px;
 }
 .matrix .kolomkop small {
   display: block;
   color: var(--muted);
+  font-family: var(--mono);
   font-size: 14px;
   font-weight: 400;
 }
-.matrix .rijkop {
-  padding: 8px 10px 8px 0;
-  align-self: stretch;
-}
+.matrix .rijkop { padding: 8px 12px 8px 0; align-self: stretch; }
 .matrix .rijkop .trede-nr {
   font-family: var(--mono);
   font-size: 16px;
   font-weight: 500;
-  color: var(--muted);
+  color: var(--oranje-diep);
 }
 .matrix .rijkop .trede-naam {
-  font-weight: 700;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05em;
   line-height: 1.25;
 }
 .matrix .rijkop .trede-vraag {
@@ -352,14 +463,19 @@ body.toon-regie .regie { display: block; }
 }
 
 .cel {
-  min-height: 84px;
-  padding: 10px 12px;
+  min-height: clamp(64px, 8.5vh, 88px);
+  padding: 9px 12px;
   text-align: left;
   font-family: var(--mono);
   font-size: 16px;
   line-height: 1.35;
-  border-radius: 4px;
+  border-radius: var(--radius-klein);
   transition: opacity 400ms ease;
+}
+.cel .cel-label {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 600;
 }
 .cel .cel-status {
   display: block;
@@ -393,20 +509,19 @@ body.toon-regie .regie { display: block; }
   font-style: italic;
 }
 .cel[aria-expanded="true"] {
-  outline: 3px solid var(--ink);
+  outline: 3px solid var(--oranje);
   outline-offset: 1px;
 }
 
-/* Filter: alles wat niet 'bestaat' is vervaagt — dat IS het moment */
-.matrix.gefilterd .cel:not([data-status="bestaat"]) {
-  opacity: 0.08;
-}
+/* Filter: alles wat niet ‘bestaat’ is vervaagt — dat IS het moment */
+.matrix.gefilterd .cel:not([data-status="bestaat"]) { opacity: 0.08; }
 
+/* Legenda in de omlijnde-labelvorm van het beleidsplan */
 .matrix-legenda {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 24px;
-  margin-top: 14px;
+  margin-top: 12px;
   font-family: var(--mono);
   font-size: 16px;
 }
@@ -414,7 +529,7 @@ body.toon-regie .regie { display: block; }
 .legenda-vak {
   width: 18px;
   height: 18px;
-  border-radius: 3px;
+  border-radius: 4px;
   flex: none;
 }
 .legenda-vak.bestaat { background: var(--signal); }
@@ -423,9 +538,10 @@ body.toon-regie .regie { display: block; }
 
 /* Celdetail: onder het bord, bord blijft zichtbaar */
 .cel-detail {
-  margin-top: 16px;
-  border-top: 2px solid var(--ink);
-  padding-top: 14px;
+  margin-top: 14px;
+  background: var(--perzik);
+  border-radius: var(--radius);
+  padding: 14px 20px;
 }
 .cel-detail[hidden] { display: none; }
 .cel-detail .detail-kop {
@@ -438,29 +554,29 @@ body.toon-regie .regie { display: block; }
 .cel-detail .detail-status {
   font-family: var(--mono);
   font-size: 16px;
-  color: var(--muted);
+  color: var(--oranje-diep);
 }
 .cel-detail dl {
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 6px 18px;
-  margin: 10px 0 0;
+  margin: 12px 0 0;
 }
 .cel-detail dt {
   font-family: var(--mono);
   font-size: 16px;
   font-weight: 500;
-  color: var(--muted);
+  color: var(--oranje-diep);
 }
 .cel-detail dd { margin: 0; }
 .detail-sluit {
-  margin-top: 12px;
-  background: none;
-  border: 1.5px solid var(--line);
-  border-radius: 4px;
+  margin-top: 14px;
+  background: var(--paper);
+  border: 1.5px solid var(--perzik-diep);
+  border-radius: 999px;
   font-family: var(--mono);
   font-size: 16px;
-  padding: 4px 12px;
+  padding: 5px 16px;
   color: var(--muted);
 }
 
@@ -472,27 +588,33 @@ body.toon-regie .regie { display: block; }
   margin: 1em 0;
 }
 .demo-paneel {
+  border-radius: var(--radius);
+  background: var(--paper);
   border: 1.5px solid var(--line);
-  border-radius: 6px;
-  background: #fff;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .demo-paneel h3 {
   font-family: var(--mono);
   font-weight: 500;
   font-size: 16px;
-  color: var(--muted);
+  color: var(--ink);
   margin: 0;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--line);
+  padding: 10px 16px;
+  background: var(--perzik);
+}
+/* Het B1-paneel krijgt de oranje markering: dit is waar het om gaat */
+.demo-paneel.demo-uit h3 {
+  background: var(--oranje);
+  color: #fff;
 }
 .demo-paneel textarea,
 .demo-uitvoer {
   font-family: var(--body);
   font-size: 18px;
   line-height: 1.55;
-  padding: 14px;
+  padding: 16px;
   margin: 0;
   border: 0;
   background: transparent;
@@ -504,17 +626,17 @@ body.toon-regie .regie { display: block; }
 .demo-paneel textarea { resize: vertical; width: 100%; }
 .demo-uitvoer .wachttekst { color: var(--muted); }
 
-/* De demoknop: het enige andere --warm element van de pagina */
-.demo-actie { margin: 0.4em 0 0.6em; }
+/* De demoknop: het andere oranje bedienelement van de pagina */
+.demo-actie { margin: 0.4em 0 0.8em; }
 .herschrijf-knop {
-  background: var(--warm);
+  background: var(--oranje-diep);
   color: #fff;
-  border: 2px solid var(--warm);
-  border-radius: 6px;
-  font-family: var(--body);
-  font-weight: 700;
+  border: 2px solid var(--oranje-diep);
+  border-radius: 999px;
+  font-family: var(--display);
+  font-weight: 600;
   font-size: 20px;
-  padding: 12px 26px;
+  padding: 12px 28px;
 }
 .herschrijf-knop[disabled] { opacity: 0.6; cursor: wait; }
 
@@ -523,7 +645,7 @@ body.toon-regie .regie { display: block; }
   position: fixed;
   inset: 0;
   z-index: 60;
-  background: var(--paper);
+  background: var(--paper-warm);
   overflow-y: auto;
   padding: 48px clamp(20px, 5vw, 64px);
 }
@@ -536,22 +658,24 @@ body.toon-regie .regie { display: block; }
 }
 .overzicht-grid button {
   border: 1.5px solid var(--line);
-  border-radius: 6px;
-  background: #fff;
+  border-radius: var(--radius-klein);
+  background: var(--paper);
   padding: 14px;
   text-align: left;
-  font-family: var(--body);
+  font-family: var(--display);
+  font-weight: 500;
   font-size: 18px;
+  color: var(--ink);
 }
 .overzicht-grid button .ov-nr {
   display: block;
   font-family: var(--mono);
   font-size: 16px;
-  color: var(--muted);
+  color: var(--oranje-diep);
 }
 .overzicht-grid button[aria-current="true"] {
-  border-color: var(--signal);
-  outline: 2px solid var(--signal);
+  border-color: var(--oranje);
+  background: var(--perzik);
 }
 .toets-hulp {
   margin-top: 24px;
@@ -561,7 +685,11 @@ body.toon-regie .regie { display: block; }
 }
 
 /* ---------- Bijlage (lezen/print) ---------- */
-.bijlage .vraag { font-weight: 700; margin: 1.2em 0 0.2em; }
+.bijlage .vraag {
+  font-family: var(--display);
+  font-weight: 600;
+  margin: 1.2em 0 0.2em;
+}
 .bijlage .antwoord { margin: 0; }
 
 /* Celoverzicht per trede (alleen printmodus) */
@@ -571,6 +699,7 @@ body.toon-regie .regie { display: block; }
   font-family: var(--mono);
   font-size: 16px;
   font-weight: 500;
+  color: var(--oranje-diep);
 }
 .print-cellen p { margin: 0.15em 0; }
 
@@ -580,6 +709,10 @@ body.toon-regie .regie { display: block; }
   .demo-panelen { grid-template-columns: 1fr; }
   .modus-toggle { top: 8px; right: 8px; font-size: 14px; }
   body.modus-presentatie .scherm { padding: 56px 16px 48px; }
+  body.modus-lezen .scherm, body.modus-print .scherm {
+    padding: 24px 18px;
+    border-radius: var(--radius-klein);
+  }
   .cel-detail dl { grid-template-columns: 1fr; gap: 2px; }
   .cel-detail dt { margin-top: 8px; }
 }
@@ -594,10 +727,16 @@ body.toon-regie .regie { display: block; }
 @media print {
   body { font-size: 12pt; background: #fff; }
   .modus-toggle, .teller, .demo-actie, .filter-toggle, .detail-sluit { display: none !important; }
-  .scherm { border-bottom: 0; padding: 0 0 24px; break-inside: avoid-page; }
+  .scherm {
+    padding: 0 0 20px !important;
+    margin: 0 0 16px !important;
+    background: none !important;
+    break-inside: avoid-page;
+  }
   .scherm h2 { break-after: avoid-page; }
   .matrix { min-width: 0; }
-  .cel[data-status="bestaat"] {
+  .cel[data-status="bestaat"],
+  .getal, blockquote, .cel-detail, .demo-paneel h3, .scherm-titelpagina {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
