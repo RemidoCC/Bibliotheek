@@ -37,7 +37,11 @@ module.exports = async function handler(req, res) {
       },
       body: JSON.stringify({
         model: "claude-opus-5",
-        max_tokens: 2048,
+        // Ruim genoeg: max_tokens telt denkstappen en antwoord bij elkaar op.
+        max_tokens: 4096,
+        // Laag denkniveau — herschrijven is een omzetting, geen puzzel.
+        // Scheelt seconden, en tijdens de presentatie telt elke seconde.
+        output_config: { effort: "low" },
         system: SYSTEEM,
         messages: [
           {
