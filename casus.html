@@ -98,6 +98,8 @@ ul.ticks li b{color:var(--inkt)}
 .ag .anum{font-size:var(--f-lg);font-weight:800;color:var(--oranje);flex:none;width:1.8rem}
 .ag .atx b{font-size:var(--f-md);display:block}
 .ag .atx span{font-size:var(--f-sm);color:var(--grijsgroen)}
+.slide.dark .ag{border-color:#3C4F48}
+.slide.dark .ag .atx span{color:#AFBAB4}
 
 /* drie leerlijnen als strip */
 .lijnen{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.35rem,.7vw,.75rem);margin-bottom:clamp(.5rem,1.2vh,.9rem)}
@@ -248,6 +250,7 @@ body.lees .foot{position:absolute}
 @media (max-width:900px){
   .c2,.c3,.split,.tl,.trap,.lijnen,.keten{grid-template-columns:1fr}
   .dg,.aanbod,.curve{grid-template-columns:repeat(2,1fr)}
+  .band-full .lb{flex:0 1 auto}
   .tl::before{display:none}
   .tl-item{padding-top:0;padding-left:2rem}
   .tl-item::before{top:.05rem}
@@ -555,21 +558,42 @@ body.lees .foot{position:absolute}
   <div class="kicker">Positionering &middot; waar eindigt het?</div>
   <h2>De leerlijn eindigt niet.<br>Onze rol <em class="hl">wél</em>.</h2>
   <div class="body">
-    <div class="split">
-      <div>
-        <p class="statement"><span class="u">De bibliotheek eindigt waar beroepsmatige scholing begint.</span></p>
-        <p class="lead" style="max-width:40ch">Wij zijn geen opleidingsinstituut. Wij zijn de onafhankelijke, gratis en laagdrempelige start &mdash; én de doorverwijzer.</p>
+    <p class="lead" style="max-width:62ch;margin:0 0 clamp(.5rem,1.4vh,1rem)">Wij zijn geen opleidingsinstituut. Wij zijn de gratis, onafhankelijke start &mdash; én de doorverwijzer. Drie routes, afhankelijk van waaróm iemand verder wil.</p>
+    <div class="cols c3">
+      <div class="card">
+        <div class="n">Route 1 &middot; naar werk en beroep</div>
+        <h3>Wie AI in zijn vak wil gebruiken</h3>
+        <ul class="ticks" style="margin-top:.25rem">
+          <li><b>Gilde Opleidingen</b> &mdash; mbo en Educatie, in Venlo</li>
+          <li><b>Vista College</b> &mdash; mbo Limburg</li>
+          <li><b>Leerwerkloket Noord-Limburg</b> en het Werkgeversservicepunt</li>
+          <li><b>De eigen werkgever</b> &mdash; scholingsbudget of O&amp;O-fonds</li>
+        </ul>
       </div>
       <div class="card">
-        <div class="n">Waar we naar doorverwijzen</div>
-        <ul class="ticks" style="margin-top:.3rem">
-          <li>Gilde Opleidingen en Vista College</li>
-          <li>Leerwerkloket Noord-Limburg</li>
-          <li>Werkgevers, voor scholing op de werkvloer</li>
-          <li>Incluzio en partners in het sociaal domein</li>
+        <div class="n">Route 2 &middot; naar verdieping</div>
+        <h3>Wie verder wil dan wij gaan</h3>
+        <ul class="ticks" style="margin-top:.25rem">
+          <li><b>Fontys Venlo</b> &mdash; hbo, ook deeltijd</li>
+          <li><b>Universiteit Maastricht</b>, Campus Venlo</li>
+          <li><b>Brightlands Campus Greenport Venlo</b> &mdash; voor ondernemers</li>
+          <li><b>Volksuniversiteit en SeniorWeb</b> &mdash; voor wie het als hobby doet</li>
         </ul>
-        <p class="note" style="margin-top:.55rem">Voorbeelden &mdash; de definitieve lijst volgt uit het netwerkonderzoek in stap 1.</p>
       </div>
+      <div class="card">
+        <div class="n">Route 3 &middot; naar hulp die niet digitaal is</div>
+        <h3>Als de vraag ergens anders vandaan komt</h3>
+        <ul class="ticks" style="margin-top:.25rem">
+          <li><b>Incluzio Sociale Basis</b> en de wijkteams</li>
+          <li><b>Gemeente Venlo</b> &mdash; schulddienstverlening, Wmo-loket</li>
+          <li><b>VieCuri</b> &mdash; bij zorg- en gezondheidsvragen</li>
+          <li><b>Stichting Lezen &amp; Schrijven</b> &mdash; bij laaggeletterdheid</li>
+        </ul>
+      </div>
+    </div>
+    <div class="band-full">
+      <span class="lb">Doorverwijzen is een handeling, geen folder</span>
+      <span class="lt">Een naam, een nummer en waar het kan meteen een afspraak &mdash; en later één keer navragen of het gelukt is. Wie terugkomt met een nieuwe vraag is gewoon weer welkom: dit is geen uitgang. <strong style="color:#fff">Voorbeelden &mdash; de definitieve lijst en de afspraken volgen uit het netwerkonderzoek in stap 1.</strong></span>
     </div>
   </div>
   <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>11</span></div>
@@ -585,12 +609,12 @@ body.lees .foot{position:absolute}
         <div class="wanneer">Sep &ndash; okt 2026</div>
         <h3>1. Peilen &amp; ophalen</h3>
         <p>Behoefte ophalen bij inwoners en partners. Tegelijk inventariseren wat er per afdeling al loopt.</p>
-        <div class="result">Eén leerlijnkaart + nulmeting</div>
+        <div class="result">Nulmeting</div>
       </div>
       <div class="tl-item">
         <div class="wanneer">Nov &ndash; dec 2026</div>
         <h3>2. Verankeren</h3>
-        <p>Het jaarprogramma 2027 wordt nú geschreven. Dit is het raam. Afstemmen met Cubiss over hun aanbod.</p>
+        <p>Het jaarprogramma 2027 wordt nú geschreven. Dit is het raam. Afstemmen met samenwerkingspartners over hun aanbod.</p>
         <div class="result">AI staat in het jaarprogramma 2027</div>
       </div>
       <div class="tl-item">
@@ -607,8 +631,8 @@ body.lees .foot{position:absolute}
       </div>
     </div>
     <div class="band-full">
-      <span class="lb">Dwars door alle stappen &middot; regie</span>
-      <span class="lt">Eén leerlijnkaart met per activiteit één eigenaar &middot; één jaarkalender &middot; kwartaaloverleg met alle betrokken afdelingen &middot; één ingang voor nieuwe idee&euml;n. <strong style="color:#fff">Zo ontstaat er geen dubbel of tegenstrijdig aanbod.</strong></span>
+      <span class="lb">Waar jaar 1 op uitkomt</span>
+      <span class="lt">Eén jaarplanning 2027 waarin AI staat ingeroosterd in alle drie de bestaande leerlijnen &mdash; digitale inclusie, basisvaardigheden en persoonlijke ontwikkeling. Per activiteit één eigenaar, één kalender, één ingang voor nieuwe idee&euml;n. <strong style="color:#fff">Geen apart AI-programma ernaast, maar AI ingeschreven in wat er toch al staat.</strong></span>
     </div>
   </div>
   <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>12</span></div>
@@ -622,32 +646,34 @@ body.lees .foot{position:absolute}
     <div class="cols" style="gap:.5rem">
       <div class="niveau"><div class="num">1</div><div><h3>Bereik</h3><p>Deelnemers per doelgroep en per vestiging &mdash; ook in de kernen, niet alleen de Stadsbibliotheek</p></div></div>
       <div class="niveau"><div class="num">2</div><div><h3>Leerresultaat</h3><p>Drie vragen vóór en na afloop. Niet wetenschappelijk, wel vergelijkbaar over de tijd</p></div></div>
-      <div class="niveau key"><div class="num">3</div><div><h3>Doorstroom &mdash; de kernindicator</h3><p>Van een vraag bij het IDO naar een cursus, en van een cursus naar verdieping. Een lijn waar niemand doorstroomt, is geen leerlijn maar een programmaboekje</p></div></div>
-      <div class="niveau"><div class="num">4</div><div><h3>Samenhang</h3><p>Staat elke activiteit op de leerlijnkaart, met één eigenaar? Hoeveel witte vlekken zijn er nog?</p></div></div>
+      <div class="niveau key"><div class="num">3</div><div><h3>Doorstroom &mdash; de kernindicator</h3><p>Van een vraag bij het IDO naar een cursus, en van een cursus naar verdieping</p></div></div>
+      <div class="niveau"><div class="num">4</div><div><h3>Toepassing</h3><p>Drie maanden later één vraag aan een kleine groep deelnemers: hebt u het sindsdien gebruikt, en waarvoor? Telefonisch of aan de balie</p></div></div>
     </div>
-    <p class="note" style="margin-top:.8rem">De vernieuwde Wsob verplicht ons straks data te leveren over gebruik, bereik en maatschappelijke impact. Dit meetplan is daar meteen op gebouwd &mdash; en sluit aan op de projectplannen, kwartaalplannen en CBCT-cyclus die er al zijn.</p>
   </div>
   <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>13</span></div>
 </section>
 
 <!-- 14 =============================================== -->
-<section class="slide dark" data-titel="Samenvatting">
-  <div class="kicker">Samengevat</div>
-  <h2>Vier keuzes</h2>
+<section class="slide dark" data-titel="Samenvatting &amp; vragen">
+  <div class="badge">Slot</div>
+  <div class="kicker">Samengevat &middot; einde van de presentatie</div>
+  <h2 style="max-width:32ch">Het verhaal in zes zinnen &mdash; en dan uw vragen</h2>
   <div class="body">
-    <div class="split" style="align-items:flex-start">
-      <ul class="ticks">
-        <li><b>AI is geen vierde programmalijn</b> &mdash; het is een laag over de drie leerlijnen die er al liggen</li>
-        <li><b>We beginnen bij wie anders afhaakt</b> &mdash; inclusie eerst, en de lijn loopt door tot wie zich blijvend wil ontwikkelen</li>
-        <li><b>Onze rol stopt waar beroepsmatige scholing begint</b> &mdash; we zijn de start én de doorverwijzer</li>
-        <li><b>We meten doorstroom</b>, niet alleen bereik</li>
-      </ul>
-      <div class="quote">
-        <q>Bibliotheken zijn ooit ontstaan omdat we vonden dat niet alleen de elite toegang mocht hebben tot boeken. Misschien moeten we ons afvragen of dezelfde gedachte ook geldt voor intelligentie.</q>
-        <span class="bron">Erik Reuvers, Probiblio, 1 juli 2026</span>
+    <div class="split">
+      <div class="agenda">
+        <div class="ag"><span class="anum">1</span><span class="atx"><b>Geen vierde programmalijn</b><span>AI is een laag dwars door digitale inclusie, basisvaardigheden en persoonlijke ontwikkeling</span></span></div>
+        <div class="ag"><span class="anum">2</span><span class="atx"><b>Wij beginnen één fase eerder</b><span>Niet bij wie zich aanmeldt, maar bij wie nog niet weet dat hij iets mist</span></span></div>
+        <div class="ag"><span class="anum">3</span><span class="atx"><b>Bewustwording waar mensen al komen</b><span>Voorleesuur, studietafel, balie, IDO, Digicaf&eacute; en de cursussen die al draaien</span></span></div>
+        <div class="ag"><span class="anum">4</span><span class="atx"><b>Leeraanbod van 0 tot 100+</b><span>Per doelgroep iets dat doorloopt, iets dat terugkomt en iets met een partner &mdash; plus de AI-vraagbaak</span></span></div>
+        <div class="ag"><span class="anum">5</span><span class="atx"><b>Onze rol stopt bij beroepsmatige scholing</b><span>We zijn de gratis start &eacute;n de doorverwijzer, langs drie routes</span></span></div>
+        <div class="ag" style="border-bottom:0"><span class="anum">6</span><span class="atx"><b>In 2027 staat het in de jaarplanning</b><span>Vier stappen in jaar 1, en we meten doorstroom &mdash; niet alleen bereik</span></span></div>
+      </div>
+      <div>
+        <p class="statement" style="max-width:14ch"><span class="u">Vragen?</span></p>
+        <p class="note" style="margin-top:.9rem;max-width:44ch">Achter deze presentatie zit een verdieping &mdash; de AI-vraagbaak uitgewerkt, de regiestructuur, de schaduwkant van AI, jaar 2 en mijn bronnen. Die sla ik nu over, maar ik heb ze bij de hand.</p>
+        <p class="note" style="margin-top:.5rem;max-width:44ch">De hele presentatie blijft online staan op <strong style="color:#fff">bibliotheek.remigommans.nl/casus.html</strong></p>
       </div>
     </div>
-    <p class="note" style="margin-top:.9rem">Achter deze presentatie zit een verdieping &mdash; de AI-vraagbaak uitgewerkt, de regiestructuur, de schaduwkant van AI, jaar 2 en mijn bronnen. Alles blijft online staan.</p>
   </div>
   <div class="foot"><span class="mark">Remi Gommans &middot; remi.gommans@gmail.com &middot; 06 &ndash; 53 62 41 81</span><span>14</span></div>
 </section>
