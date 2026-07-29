@@ -173,10 +173,19 @@ ul.ticks li b{color:var(--inkt)}
 
 /* keten: de vier fases met de drie overgangen ertussen. De overgangen
    dragen de kleur, want daar zit het werk. */
-.keten{display:grid;grid-template-columns:1fr .86fr 1fr .86fr 1fr .86fr 1fr;
-  gap:clamp(.25rem,.55vw,.6rem);align-items:stretch}
-.keten .cv{justify-content:center}
-.keten .cv,.keten .ovg{min-height:clamp(5.5rem,17vh,12rem)}
+.keten{display:grid;grid-template-columns:1fr .7fr 1fr .7fr 1fr .7fr 1fr;
+  gap:clamp(.25rem,.55vw,.7rem);align-items:end;--trede:clamp(1rem,3.4vh,3rem)}
+.keten>*:nth-child(2){margin-bottom:calc(var(--trede)*1)}
+.keten>*:nth-child(3){margin-bottom:calc(var(--trede)*2)}
+.keten>*:nth-child(4){margin-bottom:calc(var(--trede)*3)}
+.keten>*:nth-child(5){margin-bottom:calc(var(--trede)*4)}
+.keten>*:nth-child(6){margin-bottom:calc(var(--trede)*5)}
+.keten>*:nth-child(7){margin-bottom:calc(var(--trede)*6)}
+.keten .cv{justify-content:center;min-height:clamp(5rem,14vh,9.5rem)}
+/* de trede zelf: een oplopend lijntje onder elke fasekaart */
+.keten .cv::after{content:"";display:block;height:4px;border-radius:2px;
+  background:var(--lijn);margin:.6rem -.2rem -.2rem}
+.keten .cv.ons::after{background:var(--oranje)}
 .ovg{display:flex;flex-direction:column;justify-content:center;gap:.16rem;text-align:center;
   padding:0 clamp(.05rem,.25vw,.3rem)}
 .ovg .van{font-size:var(--f-xs);font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--grijsgroen)}
@@ -244,6 +253,7 @@ body.lees .foot{position:absolute}
 
 @media (max-width:900px){
   .c2,.c3,.split,.tl,.trap,.lijnen,.keten{grid-template-columns:1fr}
+  .keten{--trede:0}
   .dg,.aanbod,.curve{grid-template-columns:repeat(2,1fr)}
   .tl::before{display:none}
   .tl-item{padding-top:0;padding-left:2rem}
@@ -416,7 +426,7 @@ body.lees .foot{position:absolute}
       <span class="bron">Erik Reuvers, adviseur Digitale Geletterdheid bij Probiblio &mdash; column &ldquo;Van toegang tot kennis naar toegang tot denkvermogen&rdquo;, 1 juli 2026</span>
     </div>
   </div>
-  <div class="foot"><span class="mark">De drieslag komt uit ons eigen beleidsplan 2024&ndash;2027</span><span>07</span></div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>07</span></div>
 </section>
 
 <!-- 8 =============================================== -->
@@ -424,27 +434,25 @@ body.lees .foot{position:absolute}
   <div class="kicker">Positionering &middot; waar begint het?</div>
   <h2 style="max-width:36ch">Wij beginnen één fase eerder dan de cursus</h2>
   <div class="body">
-    <p class="note" style="margin-bottom:clamp(.5rem,1.4vh,1rem)">Een cursus begint bij wie al wéét dat hij iets mist. Het grootste deel van Venlo weet dat nog niet. Het werk zit niet in de fases &mdash; het zit in de overgangen ertussen.</p>
+    <p class="note" style="margin-bottom:clamp(.5rem,1.4vh,1rem)">Een cursus begint bij wie al wéét dat hij iets mist. Het grootste deel van Venlo weet dat nog niet.</p>
     <div class="keten">
-      <div class="cv">
+      <div class="cv ons">
         <span class="fase">Fase 1 &middot; onbewust onbekwaam</span>
         <span class="zin">&ldquo;Ik heb er niks mee&rdquo;</span>
       </div>
       <div class="ovg ons">
         <span class="van">Overgang 1</span>
-        <span class="pijl">&rarr;</span>
+        <span class="pijl">&#8599;</span>
         <span class="nm">Bewustwording</span>
-        <span class="tx">Merken dat het je al raakt. Dit doet verder niemand.</span>
       </div>
-      <div class="cv">
+      <div class="cv ons">
         <span class="fase">Fase 2 &middot; bewust onbekwaam</span>
         <span class="zin">&ldquo;Hier kan ik niet mee&rdquo;</span>
       </div>
       <div class="ovg ons">
         <span class="van">Overgang 2</span>
-        <span class="pijl">&rarr;</span>
+        <span class="pijl">&#8599;</span>
         <span class="nm">Leren</span>
-        <span class="tx">Begeleid oefenen, in een cursus of aan de balie.</span>
       </div>
       <div class="cv">
         <span class="fase">Fase 3 &middot; bewust bekwaam</span>
@@ -452,18 +460,13 @@ body.lees .foot{position:absolute}
       </div>
       <div class="ovg">
         <span class="van">Overgang 3</span>
-        <span class="pijl">&rarr;</span>
+        <span class="pijl">&#8599;</span>
         <span class="nm">Routine</span>
-        <span class="tx">Door het te doen, thuis en op het werk.</span>
       </div>
       <div class="cv">
         <span class="fase">Fase 4 &middot; onbewust bekwaam</span>
         <span class="zin">&ldquo;Ik gebruik het gewoon&rdquo;</span>
       </div>
-    </div>
-    <div class="band-full">
-      <span class="lb">Twee van de drie zijn van ons</span>
-      <span class="lt">Bewustwording en leren doen wij. De derde overgang komt door te doen &mdash; daar stapt de bibliotheek eruit en verwijzen we door. <strong style="color:#fff">En die eerste overgang doet verder niemand in Venlo.</strong></span>
     </div>
   </div>
   <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>08</span></div>
@@ -474,37 +477,28 @@ body.lees .foot{position:absolute}
   <div class="kicker">Het aanbod &middot; overgang 1 &middot; bewustwording</div>
   <h2 style="max-width:38ch">Niemand meldt zich aan voor fase 1</h2>
   <div class="body">
-    <div class="band-full oranje" style="margin-top:0;margin-bottom:clamp(.5rem,1.3vh,.9rem)">
-      <span class="lb">De omkering</span>
-      <span class="lt">AI leest voor, vereenvoudigt, vertaalt en luistert. Voor wie moeite heeft met taal is dat geen gemak &mdash; <strong style="color:#fff">dat is toegang.</strong> Daarom begint AI bij mij aan de onderkant van de lijn, niet aan de bovenkant.</span>
-    </div>
     <div class="aanbod fasen">
       <div class="ab">
         <div class="kop">0&ndash;12 + ouders</div>
-        <div class="beh">Ouders weten niet wat AI doet in speelgoed, zoekmachines en huiswerk</div>
         <div class="item">AI-kaart in de Digikoffer<span>doorlopend &middot; groep 6&ndash;8 &middot; via de basisscholen</span></div>
         <div class="item">Ouderboodschap bij het voorleesuur<span>maandelijks &middot; in de vestigingen &middot; met BoekStart</span></div>
       </div>
       <div class="ab">
         <div class="kop">12&ndash;18</div>
-        <div class="beh">Gebruiken AI dagelijks zonder het zo te noemen</div>
         <div class="item">&ldquo;Wat hiervan is gemaakt?&rdquo;<span>vijf minuten &middot; in de bieb en op school &middot; met team Onderwijs</span></div>
         <div class="item">Zichtbaar bij de Week van de Mediawijsheid<span>jaarlijks &middot; landelijk materiaal</span></div>
       </div>
       <div class="ab">
         <div class="kop">18&ndash;30</div>
-        <div class="beh">Weten niet dat AI al meebeslist bij sollicitatie en studiekeuze</div>
         <div class="item">Kaartje op de studietafel: waar AI al over jou beslist<span>tentamenperiodes &middot; Stadsbibliotheek</span></div>
       </div>
       <div class="ab">
         <div class="kop">30&ndash;67</div>
-        <div class="beh">Merken het pas als er een brief of een afwijzing binnenkomt</div>
         <div class="item">&ldquo;Wist u dat&rdquo;-moment in lopende cursussen<span>doorlopend &middot; Klik &amp; Tik en Digisterker &middot; eigen medewerkers</span></div>
         <div class="item">Signaalvraag aan de balie<span>doorlopend &middot; alle vestigingen</span></div>
       </div>
       <div class="ab">
         <div class="kop">67+</div>
-        <div class="beh">Krijgen de gevolgen het eerst: de chatbot, de nagebootste stem</div>
         <div class="item">AI-vraag herkennen bij IDO en Digicaf&eacute;<span>wekelijks &middot; alle vestigingen &middot; vrijwilligers getraind in stap 3 van jaar 1</span></div>
       </div>
     </div>
@@ -513,7 +507,7 @@ body.lees .foot{position:absolute}
       <span class="lt">Behoefte peilen via bestaande contactmomenten &mdash; balie, IDO, Digicaf&eacute;, cursussen &mdash; en via korte vragenlijsten bij partners: <strong style="color:#fff">S.O.B. Venlo, VieCuri en de scholen.</strong> Geen apart onderzoekstraject, wel een echt beeld.</span>
     </div>
   </div>
-  <div class="foot"><span class="mark">Bewustwording kun je niet aankondigen &mdash; je bouwt haar in</span><span>09</span></div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>09</span></div>
 </section>
 
 <!-- 10 =============================================== -->
@@ -555,10 +549,10 @@ body.lees .foot{position:absolute}
     </div>
     <div class="band-full">
       <span class="lb">Dwars door alle vijf</span>
-      <span class="lt"><strong style="color:#fff">De AI-vraagbaak</strong> &mdash; een wekelijks inloopspreekuur naast het IDO, plus een AI-assistent die getraind is op onze eigen, gecontroleerde bronnen. Altijd met een mens erachter.</span>
+      <span class="lt"><strong style="color:#fff">De AI-vraagbaak</strong> &mdash; een wekelijks inloopspreekuur naast het IDO.</span>
     </div>
   </div>
-  <div class="foot"><span class="mark">Voorstel &mdash; definitieve invulling volgt uit de behoeftepeiling</span><span>10</span></div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>10</span></div>
 </section>
 <!-- 11 =============================================== -->
 <section class="slide dark" data-titel="Waar eindigt het?">
