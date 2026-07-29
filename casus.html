@@ -174,15 +174,9 @@ ul.ticks li b{color:var(--inkt)}
 /* keten: de vier fases met de drie overgangen ertussen. De overgangen
    dragen de kleur, want daar zit het werk. */
 .keten{display:grid;grid-template-columns:1fr .7fr 1fr .7fr 1fr .7fr 1fr;
-  gap:clamp(.25rem,.55vw,.7rem);align-items:end;--trede:clamp(1rem,3.4vh,3rem)}
-.keten>*:nth-child(2){margin-bottom:calc(var(--trede)*1)}
-.keten>*:nth-child(3){margin-bottom:calc(var(--trede)*2)}
-.keten>*:nth-child(4){margin-bottom:calc(var(--trede)*3)}
-.keten>*:nth-child(5){margin-bottom:calc(var(--trede)*4)}
-.keten>*:nth-child(6){margin-bottom:calc(var(--trede)*5)}
-.keten>*:nth-child(7){margin-bottom:calc(var(--trede)*6)}
+  gap:clamp(.25rem,.55vw,.7rem);align-items:stretch}
 .keten .cv{justify-content:center;min-height:clamp(5rem,14vh,9.5rem)}
-/* de trede zelf: een oplopend lijntje onder elke fasekaart */
+/* een lijntje onder elke fasekaart: oranje waar wij staan */
 .keten .cv::after{content:"";display:block;height:4px;border-radius:2px;
   background:var(--lijn);margin:.6rem -.2rem -.2rem}
 .keten .cv.ons::after{background:var(--oranje)}
@@ -253,7 +247,6 @@ body.lees .foot{position:absolute}
 
 @media (max-width:900px){
   .c2,.c3,.split,.tl,.trap,.lijnen,.keten{grid-template-columns:1fr}
-  .keten{--trede:0}
   .dg,.aanbod,.curve{grid-template-columns:repeat(2,1fr)}
   .tl::before{display:none}
   .tl-item{padding-top:0;padding-left:2rem}
@@ -442,7 +435,7 @@ body.lees .foot{position:absolute}
       </div>
       <div class="ovg ons">
         <span class="van">Overgang 1</span>
-        <span class="pijl">&#8599;</span>
+        <span class="pijl">&rarr;</span>
         <span class="nm">Bewustwording</span>
       </div>
       <div class="cv ons">
@@ -451,7 +444,7 @@ body.lees .foot{position:absolute}
       </div>
       <div class="ovg ons">
         <span class="van">Overgang 2</span>
-        <span class="pijl">&#8599;</span>
+        <span class="pijl">&rarr;</span>
         <span class="nm">Leren</span>
       </div>
       <div class="cv">
@@ -460,7 +453,7 @@ body.lees .foot{position:absolute}
       </div>
       <div class="ovg">
         <span class="van">Overgang 3</span>
-        <span class="pijl">&#8599;</span>
+        <span class="pijl">&rarr;</span>
         <span class="nm">Routine</span>
       </div>
       <div class="cv">
@@ -477,34 +470,32 @@ body.lees .foot{position:absolute}
   <div class="kicker">Het aanbod &middot; overgang 1 &middot; bewustwording</div>
   <h2 style="max-width:38ch">Niemand meldt zich aan voor fase 1</h2>
   <div class="body">
+    <p class="note" style="margin-bottom:clamp(.5rem,1.4vh,1rem)">Dus laten we het zien. Geen waarschuwing en geen cursus &mdash; vijf minuten waarin iemand zelf ontdekt wat ermee kan, op een plek waar hij toch al kwam.</p>
     <div class="aanbod fasen">
       <div class="ab">
         <div class="kop">0&ndash;12 + ouders</div>
-        <div class="item">AI-kaart in de Digikoffer<span>doorlopend &middot; groep 6&ndash;8 &middot; via de basisscholen</span></div>
-        <div class="item">Ouderboodschap bij het voorleesuur<span>maandelijks &middot; in de vestigingen &middot; met BoekStart</span></div>
+        <div class="item">Verzin een dier &mdash; en zie het verschijnen<span>maandelijks &middot; bij het voorleesuur &middot; met BoekStart</span></div>
       </div>
       <div class="ab">
         <div class="kop">12&ndash;18</div>
-        <div class="item">&ldquo;Wat hiervan is gemaakt?&rdquo;<span>vijf minuten &middot; in de bieb en op school &middot; met team Onderwijs</span></div>
-        <div class="item">Zichtbaar bij de Week van de Mediawijsheid<span>jaarlijks &middot; landelijk materiaal</span></div>
+        <div class="item">Jouw idee, binnen vijf minuten een poster<span>doorlopend &middot; in de bieb en op school &middot; met team Onderwijs</span></div>
       </div>
       <div class="ab">
         <div class="kop">18&ndash;30</div>
-        <div class="item">Kaartje op de studietafel: waar AI al over jou beslist<span>tentamenperiodes &middot; Stadsbibliotheek</span></div>
+        <div class="item">Laat je stof samenvatten &mdash; en controleer het samen<span>tentamenperiodes &middot; aan de studietafels &middot; Stadsbibliotheek</span></div>
       </div>
       <div class="ab">
         <div class="kop">30&ndash;67</div>
-        <div class="item">&ldquo;Wist u dat&rdquo;-moment in lopende cursussen<span>doorlopend &middot; Klik &amp; Tik en Digisterker &middot; eigen medewerkers</span></div>
-        <div class="item">Signaalvraag aan de balie<span>doorlopend &middot; alle vestigingen</span></div>
+        <div class="item">Uw eigen brief, ter plekke in gewone taal<span>doorlopend &middot; in Klik &amp; Tik en Digisterker &middot; eigen medewerkers</span></div>
       </div>
       <div class="ab">
         <div class="kop">67+</div>
-        <div class="item">AI-vraag herkennen bij IDO en Digicaf&eacute;<span>wekelijks &middot; alle vestigingen &middot; vrijwilligers getraind in stap 3 van jaar 1</span></div>
+        <div class="item">Stel samen &eacute;&eacute;n vraag, en hoor het antwoord<span>wekelijks &middot; aan de IDO- en Digicaf&eacute;-tafel</span></div>
       </div>
     </div>
     <div class="band-full">
-      <span class="lb">Maar het begint met luisteren</span>
-      <span class="lt">Behoefte peilen via bestaande contactmomenten &mdash; balie, IDO, Digicaf&eacute;, cursussen &mdash; en via korte vragenlijsten bij partners: <strong style="color:#fff">S.O.B. Venlo, VieCuri en de scholen.</strong> Geen apart onderzoekstraject, wel een echt beeld.</span>
+      <span class="lb">Elk moment is ook een peiling</span>
+      <span class="lt">Wie meedoet, laat zien wat hij wil weten. Zo halen we de behoefte op waar mensen toch al zijn &mdash; balie, IDO, Digicaf&eacute;, cursussen &mdash; aangevuld met korte vragenlijsten bij <strong style="color:#fff">S.O.B. Venlo, VieCuri en de scholen.</strong> Geen apart onderzoekstraject, wel een echt beeld.</span>
     </div>
   </div>
   <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>09</span></div>
@@ -519,32 +510,37 @@ body.lees .foot{position:absolute}
       <div class="ab">
         <div class="kop">0&ndash;12 + ouders</div>
         <div class="beh">Ouders weten niet wat AI doet in speelgoed, zoekmachines en huiswerk</div>
-        <div class="item">Ouderavond &ldquo;AI thuis&rdquo;<span>1&times; per kwartaal, via school en BoekStart</span></div>
-        <div class="item">AI-module in de Digikoffer<span>doorlopend, groep 6&ndash;8</span></div>
+        <div class="item">AI-module in de Digikoffer<span>doorlopend &middot; groep 6&ndash;8</span></div>
+        <div class="item">&ldquo;Voorlezen met een robot&rdquo;<span>maandelijks &middot; 6&ndash;9 jaar, met nagesprek voor ouders</span></div>
+        <div class="item">Ouderavond &ldquo;AI thuis&rdquo;<span>1&times; per kwartaal &middot; met de basisscholen en BoekStart</span></div>
       </div>
       <div class="ab">
         <div class="kop">12&ndash;18</div>
         <div class="beh">Huiswerk, deepfakes, chatbots als vriend &mdash; en wat mag van school?</div>
-        <div class="item">Workshop &ldquo;Echt of nep?&rdquo;<span>45 min, gastles op VO en in de bieb</span></div>
-        <div class="item">Aanhaken bij Week van de Mediawijsheid<span>jaarlijks</span></div>
+        <div class="item">Workshop &ldquo;Echt of nep?&rdquo;<span>doorlopend &middot; 45 min, in de bieb</span></div>
+        <div class="item">Week van de Mediawijsheid<span>jaarlijks &middot; landelijk materiaal</span></div>
+        <div class="item">Gastles &ldquo;AI en je huiswerk&rdquo;<span>op aanvraag &middot; met de VO-scholen</span></div>
       </div>
       <div class="ab">
         <div class="kop">18&ndash;30</div>
         <div class="beh">AI bij studie, sollicitatie en de eerste baan</div>
-        <div class="item">Avondsessie &ldquo;AI en je toekomst&rdquo;<span>2&times; per jaar, met Leerwerkloket</span></div>
-        <div class="item">Inloop op studieplekken<span>tentamenperiodes</span></div>
+        <div class="item">Workshop &ldquo;Solliciteren met AI&rdquo;<span>doorlopend &middot; op afspraak, Stadsbibliotheek</span></div>
+        <div class="item">Kort traject &ldquo;Werken met AI&rdquo;<span>3 avonden, 2&times; per jaar</span></div>
+        <div class="item">Avondsessie &ldquo;AI en je toekomst&rdquo;<span>2&times; per jaar &middot; met het Leerwerkloket</span></div>
       </div>
       <div class="ab">
         <div class="kop">30&ndash;67</div>
         <div class="beh">AI op het werk, en tegelijk als ouder willen bijblijven</div>
-        <div class="item">Basis AI-cursus<span>3 avonden, 2&times; per jaar, landelijk materiaal</span></div>
-        <div class="item">Verdiepingssessie &ldquo;Wat AI ons kost&rdquo;<span>2&times; per jaar</span></div>
+        <div class="item">Basis AI-cursus<span>doorlopend &middot; 3 avonden per groep, landelijk materiaal</span></div>
+        <div class="item">&ldquo;Wat doet mijn kind hiermee?&rdquo;<span>2&times; per jaar &middot; in de vestigingen</span></div>
+        <div class="item">&ldquo;AI op het werk&rdquo;<span>3&times; per jaar &middot; met het Leerwerkloket</span></div>
       </div>
       <div class="ab">
         <div class="kop">67+</div>
         <div class="beh">Meedoen, brieven begrijpen &mdash; en niet opgelicht worden</div>
-        <div class="item">Cursus &ldquo;AI voor beginners&rdquo;<span>4 bijeenkomsten, roulerend langs de vestigingen</span></div>
-        <div class="item">&ldquo;Nep aan de telefoon&rdquo;<span>2&times; per jaar, met politie en bank</span></div>
+        <div class="item">AI-uur in het Digicaf&eacute;<span>doorlopend &middot; alle vestigingen</span></div>
+        <div class="item">Cursus &ldquo;AI voor beginners&rdquo;<span>4 bijeenkomsten, 3&times; per jaar &middot; roulerend</span></div>
+        <div class="item">&ldquo;Nep aan de telefoon&rdquo;<span>2&times; per jaar &middot; met politie en bank</span></div>
       </div>
     </div>
     <div class="band-full">
