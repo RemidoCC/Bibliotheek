@@ -171,6 +171,21 @@ ul.ticks li b{color:var(--inkt)}
    dwars over de doelgroepen heen kunt lezen */
 .aanbod.fasen .ab .item:first-of-type{flex:1}
 
+/* keten: de vier fases met de drie overgangen ertussen. De overgangen
+   dragen de kleur, want daar zit het werk. */
+.keten{display:grid;grid-template-columns:1fr .86fr 1fr .86fr 1fr .86fr 1fr;
+  gap:clamp(.25rem,.55vw,.6rem);align-items:stretch}
+.keten .cv{justify-content:center}
+.keten .cv,.keten .ovg{min-height:clamp(5.5rem,17vh,12rem)}
+.ovg{display:flex;flex-direction:column;justify-content:center;gap:.16rem;text-align:center;
+  padding:0 clamp(.05rem,.25vw,.3rem)}
+.ovg .van{font-size:var(--f-xs);font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--grijsgroen)}
+.ovg .pijl{font-size:var(--f-lg);line-height:.9;font-weight:800;color:var(--lijn)}
+.ovg .nm{font-size:var(--f-md);font-weight:800;line-height:1.14}
+.ovg .tx{font-size:var(--f-xs);line-height:1.36;color:var(--grijsgroen)}
+.ovg.ons .van,.ovg.ons .pijl{color:var(--oranje)}
+.ovg.ons .nm{color:var(--oranje-diep)}
+
 /* tijdlijn */
 .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.45rem,1vw,1rem);position:relative}
 .tl::before{content:"";position:absolute;left:0;right:0;top:.95rem;height:2px;background:var(--lijn)}
@@ -228,7 +243,7 @@ body.lees .slide{position:relative;inset:auto;display:flex;min-height:min(88vh,7
 body.lees .foot{position:absolute}
 
 @media (max-width:900px){
-  .c2,.c3,.split,.tl,.trap,.lijnen{grid-template-columns:1fr}
+  .c2,.c3,.split,.tl,.trap,.lijnen,.keten{grid-template-columns:1fr}
   .dg,.aanbod,.curve{grid-template-columns:repeat(2,1fr)}
   .tl::before{display:none}
   .tl-item{padding-top:0;padding-left:2rem}
@@ -268,9 +283,9 @@ body.lees .foot{position:absolute}
     <div class="agenda">
       <div class="ag"><span class="anum">1</span><span class="atx"><b>De opdracht</b><span>Wat er precies gevraagd wordt</span></span></div>
       <div class="ag"><span class="anum">2</span><span class="atx"><b>Waar we nu staan</b><span>Bij de Bibliotheek Venlo &eacute;n landelijk</span></span></div>
-      <div class="ag"><span class="anum">3</span><span class="atx"><b>Positionering</b><span>Onze rol, waar het begint, waar het eindigt</span></span></div>
-      <div class="ag"><span class="anum">4</span><span class="atx"><b>Het aanbod</b><span>Concreet, per doelgroep</span></span></div>
-      <div class="ag"><span class="anum">5</span><span class="atx"><b>Het eerste jaar &amp; hoe we het meten</b><span>Vier fasen, vier meetniveaus</span></span></div>
+      <div class="ag"><span class="anum">3</span><span class="atx"><b>Positionering</b><span>Onze rol, en de vier fases waarin mensen leren</span></span></div>
+      <div class="ag"><span class="anum">4</span><span class="atx"><b>Het aanbod</b><span>Per fase, per doelgroep &mdash; en waar onze rol eindigt</span></span></div>
+      <div class="ag"><span class="anum">5</span><span class="atx"><b>Het eerste jaar &amp; hoe we het meten</b><span>Vier stappen, vier meetniveaus</span></span></div>
     </div>
   </div>
   <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>02</span></div>
@@ -331,7 +346,7 @@ body.lees .foot{position:absolute}
       <span class="lb">De diagnose</span>
       <span class="lt">Het aanbod in 2025 was goed bezocht en goed gewaardeerd &mdash; maar incidenteel. Drie van de vijf doelgroepen hebben n&oacute;g niets. De opgave is dus niet &ldquo;meer AI-activiteiten&rdquo;, maar <strong style="color:#fff">dekking over de hele lijn, structureel.</strong></span>
     </div>
-    <p class="note" style="margin-top:.55rem">Opgebouwd uit openbare bronnen. Aanvulling is welkom &mdash; dit is precies wat ik in fase 1 zou ophalen.</p>
+    <p class="note" style="margin-top:.55rem">Opgebouwd uit openbare bronnen. Aanvulling is welkom &mdash; dit is precies wat ik in stap 1 zou ophalen.</p>
   </div>
   <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>04</span></div>
 </section>
@@ -405,58 +420,92 @@ body.lees .foot{position:absolute}
 </section>
 
 <!-- 8 =============================================== -->
-<section class="slide" data-titel="Waar begint het?">
+<section class="slide" data-titel="De vier fases">
   <div class="kicker">Positionering &middot; waar begint het?</div>
   <h2 style="max-width:36ch">Wij beginnen één fase eerder dan de cursus</h2>
   <div class="body">
-    <p class="note" style="margin-bottom:clamp(.45rem,1.1vh,.85rem)">Een cursus begint bij wie al wéét dat hij iets mist. Het grootste deel van Venlo weet dat nog niet.</p>
-    <div class="curve">
-      <div class="cv ons start">
-        <span class="fase">1 &middot; Onbewust onbekwaam</span>
+    <p class="note" style="margin-bottom:clamp(.5rem,1.4vh,1rem)">Een cursus begint bij wie al wéét dat hij iets mist. Het grootste deel van Venlo weet dat nog niet. Het werk zit niet in de fases &mdash; het zit in de overgangen ertussen.</p>
+    <div class="keten">
+      <div class="cv">
+        <span class="fase">Fase 1 &middot; onbewust onbekwaam</span>
         <span class="zin">&ldquo;Ik heb er niks mee&rdquo;</span>
-        <span class="wie">Hier beginnen wij</span>
       </div>
-      <div class="cv ons">
-        <span class="fase">2 &middot; Bewust onbekwaam</span>
+      <div class="ovg ons">
+        <span class="van">Overgang 1</span>
+        <span class="pijl">&rarr;</span>
+        <span class="nm">Bewustwording</span>
+        <span class="tx">Merken dat het je al raakt. Dit doet verder niemand.</span>
+      </div>
+      <div class="cv">
+        <span class="fase">Fase 2 &middot; bewust onbekwaam</span>
         <span class="zin">&ldquo;Hier kan ik niet mee&rdquo;</span>
-        <span class="wie">Hier begeleiden wij</span>
+      </div>
+      <div class="ovg ons">
+        <span class="van">Overgang 2</span>
+        <span class="pijl">&rarr;</span>
+        <span class="nm">Leren</span>
+        <span class="tx">Begeleid oefenen, in een cursus of aan de balie.</span>
       </div>
       <div class="cv">
-        <span class="fase">3 &middot; Bewust bekwaam</span>
+        <span class="fase">Fase 3 &middot; bewust bekwaam</span>
         <span class="zin">&ldquo;Het lukt, als ik erbij nadenk&rdquo;</span>
-        <span class="wie">Hier verwijzen we door</span>
+      </div>
+      <div class="ovg">
+        <span class="van">Overgang 3</span>
+        <span class="pijl">&rarr;</span>
+        <span class="nm">Routine</span>
+        <span class="tx">Door het te doen, thuis en op het werk.</span>
       </div>
       <div class="cv">
-        <span class="fase">4 &middot; Onbewust bekwaam</span>
+        <span class="fase">Fase 4 &middot; onbewust bekwaam</span>
         <span class="zin">&ldquo;Ik gebruik het gewoon&rdquo;</span>
-        <span class="wie">Buiten onze rol</span>
       </div>
+    </div>
+    <div class="band-full">
+      <span class="lb">Twee van de drie zijn van ons</span>
+      <span class="lt">Bewustwording en leren doen wij. De derde overgang komt door te doen &mdash; daar stapt de bibliotheek eruit en verwijzen we door. <strong style="color:#fff">En die eerste overgang doet verder niemand in Venlo.</strong></span>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>08</span></div>
+</section>
+
+<!-- 9 =============================================== -->
+<section class="slide" data-titel="Het aanbod &middot; fase 1">
+  <div class="kicker">Het aanbod &middot; overgang 1 &middot; bewustwording</div>
+  <h2 style="max-width:38ch">Niemand meldt zich aan voor fase 1</h2>
+  <div class="body">
+    <div class="band-full oranje" style="margin-top:0;margin-bottom:clamp(.5rem,1.3vh,.9rem)">
+      <span class="lb">De omkering</span>
+      <span class="lt">AI leest voor, vereenvoudigt, vertaalt en luistert. Voor wie moeite heeft met taal is dat geen gemak &mdash; <strong style="color:#fff">dat is toegang.</strong> Daarom begint AI bij mij aan de onderkant van de lijn, niet aan de bovenkant.</span>
     </div>
     <div class="aanbod fasen">
       <div class="ab">
         <div class="kop">0&ndash;12 + ouders</div>
-        <div class="item"><span class="fs">Fase 1 &middot; bewustwording</span>AI-moment bij BoekStart en het voorleesuur<span>waar zit AI al in speelgoed en huiswerk?</span></div>
-        <div class="item"><span class="fs">Fase 2 &middot; eerste stap</span>Ouderavond &ldquo;AI thuis&rdquo;</div>
+        <div class="beh">Ouders weten niet wat AI doet in speelgoed, zoekmachines en huiswerk</div>
+        <div class="item">AI-kaart in de Digikoffer<span>doorlopend &middot; groep 6&ndash;8 &middot; via de basisscholen</span></div>
+        <div class="item">Ouderboodschap bij het voorleesuur<span>maandelijks &middot; in de vestigingen &middot; met BoekStart</span></div>
       </div>
       <div class="ab">
         <div class="kop">12&ndash;18</div>
-        <div class="item"><span class="fs">Fase 1 &middot; bewustwording</span>&ldquo;Wat hiervan is gemaakt?&rdquo;<span>vijf minuten in de bieb en op school, geen les</span></div>
-        <div class="item"><span class="fs">Fase 2 &middot; eerste stap</span>Workshop &ldquo;Echt of nep?&rdquo;</div>
+        <div class="beh">Gebruiken AI dagelijks zonder het zo te noemen</div>
+        <div class="item">&ldquo;Wat hiervan is gemaakt?&rdquo;<span>vijf minuten &middot; in de bieb en op school &middot; met team Onderwijs</span></div>
+        <div class="item">Zichtbaar bij de Week van de Mediawijsheid<span>jaarlijks &middot; landelijk materiaal</span></div>
       </div>
       <div class="ab">
         <div class="kop">18&ndash;30</div>
-        <div class="item"><span class="fs">Fase 1 &middot; bewustwording</span>Signaal op de studieplek<span>AI beslist al mee bij je sollicitatie</span></div>
-        <div class="item"><span class="fs">Fase 2 &middot; eerste stap</span>Avondsessie &ldquo;AI en je toekomst&rdquo;</div>
+        <div class="beh">Weten niet dat AI al meebeslist bij sollicitatie en studiekeuze</div>
+        <div class="item">Kaartje op de studietafel: waar AI al over jou beslist<span>tentamenperiodes &middot; Stadsbibliotheek</span></div>
       </div>
       <div class="ab">
         <div class="kop">30&ndash;67</div>
-        <div class="item"><span class="fs">Fase 1 &middot; bewustwording</span>&ldquo;Wist u dat&rdquo;-moment aan de balie<span>AI zit al in de brief van de gemeente</span></div>
-        <div class="item"><span class="fs">Fase 2 &middot; eerste stap</span>Basis AI-cursus</div>
+        <div class="beh">Merken het pas als er een brief of een afwijzing binnenkomt</div>
+        <div class="item">&ldquo;Wist u dat&rdquo;-moment in lopende cursussen<span>doorlopend &middot; Klik &amp; Tik en Digisterker &middot; eigen medewerkers</span></div>
+        <div class="item">Signaalvraag aan de balie<span>doorlopend &middot; alle vestigingen</span></div>
       </div>
       <div class="ab">
         <div class="kop">67+</div>
-        <div class="item"><span class="fs">Fase 1 &middot; bewustwording</span>AI-vraag herkennen bij IDO en Digicaf&eacute;<span>de chatbot van de gemeente, de nagebootste stem</span></div>
-        <div class="item"><span class="fs">Fase 2 &middot; eerste stap</span>Cursus &ldquo;AI voor beginners&rdquo;</div>
+        <div class="beh">Krijgen de gevolgen het eerst: de chatbot, de nagebootste stem</div>
+        <div class="item">AI-vraag herkennen bij IDO en Digicaf&eacute;<span>wekelijks &middot; alle vestigingen &middot; vrijwilligers getraind in stap 3 van jaar 1</span></div>
       </div>
     </div>
     <div class="band-full">
@@ -464,43 +513,14 @@ body.lees .foot{position:absolute}
       <span class="lt">Behoefte peilen via bestaande contactmomenten &mdash; balie, IDO, Digicaf&eacute;, cursussen &mdash; en via korte vragenlijsten bij partners: <strong style="color:#fff">S.O.B. Venlo, VieCuri en de scholen.</strong> Geen apart onderzoekstraject, wel een echt beeld.</span>
     </div>
   </div>
-  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>08</span></div>
-</section>
-
-<!-- 9 =============================================== -->
-<section class="slide dark" data-titel="Waar eindigt het?">
-  <div class="kicker">Positionering &middot; waar eindigt het?</div>
-  <h2>De leerlijn eindigt niet.<br>Onze rol <em class="hl">wél</em>.</h2>
-  <div class="body">
-    <div class="split">
-      <div>
-        <p class="statement"><span class="u">De bibliotheek eindigt waar beroepsmatige scholing begint.</span></p>
-        <p class="lead" style="max-width:40ch">Wij zijn geen opleidingsinstituut. Wij zijn de onafhankelijke, gratis en laagdrempelige start &mdash; én de doorverwijzer.</p>
-      </div>
-      <div class="card">
-        <div class="n">Waar we naar doorverwijzen</div>
-        <ul class="ticks" style="margin-top:.3rem">
-          <li>Gilde Opleidingen en Vista College</li>
-          <li>Leerwerkloket Noord-Limburg</li>
-          <li>Werkgevers, voor scholing op de werkvloer</li>
-          <li>Incluzio en partners in het sociaal domein</li>
-        </ul>
-        <p class="note" style="margin-top:.55rem">Voorbeelden &mdash; de definitieve lijst volgt uit het netwerkonderzoek in fase 1.</p>
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>09</span></div>
+  <div class="foot"><span class="mark">Bewustwording kun je niet aankondigen &mdash; je bouwt haar in</span><span>09</span></div>
 </section>
 
 <!-- 10 =============================================== -->
-<section class="slide" data-titel="Het aanbod per doelgroep">
-  <div class="kicker">Het aanbod</div>
-  <h2 style="max-width:40ch">Voor iedereen &mdash; maar het urgentst voor wie anders afhaakt</h2>
+<section class="slide" data-titel="Het aanbod &middot; fase 2">
+  <div class="kicker">Het aanbod &middot; overgang 2 &middot; leren</div>
+  <h2 style="max-width:40ch">Voor wie wéét dat hij iets mist</h2>
   <div class="body">
-    <div class="band-full oranje" style="margin-top:0;margin-bottom:clamp(.5rem,1.3vh,.9rem)">
-      <span class="lb">De omkering</span>
-      <span class="lt">AI leest voor, vereenvoudigt, vertaalt en luistert. Voor wie moeite heeft met taal is dat geen gemak &mdash; <strong style="color:#fff">dat is toegang.</strong> Daarom begint AI bij mij aan de onderkant van de lijn, niet aan de bovenkant.</span>
-    </div>
     <div class="aanbod">
       <div class="ab">
         <div class="kop">0&ndash;12 + ouders</div>
@@ -540,8 +560,32 @@ body.lees .foot{position:absolute}
   </div>
   <div class="foot"><span class="mark">Voorstel &mdash; definitieve invulling volgt uit de behoeftepeiling</span><span>10</span></div>
 </section>
-
 <!-- 11 =============================================== -->
+<section class="slide dark" data-titel="Waar eindigt het?">
+  <div class="kicker">Positionering &middot; waar eindigt het?</div>
+  <h2>De leerlijn eindigt niet.<br>Onze rol <em class="hl">wél</em>.</h2>
+  <div class="body">
+    <div class="split">
+      <div>
+        <p class="statement"><span class="u">De bibliotheek eindigt waar beroepsmatige scholing begint.</span></p>
+        <p class="lead" style="max-width:40ch">Wij zijn geen opleidingsinstituut. Wij zijn de onafhankelijke, gratis en laagdrempelige start &mdash; én de doorverwijzer.</p>
+      </div>
+      <div class="card">
+        <div class="n">Waar we naar doorverwijzen</div>
+        <ul class="ticks" style="margin-top:.3rem">
+          <li>Gilde Opleidingen en Vista College</li>
+          <li>Leerwerkloket Noord-Limburg</li>
+          <li>Werkgevers, voor scholing op de werkvloer</li>
+          <li>Incluzio en partners in het sociaal domein</li>
+        </ul>
+        <p class="note" style="margin-top:.55rem">Voorbeelden &mdash; de definitieve lijst volgt uit het netwerkonderzoek in stap 1.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>11</span></div>
+</section>
+
+<!-- 12 =============================================== -->
 <section class="slide" data-titel="Het eerste jaar">
   <div class="kicker">Het eerste jaar</div>
   <h2 style="max-width:42ch">Van september 2026 naar een geborgde plek in 2027</h2>
@@ -573,14 +617,14 @@ body.lees .foot{position:absolute}
       </div>
     </div>
     <div class="band-full">
-      <span class="lb">Dwars door alle fasen &middot; regie</span>
+      <span class="lb">Dwars door alle stappen &middot; regie</span>
       <span class="lt">Eén leerlijnkaart met per activiteit één eigenaar &middot; één jaarkalender &middot; kwartaaloverleg met alle betrokken afdelingen &middot; één ingang voor nieuwe idee&euml;n. <strong style="color:#fff">Zo ontstaat er geen dubbel of tegenstrijdig aanbod.</strong></span>
     </div>
   </div>
-  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>11</span></div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>12</span></div>
 </section>
 
-<!-- 12 =============================================== -->
+<!-- 13 =============================================== -->
 <section class="slide" data-titel="Hoe weten we dat het werkt?">
   <div class="kicker">Hoe weten we dat het werkt?</div>
   <h2>Vier niveaus &mdash; en &eacute;&eacute;n die er echt toe doet</h2>
@@ -593,10 +637,10 @@ body.lees .foot{position:absolute}
     </div>
     <p class="note" style="margin-top:.8rem">De vernieuwde Wsob verplicht ons straks data te leveren over gebruik, bereik en maatschappelijke impact. Dit meetplan is daar meteen op gebouwd &mdash; en sluit aan op de projectplannen, kwartaalplannen en CBCT-cyclus die er al zijn.</p>
   </div>
-  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>12</span></div>
+  <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>13</span></div>
 </section>
 
-<!-- 13 =============================================== -->
+<!-- 14 =============================================== -->
 <section class="slide dark" data-titel="Samenvatting">
   <div class="kicker">Samengevat</div>
   <h2>Vier keuzes</h2>
@@ -615,7 +659,7 @@ body.lees .foot{position:absolute}
     </div>
     <p class="note" style="margin-top:.9rem">Achter deze presentatie zit een verdieping &mdash; de AI-vraagbaak uitgewerkt, de regiestructuur, de schaduwkant van AI, jaar 2 en mijn bronnen. Alles blijft online staan.</p>
   </div>
-  <div class="foot"><span class="mark">Remi Gommans &middot; remi.gommans@gmail.com &middot; 06 &ndash; 53 62 41 81</span><span>13</span></div>
+  <div class="foot"><span class="mark">Remi Gommans &middot; remi.gommans@gmail.com &middot; 06 &ndash; 53 62 41 81</span><span>14</span></div>
 </section>
 
 <!-- ===== VERDIEPING ============================================ -->
