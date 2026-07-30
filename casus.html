@@ -127,7 +127,9 @@ ul.ticks li b{color:var(--inkt)}
 .ab{background:var(--wit);border:1px solid var(--lijn);border-radius:11px;padding:clamp(.42rem,.75vw,.85rem);
   display:flex;flex-direction:column;gap:.26rem;min-width:0}
 .ab .kop{font-size:var(--f-xs);font-weight:800;color:var(--oranje)}
-.ab .beh{font-size:var(--f-xs);line-height:1.4;color:var(--grijsgroen);font-style:italic}
+/* vaste hoogte van drie regels, zodat de activiteiten in alle vijf
+   de kaarten op dezelfde hoogte beginnen */
+.ab .beh{font-size:var(--f-xs);line-height:1.4;color:var(--grijsgroen);font-style:italic;min-height:4.2em}
 .ab .item{font-size:var(--f-sm);line-height:1.32;font-weight:700;
   border-top:1px solid var(--lijn);padding-top:.32rem}
 .ab .item span{display:block;font-weight:500;color:var(--grijsgroen);font-size:.86em;line-height:1.38}
@@ -396,7 +398,7 @@ body.lees .foot{position:absolute}
         <p class="lead" style="max-width:40ch">Elke lijn houdt zijn eigen doelgroep, zijn eigen partners en zijn eigen momenten. Wat erbij komt is de AI-vraag die daar hoort &mdash; en verder niets.</p>
       </div>
       <div class="cols" style="gap:.55rem">
-        <div class="card"><div class="n">In digitale inclusie</div><p>Hulp bij brieven en formulieren &mdash; informatiesessie, laagdrempelige cursussen en AI-module toevoegen aan bestaande concepten</p></div>
+        <div class="card"><div class="n">In digitale inclusie</div><p>Hulp bij brieven en formulieren</p></div>
         <div class="card"><div class="n">In digitaal burgerschap</div><p>Wat is echt, wat is betrouwbaar, hoe blijf je zelf nadenken</p></div>
         <div class="card"><div class="n">In digitale geletterdheid jeugd</div><p>AI in schoolwerk, AI-beelden, chatbots als vriend</p></div>
       </div>
@@ -475,7 +477,7 @@ body.lees .foot{position:absolute}
   <div class="kicker">Het aanbod &middot; overgang 1 &middot; bewustwording</div>
   <h2 style="max-width:38ch">Niemand meldt zich aan voor fase 1</h2>
   <div class="body">
-    <p class="note" style="margin-bottom:clamp(.5rem,1.4vh,1rem)">Dus laten we het zien. Geen waarschuwing en geen cursus &mdash; vijf minuten waarin iemand zelf ontdekt wat ermee kan, op een plek waar hij toch al kwam.</p>
+    <p class="note" style="margin-bottom:clamp(.5rem,1.4vh,1rem)">Dus laten we het zien. Geen cursus &mdash; vijf minuten waarin iemand zelf ontdekt wat ermee kan, op een plek waar hij toch al kwam.</p>
     <div class="aanbod fasen">
       <div class="ab">
         <div class="kop">0&ndash;12 + ouders</div>
@@ -630,7 +632,7 @@ body.lees .foot{position:absolute}
     </div>
     <div class="band-full">
       <span class="lb">Waar jaar 1 op uitkomt</span>
-      <span class="lt">Eén jaarplanning 2027 waarin AI staat ingeroosterd in alle drie de bestaande leerlijnen &mdash; digitale inclusie, basisvaardigheden en persoonlijke ontwikkeling. Per activiteit één eigenaar, één kalender, één ingang voor nieuwe idee&euml;n. <strong style="color:#fff">Geen apart AI-programma ernaast, maar AI ingeschreven in wat er toch al staat.</strong></span>
+      <span class="lt">Eén jaarplanning 2027 waarin AI staat ingeroosterd in alle drie de bestaande leerlijnen &mdash; digitale inclusie, basisvaardigheden en persoonlijke ontwikkeling. <strong style="color:#fff">Geen apart AI-programma ernaast, maar AI ingeschreven in wat er toch al staat.</strong></span>
     </div>
   </div>
   <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>12</span></div>
@@ -645,7 +647,7 @@ body.lees .foot{position:absolute}
       <div class="niveau"><div class="num">1</div><div><h3>Bereik</h3><p>Deelnemers per doelgroep en per vestiging &mdash; ook in de kernen, niet alleen de Stadsbibliotheek</p></div></div>
       <div class="niveau"><div class="num">2</div><div><h3>Leerresultaat</h3><p>Drie vragen vóór en na afloop. Niet wetenschappelijk, wel vergelijkbaar over de tijd</p></div></div>
       <div class="niveau key"><div class="num">3</div><div><h3>Doorstroom &mdash; de kernindicator</h3><p>Van een vraag bij het IDO naar een cursus, en van een cursus naar verdieping</p></div></div>
-      <div class="niveau"><div class="num">4</div><div><h3>Toepassing</h3><p>Drie maanden later één vraag aan een kleine groep deelnemers: hebt u het sindsdien gebruikt, en waarvoor? Telefonisch of aan de balie</p></div></div>
+      <div class="niveau"><div class="num">4</div><div><h3>Toepassing</h3><p>Drie maanden later één vraag aan een kleine groep deelnemers: hebt u het sindsdien gebruikt, en waarvoor?</p></div></div>
     </div>
   </div>
   <div class="foot"><span class="mark">AI in de digitale leerlijn</span><span>13</span></div>
@@ -655,16 +657,14 @@ body.lees .foot{position:absolute}
 <section class="slide dark" data-titel="Samenvatting &amp; vragen">
   <div class="badge">Slot</div>
   <div class="kicker">Samengevat &middot; einde van de presentatie</div>
-  <h2 style="max-width:32ch">Het verhaal in zes zinnen &mdash; en dan uw vragen</h2>
+  <h2 style="max-width:32ch">Het verhaal in vier zinnen &mdash; en dan uw vragen</h2>
   <div class="body">
     <div class="split">
       <div class="agenda">
-        <div class="ag"><span class="anum">1</span><span class="atx"><b>Geen vierde programmalijn</b><span>AI is een laag dwars door digitale inclusie, basisvaardigheden en persoonlijke ontwikkeling</span></span></div>
-        <div class="ag"><span class="anum">2</span><span class="atx"><b>Wij beginnen één fase eerder</b><span>Niet bij wie zich aanmeldt, maar bij wie nog niet weet dat hij iets mist</span></span></div>
-        <div class="ag"><span class="anum">3</span><span class="atx"><b>Bewustwording waar mensen al komen</b><span>Voorleesuur, studietafel, balie, IDO, Digicaf&eacute; en de cursussen die al draaien</span></span></div>
-        <div class="ag"><span class="anum">4</span><span class="atx"><b>Leeraanbod van 0 tot 100+</b><span>Per doelgroep iets dat doorloopt, iets dat terugkomt en iets met een partner &mdash; plus de AI-vraagbaak</span></span></div>
-        <div class="ag"><span class="anum">5</span><span class="atx"><b>Onze rol stopt bij beroepsmatige scholing</b><span>We zijn de gratis start &eacute;n de doorverwijzer, langs drie routes</span></span></div>
-        <div class="ag" style="border-bottom:0"><span class="anum">6</span><span class="atx"><b>In 2027 staat het in de jaarplanning</b><span>Vier stappen in jaar 1, en we meten doorstroom &mdash; niet alleen bereik</span></span></div>
+        <div class="ag"><span class="anum">1</span><span class="atx"><b>Geen vierde programmalijn</b><span>AI is een laag dwars door de drie leerlijnen die er al liggen</span></span></div>
+        <div class="ag"><span class="anum">2</span><span class="atx"><b>Wij beginnen één fase eerder</b><span>Bewustwording op de plekken waar mensen al komen &mdash; voorleesuur, studietafel, balie, IDO, Digicaf&eacute;</span></span></div>
+        <div class="ag"><span class="anum">3</span><span class="atx"><b>Leeraanbod van 0 tot 100+</b><span>Per doelgroep doorlopend, periodiek en met een partner &mdash; tot waar beroepsmatige scholing begint</span></span></div>
+        <div class="ag" style="border-bottom:0"><span class="anum">4</span><span class="atx"><b>In 2027 staat het in de jaarplanning</b><span>Vier stappen in jaar 1, en we meten doorstroom &mdash; niet alleen bereik</span></span></div>
       </div>
       <div>
         <p class="statement" style="max-width:14ch"><span class="u">Vragen?</span></p>
@@ -765,7 +765,7 @@ body.lees .foot{position:absolute}
   <h2>Wat ik bewust later plan</h2>
   <div class="body">
     <div class="cols c3">
-      <div class="card mark"><div class="n">Let op de timing</div><h3>Structureel aanbod PO en VO</h3><p>De kerndoelen digitale geletterdheid worden per augustus 2027 wettelijk verplicht. Staan wij dán klaar, dan zijn we de vanzelfsprekende partner. Vraagt een eigen traject met team Onderwijs.</p></div>
+      <div class="card mark"><div class="n">2028</div><h3>Structureel aanbod PO en VO</h3><p>De kerndoelen digitale geletterdheid worden per augustus 2027 wettelijk verplicht. Staan wij dán klaar, dan zijn we de vanzelfsprekende partner. Vraagt een eigen traject met team Onderwijs.</p></div>
       <div class="card"><div class="n">2028</div><h3>AI-werkplaats</h3><p>Een vaste maakplek in de Stadsbibliotheek. Pas zinvol als de basis staat en we weten wat mensen echt willen.</p></div>
       <div class="card"><div class="n">2028</div><h3>Eigen bedrijfsvoering</h3><p>Collectieontsluiting en aanbevelingen &mdash; het beleidsplan noemt dit al. Eerst het publiek, dan onze eigen processen.</p></div>
       <div class="card"><div class="n">2028</div><h3>AI-assistent publiek</h3><p>De digitale vraagbaak openstellen voor inwoners, ná een geslaagde interne pilot en met de privacyafspraken op orde.</p></div>
